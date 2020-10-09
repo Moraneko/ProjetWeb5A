@@ -3,22 +3,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from '../../../model/user';
+import { ConnectionInfo } from '../../../model/connectionInfo';
 @Injectable({
   providedIn: 'root'
 })
-export class SignupService {
+export class LoginService {
 
   constructor(private http: HttpClient) { }
-  private signupUrl = '/formulaire';  // URL to web api
+  private loginUrl = '/connectionApi';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
 
-  signUp(user: User): Observable<User> {
-    return this.http.post<User>(this.signupUrl, user, this.httpOptions).pipe(
-      tap((newUser: User) => console.log(`added new user`)),
-      catchError(this.handleError<User>('signUp'))
+  logIn(connectionInfo: ConnectionInfo): Observable<User> {
+    return this.http.post<User>(this.loginUrl, connectionInfo, this.httpOptions).pipe(
+      tap((connectedUser: User) => console.log(`l'user c'est connecter`)),
+      catchError(this.handleError<User>('logIn'))
     );
   }
 

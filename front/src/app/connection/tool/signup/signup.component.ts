@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SignupService} from './signup.service';
 
-import { User } from '../../../user';
+import { User } from '../../../model/user';
 
 import { FormControl, FormGroup, FormBuilder, Validator, Validators,ReactiveFormsModule } from "@angular/forms";
 @Component({
@@ -13,8 +13,6 @@ export class SignupComponent implements OnInit {
 
    email = new FormControl('', [Validators.required, Validators.email]);
    hide = true;
-
-
 
     getErrorMessage() {
       if (this.email.hasError('required')) {
@@ -52,7 +50,7 @@ export class SignupComponent implements OnInit {
       nom : ['', Validators.required],
       prenom : ['', Validators.required],
       tel : ['', Validators.required],
-      license : [''],
+      licence : [''],
       emailform : ['', [Validators.required, Validators.email]],
       mdp : ['', Validators.required]
     });

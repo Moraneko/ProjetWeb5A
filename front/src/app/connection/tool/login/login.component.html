@@ -1,11 +1,12 @@
 <div class="center_items">
   <h1 style="padding-top: 1em;">Connectez vous à notre site</h1>
 </div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 <mat-card-content>
   <div class="center_items connection">
     <mat-form-field appearance="fill" style="width=100%" >
       <mat-label>Adresse Mail</mat-label>
-      <input matInput placeholder="adresse@example.com" [formControl]="email" required>
+      <input matInput placeholder="adresse@example.com" formControlName="emailLogin" required>
       <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
@@ -13,7 +14,7 @@
   <div class="center_items connection">
     <mat-form-field appearance="fill">
       <mat-label>Mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" required>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="mdp" required>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
@@ -23,6 +24,9 @@
 </mat-card-content>
 <mat-card-actions>
   <div class="center_items">
-    <button  mat-raised-button color="primary" style="width : 60%; height : 4em; ">Connexion</button>
+    <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary" style="width : 60%; height : 4em; ">Connexion</button>
   </div>
 </mat-card-actions>
+
+
+</form>
