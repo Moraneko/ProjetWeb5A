@@ -19,7 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { LoginComponent } from './connection/tool/login/login.component';
 import { SignupComponent } from './connection/tool/signup/signup.component';
 
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { SignupComponent } from './connection/tool/signup/signup.component';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
