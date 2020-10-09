@@ -19,8 +19,8 @@ public class Utilisateur {
 	@Column(name="email", nullable = false)
 	private String email;
 
-	@Column(name="tel", nullable = false)
-	private String tel;
+	@Column(name="telephone", nullable = false)
+	private String telephone;
 
 	@Column(name="licence")
 	private String licence;
@@ -34,11 +34,11 @@ public class Utilisateur {
 	public Utilisateur() {
 
 	}
-	public Utilisateur(String prenom, String nom, String email, String tel, String licence, String mdp, int role) {
+	public Utilisateur(String prenom, String nom, String email, String telephone, String licence, String mdp, int role) {
 		this.prenom = prenom;
 		this.nom = nom;
 		this.email = email;
-		this.tel = tel;
+		this.telephone = telephone;
 		this.licence = licence;
 		this.mdp = mdp;
 		this.role = role;
@@ -81,12 +81,12 @@ public class Utilisateur {
 	}
 
 
-	public String getTel() {
-		return tel;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 
