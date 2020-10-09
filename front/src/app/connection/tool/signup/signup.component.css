@@ -1,0 +1,19 @@
+
+.center_items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+
+.inscription .info {
+  width : 30%;
+  padding-right : 10px;
+}
+
+.inscription .mail {
+  width : 50%;
+}
+
+.inscription .mdp {
+  width : 50%;
+}
