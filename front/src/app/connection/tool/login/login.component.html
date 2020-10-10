@@ -5,9 +5,8 @@
 <mat-card-content>
   <div class="center_items connection">
     <mat-form-field appearance="fill" style="width=100%" >
-      <mat-label>Adresse Mail</mat-label>
-      <input matInput placeholder="adresse@example.com" formControlName="emailLogin" required>
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      <mat-label>Adresse Mail, numéro de téléphone</mat-label>
+      <input matInput formControlName="identifiantLogin" required>
     </mat-form-field>
   </div>
 
@@ -22,6 +21,8 @@
   </div>
 
 </mat-card-content>
+  <div class="center_items"><a routerLink="recuperationMotDePasse"><button>Mot de passe oublié?</button></a>
+  </div>
 <mat-card-actions>
   <div class="center_items">
     <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary" style="width : 60%; height : 4em; ">Connexion</button>

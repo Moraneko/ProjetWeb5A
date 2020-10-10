@@ -1,4 +1,4 @@
 export interface ConnectionInfo {
-  email: string;
+  identifiant: string;
   mdp: string;
 }

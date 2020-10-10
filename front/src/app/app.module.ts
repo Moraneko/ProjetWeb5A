@@ -20,6 +20,7 @@ import { LoginComponent } from './connection/tool/login/login.component';
 import { SignupComponent } from './connection/tool/signup/signup.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     ConnectionComponent,
     ToolComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RecupMdpComponent
   ],
   imports: [
     BrowserModule,

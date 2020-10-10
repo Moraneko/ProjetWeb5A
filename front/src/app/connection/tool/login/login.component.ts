@@ -12,22 +12,14 @@ import { FormControl, FormGroup, FormBuilder, Validator, Validators,ReactiveForm
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-      email = new FormControl('', [Validators.required, Validators.email]);
       hide = true;
 
-      getErrorMessage() {
-        if (this.email.hasError('required')) {
-          return 'Entrez une adresse';
-        }
-
-        return this.email.hasError('email') ? 'Adresse invalide' : '';
-      }
   loginForm: FormGroup;
   constructor(private _formBuilder: FormBuilder, private loginService : LoginService) { }
 
   onSubmit() {
        this.loginService.logIn({
-                    email:  this.loginForm.get('emailLogin').value,
+                    identifiant:  this.loginForm.get('identifiantLogin').value,
                     mdp:  this.loginForm.get('mdp').value,
                     } as ConnectionInfo)
                 .subscribe(user => {
@@ -41,7 +33,7 @@ export class LoginComponent implements OnInit {
    //Form control !
 
       this.loginForm = this._formBuilder.group({
-        emailLogin : ['', [Validators.required, Validators.email]],
+        identifiantLogin : ['', [Validators.required ]],
         mdp : ['', Validators.required]
       });
 

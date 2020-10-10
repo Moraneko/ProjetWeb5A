@@ -18,7 +18,7 @@ export class LoginService {
 
   logIn(connectionInfo: ConnectionInfo): Observable<User> {
     return this.http.post<User>(this.loginUrl, connectionInfo, this.httpOptions).pipe(
-      tap((connectedUser: User) => console.log(`l'user c'est connecter`)),
+      tap((connectedUser: User) => console.log(`l'user c'est connecté`)),
       catchError(this.handleError<User>('logIn'))
     );
   }
