@@ -14,13 +14,17 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ToolComponent } from './connection/tool/tool.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginComponent } from './connection/tool/login/login.component';
 import { SignupComponent } from './connection/tool/signup/signup.component';
-
+import {MatMenuModule} from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.component';
+import { UserpageComponent } from './userpage/userpage.component';
+import { UsertoolbarComponent } from './userpage/usertoolbar/usertoolbar.component';
+import { CoursComponent } from './userpage/cours/cours.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.componen
     ToolComponent,
     LoginComponent,
     SignupComponent,
-    RecupMdpComponent
+    RecupMdpComponent,
+    UserpageComponent,
+    UsertoolbarComponent,
+    CoursComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,9 @@ import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.componen
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,15 @@
+
+
+.connection_background{
+  background: lightblue;
+}
+
+.cours_col{
+  width: 100%; ;
+  padding-left:5em;
+}
+.center_items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
