@@ -25,6 +25,11 @@ import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.componen
 import { UserpageComponent } from './userpage/userpage.component';
 import { UsertoolbarComponent } from './userpage/usertoolbar/usertoolbar.component';
 import { CoursComponent } from './userpage/cours/cours.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { UsercalendarComponent } from './userpage/usercalendar/usercalendar.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +41,8 @@ import { CoursComponent } from './userpage/cours/cours.component';
     RecupMdpComponent,
     UserpageComponent,
     UsertoolbarComponent,
-    CoursComponent
+    CoursComponent,
+    UsercalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,9 @@ import { CoursComponent } from './userpage/cours/cours.component';
     MatIconModule,
     HttpClientModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
