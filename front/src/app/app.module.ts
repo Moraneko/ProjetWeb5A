@@ -29,7 +29,11 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { UsercalendarComponent } from './userpage/usercalendar/usercalendar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { SearchCoursComponent } from './userpage/search-cours/search-cours.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { SearchDialogComponent } from './userpage/search-cours/search-dialog/search-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     UserpageComponent,
     UsertoolbarComponent,
     CoursComponent,
-    UsercalendarComponent
+    UsercalendarComponent,
+    SearchCoursComponent,
+    SearchDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +69,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatTableModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
