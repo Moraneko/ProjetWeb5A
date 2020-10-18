@@ -1,18 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cours } from '../../model/cours';
+import { CoursService } from './../cours.service';
 
-const ELEMENT_DATA: Cours[] = [
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-  {id_cours: 1, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-];
 
 @Component({
   selector: 'app-cours',
@@ -20,13 +9,25 @@ const ELEMENT_DATA: Cours[] = [
   styleUrls: ['./cours.component.css']
 })
 export class CoursComponent implements OnInit {
-
   displayedColumns: string[] = ['id_cours', 'horaire', 'taille_groupe', 'niveau', 'recurrent', 'moniteur'];
-  dataSource = ELEMENT_DATA;
+  dataSource : Cours[] = [];
+  constructor(private coursService : CoursService) { }
 
-  constructor() { }
+  getCoursFromService () {
 
+    /*
+    this.coursService.getCoursUser(1) // changer l'id ICI
+        .subscribe((data: Cours[]) => this.dataSource = data);
+    */
+     this.dataSource = this.coursService.getCoursUser(1);
+
+  }
+
+  public majCoursUser(){
+    this.getCoursFromService();
+  }
   ngOnInit(): void {
+    this.majCoursUser();
   }
 
 }
