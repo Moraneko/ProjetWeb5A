@@ -9,6 +9,8 @@ import {
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { addDays, addHours, startOfDay } from 'date-fns';
 import { Cours } from '../../model/cours';
+import { CoursInfoUserComponent } from './cours-info-user/cours-info-user.component'
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-usercalendar',
@@ -33,7 +35,7 @@ export class UsercalendarComponent implements OnInit {
   private iterableDiffer;
   private viewFinishedInit = false;
 
-  constructor(private iterableDiffers: IterableDiffers) {
+  constructor(private iterableDiffers: IterableDiffers, private dialog: MatDialog) {
     this.iterableDiffer = iterableDiffers.find([]).create(null);
   }
   view: CalendarView = CalendarView.Week;
@@ -59,9 +61,13 @@ export class UsercalendarComponent implements OnInit {
     }
   }
 
+  handleEvent(action: string, event: CalendarEvent): void {
+    var modalData = { event, action };
+    console.log(modalData);
+    //this.modal.open(this.modalContent, { size: 'lg' });
+  }
+
   private updateCalendrierList (cours, events){
-    console.log('Valeur de events');
-    console.log(this.events);
     var titre = 'Cours';
     if (cours.titre != ''){
       titre = cours.titre;
@@ -71,11 +77,23 @@ export class UsercalendarComponent implements OnInit {
         start: cours.horaire,
         end: addHours(cours.horaire, 2),
         title: titre,
+        content: cours,
         color: {
                    primary: '#1e90ff',
                    secondary: '#D1E8FF',
                  },
       };
     events.push(coursToCalendrierEv);
+  }
+
+  eventClicked(event): void {
+    const dialogRef = this.dialog.open(CoursInfoUserComponent, {
+      width: '100em',
+      data: {cours: event.event}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
