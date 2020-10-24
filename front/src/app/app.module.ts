@@ -14,7 +14,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ToolComponent } from './connection/tool/tool.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableModule, MatTable} from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginComponent } from './connection/tool/login/login.component';

@@ -1,5 +1,7 @@
-<div fxLayout="row" fxLayoutAlign="center center" >
+<div fxLayout="row" fxLayoutAlign="space-between center" >
+  <div></div>
   <h1 mat-dialog-title>S'inscrire à une reprise</h1>
+  <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon></button>
 </div>
 <div mat-dialog-content>
   <div fxLayout="row" fxLayoutAlign="center center" >
@@ -73,7 +75,4 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
 </div>

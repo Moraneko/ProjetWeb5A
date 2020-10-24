@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, IterableDiffers  } from '@angular/core';
 import { Cours } from '../../model/cours';
 import { CoursService } from './../cours.service';
+import { MatTable } from '@angular/material/table';
 
 
 @Component({
@@ -10,24 +11,31 @@ import { CoursService } from './../cours.service';
 })
 export class CoursComponent implements OnInit {
   displayedColumns: string[] = ['id_cours', 'horaire', 'taille_groupe', 'niveau', 'recurrent', 'moniteur'];
-  dataSource : Cours[] = [];
-  constructor(private coursService : CoursService) { }
+  @Input() dataSource: Cours[];
+  @ViewChild(MatTable) table: MatTable<Element>;
 
-  getCoursFromService () {
+  iterableDiffer; // creation de la variable iterableDiffer pour check la modification de la datasource des cours
+  viewFinishedInit = false;
 
-    /*
-    this.coursService.getCoursUser(1) // changer l'id ICI
-        .subscribe((data: Cours[]) => this.dataSource = data);
-    */
-     this.dataSource = this.coursService.getCoursUser(1);
-
+  constructor(private coursService : CoursService, private iterableDiffers: IterableDiffers) {
+    this.iterableDiffer = iterableDiffers.find([]).create(null);
   }
 
-  public majCoursUser(){
-    this.getCoursFromService();
+  public showTable (){
+    console.log(this.table);
   }
   ngOnInit(): void {
-    this.majCoursUser();
+  }
+
+  ngAfterViewInit() {
+    this.viewFinishedInit = true;
+  }
+
+  ngDoCheck() {
+    let changes = this.iterableDiffer.diff(this.dataSource);
+    if (changes && this.viewFinishedInit) {
+       this.table.renderRows();
+    }
   }
 
 }

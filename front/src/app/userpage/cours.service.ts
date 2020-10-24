@@ -21,16 +21,16 @@ export class CoursService {
   ];
 
   private allCours: Cours[] = [
-    {id_cours: 1, horaire: new Date("February 1, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 2, horaire: new Date("February 2, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 3, horaire: new Date("February 3, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 4, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 5, horaire: new Date("February 5, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 6, horaire: new Date("February 6, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 7, horaire: new Date("February 7, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 8, horaire: new Date("February 8, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 9, horaire: new Date("February 9, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
-    {id_cours: 10, horaire: new Date("February 10, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
+    {id_cours: 1, horaire: new Date("February 1, 2016 10:13:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 1},
+    {id_cours: 2, horaire: new Date("February 2, 2016 10:13:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1},
+    {id_cours: 3, horaire: new Date("February 3, 2016 10:13:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 1},
+    {id_cours: 4, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 2},
+    {id_cours: 5, horaire: new Date("February 5, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 2},
+    {id_cours: 6, horaire: new Date("February 6, 2016 10:13:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 2},
+    {id_cours: 7, horaire: new Date("February 7, 2016 10:13:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 3},
+    {id_cours: 8, horaire: new Date("February 8, 2016 10:13:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 3},
+    {id_cours: 9, horaire: new Date("February 9, 2016 10:13:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 3},
+    {id_cours: 10, horaire: new Date("February 10, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 3},
   ]
   /*getCoursUser(id_user): Observable<Cours[]>{
     const url = `${this.getCours}/${id_user}`;
@@ -51,17 +51,19 @@ export class CoursService {
 
 
 // FNC TEMPORAIRE
-    getCoursUser(id_user): Cours[] {
-      return this.userCours;
+    getCoursUser(id_user): Observable<Cours[]> {
+      return of(this.userCours);
     }
 
-    getAllCours(): Cours[] {
-      return this.allCours;
+    getAllCours(): Observable<Cours[]>  {
+      return of(this.allCours);
     }
 
     addCours(id_user,id_cours){
       this.userCours.push(this.allCours[id_cours-1]);
-      console.log("ajout du cours "+id_cours+" au répertoire de l'user -- a faire en backend");
+      console.log("Liste des cours de l'user:");
+      console.log(this.userCours);
+      this.http.put("/cours/addCoursToUser", {idCours: id_cours, iduser: id_user} ,this.httpOptions).subscribe();
     }
 
    private handleError<T>(operation = 'operation', result?: T) {
