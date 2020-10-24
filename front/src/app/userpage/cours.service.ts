@@ -17,20 +17,20 @@ export class CoursService {
   };
 
   private userCours: Cours[] = [
-    {id_cours: 2, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 5},
+    {id_cours: 2, horaire: new Date("October 24, 2020 12:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
   ];
 
   private allCours: Cours[] = [
-    {id_cours: 1, horaire: new Date("February 1, 2016 10:13:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 1},
-    {id_cours: 2, horaire: new Date("February 2, 2016 10:13:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1},
-    {id_cours: 3, horaire: new Date("February 3, 2016 10:13:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 1},
-    {id_cours: 4, horaire: new Date("February 4, 2016 10:13:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 2},
-    {id_cours: 5, horaire: new Date("February 5, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 2},
-    {id_cours: 6, horaire: new Date("February 6, 2016 10:13:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 2},
-    {id_cours: 7, horaire: new Date("February 7, 2016 10:13:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 3},
-    {id_cours: 8, horaire: new Date("February 8, 2016 10:13:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 3},
-    {id_cours: 9, horaire: new Date("February 9, 2016 10:13:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 3},
-    {id_cours: 10, horaire: new Date("February 10, 2016 10:13:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 3},
+    {id_cours: 1, horaire: new Date("October 24, 2020 10:00:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 2, horaire: new Date("October 24, 2020 12:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 3, horaire: new Date("October 24, 2020 14:00:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 4, horaire: new Date("October 25, 2020 10:00:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 5, horaire: new Date("October 25, 2020 12:00:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 6, horaire: new Date("October 25, 2020 14:00:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 7, horaire: new Date("October 23, 2020 10:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 8, horaire: new Date("October 23, 2020 12:00:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 9, horaire: new Date("October 23, 2020 14:00:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 10, horaire: new Date("October 23, 2020 16:00:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 3, titre: ''},
   ]
   /*getCoursUser(id_user): Observable<Cours[]>{
     const url = `${this.getCours}/${id_user}`;

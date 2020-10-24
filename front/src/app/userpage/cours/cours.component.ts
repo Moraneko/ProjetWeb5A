@@ -14,16 +14,13 @@ export class CoursComponent implements OnInit {
   @Input() dataSource: Cours[];
   @ViewChild(MatTable) table: MatTable<Element>;
 
-  iterableDiffer; // creation de la variable iterableDiffer pour check la modification de la datasource des cours
-  viewFinishedInit = false;
+  private iterableDiffer; // creation de la variable iterableDiffer pour check la modification de la datasource des cours
+  private viewFinishedInit = false;
 
   constructor(private coursService : CoursService, private iterableDiffers: IterableDiffers) {
     this.iterableDiffer = iterableDiffers.find([]).create(null);
   }
 
-  public showTable (){
-    console.log(this.table);
-  }
   ngOnInit(): void {
   }
 

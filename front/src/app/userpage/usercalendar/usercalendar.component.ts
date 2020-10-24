@@ -3,9 +3,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
+  Input,
+  IterableDiffers
 } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { addDays, addHours, startOfDay } from 'date-fns';
+import { Cours } from '../../model/cours';
 
 @Component({
   selector: 'app-usercalendar',
@@ -25,42 +28,54 @@ import { addDays, addHours, startOfDay } from 'date-fns';
     ],
 })
 export class UsercalendarComponent implements OnInit {
+  @Input()  dataSource: Cours[];
 
-  constructor() { }
+  private iterableDiffer;
+  private viewFinishedInit = false;
+
+  constructor(private iterableDiffers: IterableDiffers) {
+    this.iterableDiffer = iterableDiffers.find([]).create(null);
+  }
   view: CalendarView = CalendarView.Week;
 
   viewDate: Date = new Date();
 
-  events: CalendarEvent[] = [
-    {
-      start: startOfDay(new Date()),
-      title: 'An event',
-      color: {
-                 primary: '#e3bc08',
-                 secondary: '#FDF1BA',
-               },
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'Another event',
-      color: {
-                 primary: '#1e90ff',
-                 secondary: '#D1E8FF',
-               },
-    },
-    {
-      start: addDays(addHours(startOfDay(new Date()), 2), 2),
-      end: addDays(new Date(), 2),
-      title: 'And another',
-      color: {
-                 primary: '#ad2121',
-                 secondary: '#FAE3E3',
-               },
-    },
-  ];
+  events: CalendarEvent[] = [];
+
 
   ngOnInit(): void {
+    this.dataSource.forEach(value => this.updateCalendrierList(value, this.events));
   }
 
+  ngAfterViewInit() {
+    this.viewFinishedInit = true;
+  }
+
+  ngDoCheck() {
+    let changes = this.iterableDiffer.diff(this.dataSource);
+    if (changes && this.viewFinishedInit) {
+       this.events = [];
+       this.dataSource.forEach(value => this.updateCalendrierList(value, this.events));
+    }
+  }
+
+  private updateCalendrierList (cours, events){
+    console.log('Valeur de events');
+    console.log(this.events);
+    var titre = 'Cours';
+    if (cours.titre != ''){
+      titre = cours.titre;
+    }
+    var coursToCalendrierEv =
+      {
+        start: cours.horaire,
+        end: addHours(cours.horaire, 2),
+        title: titre,
+        color: {
+                   primary: '#1e90ff',
+                   secondary: '#D1E8FF',
+                 },
+      };
+    events.push(coursToCalendrierEv);
+  }
 }

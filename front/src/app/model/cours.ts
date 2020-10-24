@@ -5,5 +5,6 @@ export interface Cours {
   niveau: number;
   recurrent: boolean;
   moniteur: number;
+  titre: String;
 
 }
