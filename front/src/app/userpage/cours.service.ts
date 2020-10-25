@@ -10,7 +10,6 @@ export class CoursService {
 
   constructor(private http: HttpClient) { }
 
-  private loginUrl = '/connectionApi';  // URL to web api
   private getCours = '/cours/getUser';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

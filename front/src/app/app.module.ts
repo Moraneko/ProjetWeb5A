@@ -35,6 +35,7 @@ import { SearchDialogComponent } from './userpage/search-cours/search-dialog/sea
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CoursInfoUserComponent } from './userpage/usercalendar/cours-info-user/cours-info-user.component';
+import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CoursInfoUserComponent } from './userpage/usercalendar/cours-info-user/
     UsercalendarComponent,
     SearchCoursComponent,
     SearchDialogComponent,
-    CoursInfoUserComponent
+    CoursInfoUserComponent,
+    ChangeInfoUserComponent
   ],
   imports: [
     BrowserModule,
