@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MoniteurService} from './moniteur.service';
 import { Cours } from '../model/cours';
+import {MatDialog} from '@angular/material/dialog';
+import {MoniteurAddCoursModalComponent} from './moniteur-add-cours-modal/moniteur-add-cours-modal.component';
 
 @Component({
   selector: 'app-moniteurpage',
@@ -10,7 +12,7 @@ import { Cours } from '../model/cours';
 export class MoniteurpageComponent implements OnInit {
 
   dataSource : Cours[] = [];
-  constructor(private moniteurService : MoniteurService) { }
+  constructor(private moniteurService : MoniteurService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -19,7 +21,15 @@ export class MoniteurpageComponent implements OnInit {
 
   }
 
-  openDialog() {
+  openDialog(): void {
+    const dialogRef = this.dialog.open(MoniteurAddCoursModalComponent, {
+      width: '100em',
+      data: {id_moniteur: 1} // Changer id moniteur ici
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

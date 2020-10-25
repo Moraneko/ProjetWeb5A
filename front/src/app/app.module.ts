@@ -42,6 +42,7 @@ import { CoursmoniteurComponent } from './moniteurpage/coursmoniteur/coursmonite
 import { MoniteurcalendarComponent } from './moniteurpage/moniteurcalendar/moniteurcalendar.component';
 import { MoniteurCoursModalComponent } from './moniteurpage/moniteur-cours-modal/moniteur-cours-modal.component';
 import { MoniteurAddCoursModalComponent } from './moniteurpage/moniteur-add-cours-modal/moniteur-add-cours-modal.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MoniteurAddCoursModalComponent } from './moniteurpage/moniteur-add-cour
     FlexLayoutModule,
     MatDialogModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

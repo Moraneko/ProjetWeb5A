@@ -32,7 +32,7 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
                prenom: 'prenomMoniteur3',
                role: 1}
     ];
-    niveauList: number[] = [1,2,3,4,5,6,7,8,9];
+    niveauList: number[] = [1,2,3,4,5,6,7];
     current_cours: Cours[] = [];
     selectedMoniteur : number;
     selectedNiveau : number;
