@@ -36,6 +36,12 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CoursInfoUserComponent } from './userpage/usercalendar/cours-info-user/cours-info-user.component';
 import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info-user.component';
+import { MoniteurpageComponent } from './moniteurpage/moniteurpage.component';
+import { MoniteurtoolbarComponent } from './moniteurpage/moniteurtoolbar/moniteurtoolbar.component';
+import { CoursmoniteurComponent } from './moniteurpage/coursmoniteur/coursmoniteur.component';
+import { MoniteurcalendarComponent } from './moniteurpage/moniteurcalendar/moniteurcalendar.component';
+import { MoniteurCoursModalComponent } from './moniteurpage/moniteur-cours-modal/moniteur-cours-modal.component';
+import { MoniteurAddCoursModalComponent } from './moniteurpage/moniteur-add-cours-modal/moniteur-add-cours-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +58,13 @@ import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info
     SearchCoursComponent,
     SearchDialogComponent,
     CoursInfoUserComponent,
-    ChangeInfoUserComponent
+    ChangeInfoUserComponent,
+    MoniteurpageComponent,
+    MoniteurtoolbarComponent,
+    CoursmoniteurComponent,
+    MoniteurcalendarComponent,
+    MoniteurCoursModalComponent,
+    MoniteurAddCoursModalComponent
   ],
   imports: [
     BrowserModule,
