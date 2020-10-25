@@ -1,1 +1,28 @@
-<p>moniteur-cours-modal works!</p>
+<div fxLayout="column" fxLayoutAlign="start center" >
+  <h1>{{this.data.cours.content.titre}} </h1>
+  <h2>du {{this.data.cours.content.horaire | date:'d/MM/yy à h:mm'}}</h2>
+</div>
+
+<h1>Liste des participants :</h1>
+
+<div *ngFor="let combi of this.distributionUserCheval">
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <h2>{{combi.user.nom}} {{combi.user.prenom}}</h2>
+    <mat-icon style="padding-bottom: 16px;">arrow_right_alt</mat-icon>
+
+    <div *ngIf="combi.cheval.id_cheval == -1;  else infoCheval">
+      <div class="formulaire" fxLayout="row" fxLayoutAlign="start center">
+        <h2>Choisir un cheval: </h2>
+        <mat-form-field appearance="fill" style="padding-left: 2em;">
+          <mat-select disableOptionCentering (selectionChange)="chevalForUserSelected(combi, $event.value)" >
+            <mat-option *ngFor="let cheval of listChevalDispo" [value]="cheval">
+              {{cheval.nom}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ng-template #infoCheval><h2>{{combi.cheval.nom}}</h2></ng-template>
+  </div>
+</div>
