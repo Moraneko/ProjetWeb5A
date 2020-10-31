@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Cours } from '../model/cours';
 import {Combinaison} from '../model/combinaison';
 import {Cheval} from '../model/cheval';
+import { User } from '../model/user';
 
 
 @Injectable({
@@ -18,6 +19,8 @@ export class MoniteurService {
   private getCombiUrl = '/cours/combiOfCours';
   private getChevalDispoUrl = '/cheval/dispo';
   private attrCheval = '/cheval/attr';
+  private getUserUrl = '/moniteur/getUser';
+  private modifUserUrl = '/moniteur/modifUser';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -48,6 +51,30 @@ export class MoniteurService {
     { id_cheval: 2, nom: 'Special Week', age: -1, sexe: '', couleur: '', taille: -1, race: ''},
     { id_cheval: 3, nom: 'Golden Boat', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
     ];
+
+  /*getUserById(id_user): Observable<User>{
+    const url = `${this.getUserUrl}/${id_user}`;
+    return this.http.get<User>(url);
+
+  }*/
+
+  private userInfo : User = {
+    id_user: 10,
+    nom: 'Tarby',
+    prenom: 'Arnaud',
+    email: 'adresse@email.fr',
+    telephone: '0102030405',
+    mdp: 'azerty',
+    licence: '',
+    role: 1,
+  }
+  getUserById(id_user): Observable<User> {
+    return of(this.userInfo);
+  }
+
+ changeInfo(user: User): Observable<User> {
+   return this.http.post<User>(this.modifUserUrl, user, this.httpOptions);
+ }
 
 
   /*

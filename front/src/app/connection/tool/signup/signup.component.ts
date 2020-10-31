@@ -22,7 +22,6 @@ export class SignupComponent implements OnInit {
       return this.email.hasError('email') ? 'Adresse invalide' : '';
     }
 
-
   inscriptionForm: FormGroup;
   constructor(private _formBuilder: FormBuilder, private signupService : SignupService) { }
 

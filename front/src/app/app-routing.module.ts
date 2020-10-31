@@ -7,6 +7,7 @@ import { ToolComponent } from './connection/tool/tool.component';
 import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.component';
 import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info-user.component';
 import { MoniteurpageComponent } from './moniteurpage/moniteurpage.component';
+import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
 
 const routes: Routes = [{ path: '', redirectTo: '/moniteur', pathMatch: 'full' },
                           { path: 'connection', component: ConnectionComponent,
@@ -22,7 +23,8 @@ const routes: Routes = [{ path: '', redirectTo: '/moniteur', pathMatch: 'full' }
                                ],},
                                { path: 'user', component: UserpageComponent,},
                                { path: 'userInfo', component: ChangeInfoUserComponent},
-                               { path: 'moniteur', component: MoniteurpageComponent}];
+                               { path: 'moniteur', component: MoniteurpageComponent},
+                               { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

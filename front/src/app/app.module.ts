@@ -43,6 +43,7 @@ import { MoniteurcalendarComponent } from './moniteurpage/moniteurcalendar/monit
 import { MoniteurCoursModalComponent } from './moniteurpage/moniteur-cours-modal/moniteur-cours-modal.component';
 import { MoniteurAddCoursModalComponent } from './moniteurpage/moniteur-add-cours-modal/moniteur-add-cours-modal.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     CoursmoniteurComponent,
     MoniteurcalendarComponent,
     MoniteurCoursModalComponent,
-    MoniteurAddCoursModalComponent
+    MoniteurAddCoursModalComponent,
+    ChangeInfoMoniteurComponent
   ],
   imports: [
     BrowserModule,
