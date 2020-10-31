@@ -9,8 +9,9 @@ import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info
 import { MoniteurpageComponent } from './moniteurpage/moniteurpage.component';
 import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
 import { ChevauxComponent } from './chevaux/chevaux.component';
+import { AdminpageComponent } from './adminpage/adminpage.component';
 
-const routes: Routes = [{ path: '', redirectTo: '/gestionChevaux', pathMatch: 'full' },
+const routes: Routes = [{ path: '', redirectTo: '/admin', pathMatch: 'full' },
                           { path: 'connection', component: ConnectionComponent,
                            children: [
                                  {
@@ -26,7 +27,8 @@ const routes: Routes = [{ path: '', redirectTo: '/gestionChevaux', pathMatch: 'f
                                { path: 'userInfo', component: ChangeInfoUserComponent},
                                { path: 'moniteur', component: MoniteurpageComponent},
                                { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent},
-                               { path : 'gestionChevaux', component: ChevauxComponent}];
+                               { path : 'gestionChevaux', component: ChevauxComponent},
+                               { path: 'admin', component: AdminpageComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

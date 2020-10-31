@@ -45,6 +45,8 @@ import { MoniteurAddCoursModalComponent } from './moniteurpage/moniteur-add-cour
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
 import { ChevauxComponent } from './chevaux/chevaux.component';
+import { AdminpageComponent } from './adminpage/adminpage.component';
+import { AdmintoolbarComponent } from './adminpage/admintoolbar/admintoolbar.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { ChevauxComponent } from './chevaux/chevaux.component';
     MoniteurCoursModalComponent,
     MoniteurAddCoursModalComponent,
     ChangeInfoMoniteurComponent,
-    ChevauxComponent
+    ChevauxComponent,
+    AdminpageComponent,
+    AdmintoolbarComponent
   ],
   imports: [
     BrowserModule,
