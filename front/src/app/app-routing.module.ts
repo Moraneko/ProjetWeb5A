@@ -8,8 +8,9 @@ import { RecupMdpComponent } from './connection/tool/recupMdp/recup-mdp.componen
 import { ChangeInfoUserComponent } from './userpage/change-info-user/change-info-user.component';
 import { MoniteurpageComponent } from './moniteurpage/moniteurpage.component';
 import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
+import { ChevauxComponent } from './chevaux/chevaux.component';
 
-const routes: Routes = [{ path: '', redirectTo: '/moniteur', pathMatch: 'full' },
+const routes: Routes = [{ path: '', redirectTo: '/gestionChevaux', pathMatch: 'full' },
                           { path: 'connection', component: ConnectionComponent,
                            children: [
                                  {
@@ -24,7 +25,8 @@ const routes: Routes = [{ path: '', redirectTo: '/moniteur', pathMatch: 'full' }
                                { path: 'user', component: UserpageComponent,},
                                { path: 'userInfo', component: ChangeInfoUserComponent},
                                { path: 'moniteur', component: MoniteurpageComponent},
-                               { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent}];
+                               { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent},
+                               { path : 'gestionChevaux', component: ChevauxComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

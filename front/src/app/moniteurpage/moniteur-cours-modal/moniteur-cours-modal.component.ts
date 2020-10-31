@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MoniteurService } from '../moniteur.service';
+import { ChevalService } from '../../chevaux/cheval.service';
 import { Combinaison } from '../../model/combinaison';
 import { Cheval } from '../../model/cheval';
 
@@ -13,14 +14,17 @@ export class MoniteurCoursModalComponent implements OnInit {
 
   distributionUserCheval: Combinaison[];
   listChevalDispo: Cheval[];
-  constructor(public dialogRef: MatDialogRef<MoniteurCoursModalComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private moniteurService: MoniteurService) { }
+  nombreChevauxTotal = 0;
+  constructor(public dialogRef: MatDialogRef<MoniteurCoursModalComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private moniteurService: MoniteurService, private chevalService : ChevalService) { }
 
   ngOnInit(): void {
   console.log(this.data.cours.content);
     this.moniteurService.getCombinaisonOfCours(this.data.cours.content.id_cours) // changer l'id ICI
         .subscribe((data: Combinaison[]) => this.distributionUserCheval = data);
-    this.moniteurService.getChevalDispo(this.data.cours.content.id_cours) // changer l'id ICI
+    this.chevalService.getChevalDispo(this.data.cours.content.id_cours) // changer l'id ICI
         .subscribe((data: Cheval[]) => this.listChevalDispo = data);
+    this.chevalService.getAllCheval()
+        .subscribe((data: Cheval[]) => this.nombreChevauxTotal = 0);
   }
 
   public onNoClick(): void {

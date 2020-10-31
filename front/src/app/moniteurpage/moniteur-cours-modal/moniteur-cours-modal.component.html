@@ -25,4 +25,10 @@
 
     <ng-template #infoCheval><h2>{{combi.cheval.nom}}</h2></ng-template>
   </div>
+
+
 </div>
+<div *ngIf="nombreChevauxTotal == 0">
+  <h2 style="color: red;">Il n'y a pas de chevaux enregistrés, voici un lien pour accéder à la page de <a style="color: red;" routerLink="/gestionChevaux" (click)="onNoClick()">Gestion des chevaux</a>.</h2>
+</div>
+

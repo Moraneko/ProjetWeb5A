@@ -1,14 +1,22 @@
 <mat-toolbar>
-  <span style="padding-left: 1em;">Equitation - Moniteur</span>
+  <span style="padding-left: 1em;" (click)="acceuil()" style="cursor:pointer;">Equitation - Moniteur</span>
   <span class="spacer"></span>
   <h1>Moniteur name</h1>
   <button mat-button [matMenuTriggerFor]="menu" aria-label="Menu">
     <mat-icon>settings</mat-icon> Paramètres
   </button>
   <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/moniteur">
+      <mat-icon>home</mat-icon>
+      <span>Accueil</span>
+    </button>
     <button mat-menu-item routerLink="/changeMoniteurInfo">
       <mat-icon>edit</mat-icon>
       <span>Modifier fiche perso</span>
+    </button>
+    <button mat-menu-item routerLink="/gestionChevaux">
+      <mat-icon>add</mat-icon>
+      <span>Ajouter des chevaux</span>
     </button>
     <button mat-menu-item>
       <mat-icon>arrow_back</mat-icon>

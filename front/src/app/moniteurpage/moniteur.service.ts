@@ -17,7 +17,6 @@ export class MoniteurService {
   private getCoursUrl = '/cours/getMoniteur';
   private addCours = '/cours/newCours';
   private getCombiUrl = '/cours/combiOfCours';
-  private getChevalDispoUrl = '/cheval/dispo';
   private attrCheval = '/cheval/attr';
   private getUserUrl = '/moniteur/getUser';
   private modifUserUrl = '/moniteur/modifUser';
@@ -47,10 +46,6 @@ export class MoniteurService {
     cheval: { id_cheval: -1, nom: '', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
     }];
 
-  private listChevalDispo: Cheval[]= [
-    { id_cheval: 2, nom: 'Special Week', age: -1, sexe: '', couleur: '', taille: -1, race: ''},
-    { id_cheval: 3, nom: 'Golden Boat', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
-    ];
 
   /*getUserById(id_user): Observable<User>{
     const url = `${this.getUserUrl}/${id_user}`;
@@ -106,17 +101,6 @@ export class MoniteurService {
   */
   getCombinaisonOfCours(id_cours): Observable<Combinaison[]> { // a modifier quand back here
     return of(this.distribution);
-  }
-
-  /*
-  getChevalDispo(id_cours): Observable<Cheval[]>{
-      const url = `${this.getChevalDispoUrl}/${id_cours}`;
-      return this.http.get<Cheval[]>(url).pipe(
-        tap((combi: Cheval[]) => console.log(combi))
-        );
-  */
-  getChevalDispo(id_cours): Observable<Cheval[]> { // a modifier quand back here
-    return of(this.listChevalDispo);
   }
 
   /*
