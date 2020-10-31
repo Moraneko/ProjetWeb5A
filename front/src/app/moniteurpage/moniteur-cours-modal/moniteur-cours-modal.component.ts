@@ -24,7 +24,7 @@ export class MoniteurCoursModalComponent implements OnInit {
     this.chevalService.getChevalDispo(this.data.cours.content.id_cours) // changer l'id ICI
         .subscribe((data: Cheval[]) => this.listChevalDispo = data);
     this.chevalService.getAllCheval()
-        .subscribe((data: Cheval[]) => this.nombreChevauxTotal = 0);
+        .subscribe((data: Cheval[]) => this.nombreChevauxTotal = data.length);
   }
 
   public onNoClick(): void {
