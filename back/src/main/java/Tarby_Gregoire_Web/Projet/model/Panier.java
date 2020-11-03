@@ -8,16 +8,16 @@ public class Panier {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_panier;
+	private Long idPanier;
 
-	@Column(name="id_user", nullable = false)
-	private Long id_user;
+	@Column(name="idUtilisateur", nullable = false)
+	private Long idUtilisateur;
 
-	@Column(name="id_cheval", nullable = false)
-	private Long id_cheval;
+	@Column(name="idCheval", nullable = false)
+	private Long idCheval;
 
-	@Column(name="id_cours", nullable = false)
-	private Long id_cours;
+	@Column(name="idCours", nullable = false)
+	private Long idCours;
 
 	public Panier() {
 
@@ -25,44 +25,44 @@ public class Panier {
 
 
 	public Panier(Long id_user, Long id_cheval,Long id_cours){
-		this.id_user=id_user;
-		this.id_cheval=id_cheval;
-		this.id_cours=id_cours;
+		this.idUtilisateur=id_user;
+		this.idCheval=id_cheval;
+		this.idCours=id_cours;
 	}
 
 
 	public Long getId() {
-		return id_panier;
+		return idPanier;
 	}
 
 	public void setId(Long id) {
-		this.id_panier = id;
+		this.idPanier = id;
 	}
 
 
 	public Long getId_user() {
-		return id_user;
+		return idUtilisateur;
 	}
 
 	public void setId_user(Long id_user) {
-		this.id_user = id_user;
+		this.idUtilisateur = id_user;
 	}
 
 
 	public Long getId_cheval() {
-		return id_cheval;
+		return idCheval;
 	}
 
 	public void setId_cheval(Long id_cheval) {
-		this.id_cheval = id_cheval;
+		this.idCheval = id_cheval;
 	}
 
 
 	public Long getId_cours() {
-		return id_cours;
+		return idCours;
 	}
 
 	public void setId_cours(Long id_cours) {
-		this.id_cours = id_cours;
+		this.idCours = id_cours;
 	}
 }

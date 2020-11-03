@@ -8,7 +8,7 @@ public class Cheval {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_cheval;
+	private Long idCheval;
 
 	@Column(name="nom", nullable = false)
 	private String nom;
@@ -40,11 +40,11 @@ public class Cheval {
 
 
 	public Long getId() {
-		return id_cheval;
+		return idCheval;
 	}
 
 	public void setId(Long id) {
-		this.id_cheval = id;
+		this.idCheval = id;
 	}
 
 

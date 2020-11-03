@@ -10,7 +10,7 @@ public class Cours {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_cours;
+	private Long idCours;
 
 	@Column(name="date", nullable = false)
 	private DateFormat date;
@@ -27,26 +27,34 @@ public class Cours {
 	@Column(name="recurrent", nullable = false)
 	private Boolean recurrent;
 
+	@Column (name="moniteur",nullable = false)
+	private int idMoniteur;
+
+	@Column (name = "état", nullable = false)
+	private int etat;  // 0: cours, 1: fini, 2: annulé
+
 	public Cours() {
 
 	}
 
-	public Cours( DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent) {
+	public Cours(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat) {
 
 		this.date = date;
 		this.max_cavalier = max_cavalier;
 		this.niveau = niveau;
 		this.titre = titre;
 		this.recurrent = recurrent;
+		this.idMoniteur = idMoniteur;
+		this.etat = etat;
 	}
 
 
 	public Long getId() {
-		return id_cours;
+		return idCours;
 	}
 
 	public void setId(Long id) {
-		this.id_cours = id;
+		this.idCours = id;
 	}
 
 
@@ -92,5 +100,21 @@ public class Cours {
 
 	public void setRecurrent(Boolean recurrent) {
 		this.recurrent = recurrent;
+	}
+
+	public int getIdMoniteur() {
+		return idMoniteur;
+	}
+
+	public void setIdMoniteur(int idMoniteur) {
+		this.idMoniteur = idMoniteur;
+	}
+
+	public int getEtat() {
+		return etat;
+	}
+
+	public void setEtat(int etat) {
+		this.etat = etat;
 	}
 }

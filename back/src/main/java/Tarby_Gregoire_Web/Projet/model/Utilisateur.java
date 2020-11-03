@@ -8,7 +8,7 @@ public class Utilisateur {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_user;
+	private Long idUtilisateur;
 
 	@Column(name="prenom", nullable = false)
 	private String prenom;
@@ -46,11 +46,11 @@ public class Utilisateur {
 
 
 	public Long getId() {
-		return id_user;
+		return idUtilisateur;
 	}
 
 	public void setId(Long id) {
-		this.id_user = id;
+		this.idUtilisateur = id;
 	}
 
 
