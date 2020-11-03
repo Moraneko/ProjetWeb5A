@@ -1,0 +1,17 @@
+.connection_background{
+  background: lightblue;
+}
+
+.cardPadding {
+
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-top: 1em;
+
+}
+
+mat-form-field  {
+
+  padding-left: 1em;
+
+}

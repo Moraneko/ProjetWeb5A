@@ -1,0 +1,23 @@
+<mat-card class="recuperation_tool">
+<div class="center_items">
+  <h1 style="padding-top: 1em; margin-left : -20px"><button style="margin-right : 20px" routerLink="" mat-stroked-button><mat-icon>arrow_back</mat-icon></button>Récupération de mot de passe</h1>
+</div>
+<form [formGroup]="recupForm" (ngSubmit)="onSubmit()">
+  <mat-card-content>
+    <div class="center_items connection">
+      <mat-form-field appearance="fill" style="width=100%" >
+        <mat-label>Adresse Mail, numéro de téléphone</mat-label>
+        <input matInput formControlName="identifiantRecup" required>
+      </mat-form-field>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="center_items">
+      <button type="submit" [disabled]="!recupForm.valid" mat-raised-button color="primary" style="width : 60%; height : 4em; ">Demander un nouveau mot de passe</button>
+    </div>
+  </mat-card-actions>
+
+
+</form>
+</mat-card>
