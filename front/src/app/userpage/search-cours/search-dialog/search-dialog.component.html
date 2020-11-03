@@ -1,0 +1,78 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" >
+  <div></div>
+  <h1 mat-dialog-title>S'inscrire à une reprise</h1>
+  <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon></button>
+</div>
+<div mat-dialog-content>
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <h2>Trouver un cours</h2>
+
+    <mat-form-field appearance="fill" style="padding-left: 2em;">
+      <mat-label>Choisir un moniteur</mat-label>
+      <mat-select disableOptionCentering [(ngModel)]="selectedMoniteur" (selectionChange)="moniteurSelect()">
+        <mat-option *ngFor="let moniteur of moniteurList" [value]="moniteur.id_user">
+          {{moniteur.nom}} {{moniteur.prenom}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="padding-left: 2em;">
+      <mat-label>Choisir un niveau</mat-label>
+      <mat-select disableOptionCentering [(ngModel)]="selectedNiveau" (selectionChange)="niveauSelect()">
+        <mat-option *ngFor="let niveau of niveauList" [value]="niveau">
+          {{niveau}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center none"  style="width: 100%">
+    <table mat-table  [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+      <!-- id Column -->
+      <ng-container matColumnDef="id_cours">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button *ngIf="isCoursSelected(element.id_cours) else selectedBtn" mat-raised-button disabled  >Déjà ajouté</button>
+          <ng-template #selectedBtn>
+            <button mat-raised-button color="primary" value="{{element.id_cours}}" (click)="selectCours($event)">Ajouter</button>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- horaire Column -->
+      <ng-container matColumnDef="horaire">
+        <th mat-header-cell *matHeaderCellDef> Horaire </th>
+        <td mat-cell *matCellDef="let element"> {{element.horaire | date:'d/MM/yy à h:mm'}} </td>
+      </ng-container>
+
+      <!-- Taille groupe Column -->
+      <ng-container matColumnDef="taille_groupe">
+        <th mat-header-cell *matHeaderCellDef> Taille du groupe </th>
+        <td mat-cell *matCellDef="let element"> {{element.taille_groupe}} </td>
+      </ng-container>
+
+      <!-- Niveau Column -->
+      <ng-container matColumnDef="niveau">
+        <th mat-header-cell *matHeaderCellDef> Niveau </th>
+        <td mat-cell *matCellDef="let element"> {{element.niveau}} </td>
+      </ng-container>
+
+      <!-- Recurrent Column -->
+      <ng-container matColumnDef="recurrent">
+        <th mat-header-cell *matHeaderCellDef> Récurrent </th>
+        <td mat-cell *matCellDef="let element"> {{element.recurrent}} </td>
+      </ng-container>
+
+      <!-- Moniteur Column -->
+      <ng-container matColumnDef="moniteur">
+        <th mat-header-cell *matHeaderCellDef> Moniteur </th>
+        <td mat-cell *matCellDef="let element"> {{element.moniteur}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</div>
