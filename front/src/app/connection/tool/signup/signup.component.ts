@@ -3,7 +3,7 @@ import {SignupService} from './signup.service';
 
 import { User } from '../../../model/user';
 
-import { FormControl, FormGroup, FormBuilder, Validator, Validators,ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from "@angular/forms";
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

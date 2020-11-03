@@ -9,7 +9,7 @@ import { User } from '../../../model/user';
 export class SignupService {
 
   constructor(private http: HttpClient) { }
-  private signupUrl = '/formulaire';  // URL to web api
+  private signupUrl = 'http://localhost:8080/formulaire';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
