@@ -10,7 +10,7 @@ import { ConnectionInfo } from '../../../model/connectionInfo';
 export class LoginService {
 
   constructor(private http: HttpClient) { }
-  private loginUrl = '/connectionApi';  // URL to web api
+  private loginUrl = 'http://localhost:8080/connectionApi';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

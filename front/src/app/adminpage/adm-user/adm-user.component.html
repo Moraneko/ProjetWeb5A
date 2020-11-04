@@ -1,5 +1,10 @@
 <!--LISTE DES User -->
-<div fxLayout="column" fxLayoutAlign="center none"  style="width: 70%; padding-top: 1em;" >
+
+<div fxLayout="column" fxLayoutAlign="center none"  style="width: 100%; padding-top: 1em;" >
+  <mat-form-field style="width:100%;"  color="accent" appearance="outline">
+    <mat-label>Utilisateur</mat-label>
+    <input matInput [ngModel]="globalFilter" (ngModelChange)="applyFilter($event)" placeholder="Rechercher">
+  </mat-form-field>
   <table mat-table  [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
     <!-- Nom Column -->
     <ng-container matColumnDef="nom">
@@ -11,6 +16,11 @@
     <ng-container matColumnDef="prenom">
       <th mat-header-cell *matHeaderCellDef> Prenom </th>
       <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_user" >
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" style="width: 20%;"><button mat-raised-button color="primary" [routerLink]="['/adminChangeInfoUser/', element.id_user]">Voir</button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

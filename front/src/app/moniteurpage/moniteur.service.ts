@@ -14,19 +14,19 @@ import { User } from '../model/user';
 export class MoniteurService {
 
   constructor(private http: HttpClient) { }
-  private getCoursUrl = '/cours/getMoniteur';
-  private addCours = '/cours/newCours';
-  private getCombiUrl = '/cours/combiOfCours';
-  private attrCheval = '/cheval/attr';
-  private getUserUrl = '/moniteur/getUser';
-  private modifUserUrl = '/moniteur/modifUser';
+  private getCoursUrl = 'http://localhost:8080/cours/getMoniteur';
+  private addCours = 'http://localhost:8080/cours/newCours';
+  private getCombiUrl = 'http://localhost:8080/cours/combiOfCours';
+  private attrCheval = 'http://localhost:8080/cheval/attr';
+  private getUserUrl = 'http://localhost:8080/moniteur/getUser';
+  private modifUserUrl = 'http://localhost:8080/moniteur/modifUser';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   //Composant de test Temporaires.
   private coursMoniteur: Cours[] = [
-    {id_cours: 2, horaire: new Date("October 25, 2020 12:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
+    {id_cours: 2, horaire: new Date("November 03, 2020 12:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
   ];
 
   private distribution : Combinaison[] = [{
@@ -68,14 +68,14 @@ export class MoniteurService {
   }
 
  changeInfo(user: User): Observable<User> {
-   return this.http.post<User>(this.modifUserUrl, user, this.httpOptions);
+   return this.http.put<User>(this.modifUserUrl, user, this.httpOptions);
  }
 
 
   /*
   getCoursMoniteur(id_moniteur): Observable<Cours[]>{
-      const url = `${this.getCoursUrl}/${id_moniteur}`;
-      return this.http.get<Cours[]>(url).pipe(
+      const url = `${this.getCoursUrl}`;
+      return this.http.get<Cours[]>(url, {id_moniteur : id_moniteur}, this.httpOptions).pipe(
         tap((cours: Cours[]) => console.log(cours ))
         );
   */
@@ -94,8 +94,8 @@ export class MoniteurService {
 
   /*
   getCombinaisonOfCours(id_cours): Observable<Combinaison[]>{
-      const url = `${this.getCombiUrl}/${id_cours}`;
-      return this.http.get<Combinaison[]>(url).pipe(
+      const url = `${this.getCombiUrl}`;
+      return this.http.get<Combinaison[]>(url, {id_cours : id_cours}, this.httpOptions).pipe(
         tap((combi: Combinaison[]) => console.log(combi))
         );
   */
@@ -106,7 +106,7 @@ export class MoniteurService {
   /*
   attributionCheval(combinaison: Combinaison, cheval: Cheval) : Observable<Combinaison[]>{
       const url = `${this.attrCheval}/${combinaison.id_cours}`;
-      return this.http.post<Combinaison[]>(url).pipe(
+      return this.http.post<Combinaison[]>(url, {id_cours : combinaison.id_cours, combi : combinaison.id_combi , cheval : cheval.id_cheval }, this.httpOptions).pipe(
         tap((combi: Combinaison[]) => console.log(combi))
         );
   */
