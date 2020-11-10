@@ -8,9 +8,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class ChevalService {
-  private getChevalDispoUrl = '/cheval/dispo';
-  private addChevalUrl = '/cheval/add';
-  private getAllChevalUrl = '/cheval/all';
+  private getChevalDispoUrl = 'http://localhost:8080/cheval/dispo';
+  private addChevalUrl = 'http:/localhost:8080/cheval/add';
+  private getAllChevalUrl = 'http:/localhost:8080/cheval/all';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -24,8 +24,8 @@ export class ChevalService {
 
   /*
   getChevalDispo(id_cours): Observable<Cheval[]>{
-      const url = `${this.getChevalDispoUrl}/${id_cours}`;
-      return this.http.get<Cheval[]>(url).pipe(
+      const url = `${this.getChevalDispoUrl}`;
+      return this.http.get<Cheval[]>(url, {id_cours : id}, this.httpOptions).pipe(
         tap((combi: Cheval[]) => console.log(combi))
         );
   */

@@ -10,25 +10,27 @@ import { MoniteurpageComponent } from './moniteurpage/moniteurpage.component';
 import { ChangeInfoMoniteurComponent } from './moniteurpage/change-info-moniteur/change-info-moniteur.component';
 import { ChevauxComponent } from './chevaux/chevaux.component';
 import { AdminpageComponent } from './adminpage/adminpage.component';
+import { AdminChangeInfoUserComponent } from './adminpage/change-info-user/change-info-user.component';
 
 const routes: Routes = [{ path: '', redirectTo: '/admin', pathMatch: 'full' },
-                          { path: 'connection', component: ConnectionComponent,
-                           children: [
-                                 {
-                                   path: '', // child route path
-                                   component: ToolComponent, // child route component that the router renders
-                                 },
-                                 {
-                                   path: 'recuperationMotDePasse',
-                                   component: RecupMdpComponent, // another child route component that the router renders
-                                 },
-                               ],},
-                               { path: 'user', component: UserpageComponent,},
-                               { path: 'userInfo', component: ChangeInfoUserComponent},
-                               { path: 'moniteur', component: MoniteurpageComponent},
-                               { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent},
-                               { path : 'gestionChevaux', component: ChevauxComponent},
-                               { path: 'admin', component: AdminpageComponent }];
+  { path: 'connection', component: ConnectionComponent,
+    children: [
+      {
+        path: '', // child route path
+        component: ToolComponent, // child route component that the router renders
+      },
+      {
+        path: 'recuperationMotDePasse',
+        component: RecupMdpComponent, // another child route component that the router renders
+      },
+    ],},
+  { path: 'user', component: UserpageComponent,},
+  { path: 'userInfo', component: ChangeInfoUserComponent},
+  { path: 'moniteur', component: MoniteurpageComponent},
+  { path: 'changeMoniteurInfo', component: ChangeInfoMoniteurComponent},
+  { path : 'gestionChevaux', component: ChevauxComponent},
+  { path: 'admin', component: AdminpageComponent },
+  { path: 'adminChangeInfoUser/:id', component: AdminChangeInfoUserComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

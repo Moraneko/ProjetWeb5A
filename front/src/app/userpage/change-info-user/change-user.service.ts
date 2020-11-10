@@ -13,8 +13,8 @@ export class ChangeUserService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  private getUserUrl = '/user/getUser';
-  private modifUserUrl = '/user/modifUser';
+  private getUserUrl = 'http://localhost:8080/user/getUser';
+  private modifUserUrl = 'http://localhost:8080/user/modifUser';
   private userInfo : User = {
     id_user: 10,
     nom: 'Tarby',
@@ -26,8 +26,8 @@ export class ChangeUserService {
     role: 1,
   }
     /*getUserById(id_user): Observable<User>{
-      const url = `${this.getUserUrl}/${id_user}`;
-      return this.http.get<User>(url);
+      const url = `${this.getUserUrl}`;
+      return this.http.get<User>(url, {id_user : id_user}, this.httpOtions);
 
     }*/
 
@@ -36,6 +36,6 @@ export class ChangeUserService {
   }
 
  changeInfo(user: User): Observable<User> {
-   return this.http.post<User>(this.modifUserUrl, user, this.httpOptions);
+   return this.http.put<User>(this.modifUserUrl, user, this.httpOptions);
  }
 }
