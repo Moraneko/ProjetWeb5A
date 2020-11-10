@@ -12,11 +12,15 @@ public class Cours {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCours;
 
-	@Column(name="date", nullable = false)
-	private DateFormat date;
+	//@Column(name="date", nullable = false)
+	@Column(name="date_debut")
+	private DateFormat dateDebut;
+
+	@Column(name="date_fin")
+	private DateFormat dateFin;
 
 	@Column(name="max_cavalier", nullable = false)
-	private int max_cavalier;
+	private int maxcavalier;
 
 	@Column(name="niveau", nullable = false)
 	private int niveau;
@@ -37,10 +41,11 @@ public class Cours {
 
 	}
 
-	public Cours(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat) {
+	public Cours(DateFormat dateDebut, DateFormat dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat) {
 
-		this.date = date;
-		this.max_cavalier = max_cavalier;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.maxcavalier = max_cavalier;
 		this.niveau = niveau;
 		this.titre = titre;
 		this.recurrent = recurrent;
@@ -58,21 +63,21 @@ public class Cours {
 	}
 
 
-	public DateFormat getDate() {
-		return date;
+	public DateFormat getDateDebut() {
+		return dateDebut;
 	}
 
-	public void setDate(DateFormat date) {
-		this.date = date;
+	public void setDate(DateFormat dateDebut) {
+		this.dateDebut = dateDebut;
 	}
 
 
 	public int getMax_cavalier() {
-		return max_cavalier;
+		return maxcavalier;
 	}
 
 	public void setMax_cavalier(int max_cavalier) {
-		this.max_cavalier = max_cavalier;
+		this.maxcavalier = max_cavalier;
 	}
 
 
@@ -116,5 +121,13 @@ public class Cours {
 
 	public void setEtat(int etat) {
 		this.etat = etat;
+	}
+
+	public DateFormat getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(DateFormat dateFin) {
+		this.dateFin = dateFin;
 	}
 }

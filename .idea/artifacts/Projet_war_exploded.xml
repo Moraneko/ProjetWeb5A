@@ -77,6 +77,10 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.9.RELEASE" />
+          <element id="library" level="project" name="Maven: net.minidev:json-smart:2.3" />
+          <element id="library" level="project" name="Maven: net.minidev:accessors-smart:1.2" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm:5.0.4" />
+          <element id="library" level="project" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
