@@ -10,7 +10,7 @@ public class Cheval {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCheval;
 
-	@Column(name="nom", nullable = false)
+	@Column(name="nom", nullable = false, unique = true)
 	private String nom;
 
 	@Column(name="age", nullable = false)
@@ -28,6 +28,7 @@ public class Cheval {
 	public Cheval() {
 
 	}
+	
 
 
 	public Cheval(String nom, int age, String sexe, int taille, String couleur) {
