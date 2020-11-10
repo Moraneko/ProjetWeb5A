@@ -29,7 +29,7 @@ public class Utilisateur {
 	private String mdp;
 
 	@Column(name="role", nullable = false)
-	private int role;
+	private int role;  //0: user 1: moniteur, 2:admin
 
 	public Utilisateur() {
 
