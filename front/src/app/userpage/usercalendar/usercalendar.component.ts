@@ -74,8 +74,8 @@ export class UsercalendarComponent implements OnInit {
     }
     var coursToCalendrierEv =
       {
-        start: cours.horaire,
-        end: addHours(cours.horaire, 2),
+        start: cours.date_debut,
+        end: cours.date_fin,
         title: titre,
         content: cours,
         color: {

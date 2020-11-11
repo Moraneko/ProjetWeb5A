@@ -26,7 +26,7 @@ export class MoniteurService {
 
   //Composant de test Temporaires.
   private coursMoniteur: Cours[] = [
-    {id_cours: 2, horaire: new Date("November 03, 2020 12:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
+    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"), date_fin: new Date("November 11, 2020 13:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
   ];
 
   private distribution : Combinaison[] = [{
