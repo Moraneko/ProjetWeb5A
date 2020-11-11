@@ -16,7 +16,7 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 
 	public List<Cours> findAllByDateDebutAfter(DateFormat date);
 
-	public List<Cours> findCoursByIdMoniteur(int idMoniteur);
+	public List<Cours> findCoursByIdMoniteur(long idMoniteur);
 
 	//public Cours findCoursByDateAndAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat);
 	@Query("SELECT max(idCours) FROM Cours ")

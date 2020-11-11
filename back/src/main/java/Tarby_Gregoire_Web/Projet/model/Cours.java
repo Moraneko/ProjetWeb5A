@@ -1,15 +1,16 @@
 package Tarby_Gregoire_Web.Projet.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cours")
-public class Cours {
+public class Cours{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCours;
 
 	//@Column(name="date", nullable = false)
@@ -32,7 +33,7 @@ public class Cours {
 	private Boolean recurrent;
 
 	@Column (name="moniteur",nullable = false)
-	private int idMoniteur;
+	private Long idMoniteur;
 
 	@Column (name = "état", nullable = false)
 	private int etat;  // 0: cours, 1: fini, 2: annulé
@@ -41,7 +42,7 @@ public class Cours {
 
 	}
 
-	public Cours(DateFormat dateDebut, DateFormat dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat) {
+	public Cours(DateFormat dateDebut, DateFormat dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, Long idMoniteur, int etat) {
 
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
@@ -107,11 +108,11 @@ public class Cours {
 		this.recurrent = recurrent;
 	}
 
-	public int getIdMoniteur() {
+	public Long getIdMoniteur() {
 		return idMoniteur;
 	}
 
-	public void setIdMoniteur(int idMoniteur) {
+	public void setIdMoniteur(Long idMoniteur) {
 		this.idMoniteur = idMoniteur;
 	}
 
