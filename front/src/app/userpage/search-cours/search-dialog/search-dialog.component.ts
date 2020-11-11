@@ -19,15 +19,15 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
   ELEMENT_DATA: Cours[] = [];
   searchDialogForm: FormGroup;
     moniteurList: UserSimple[] = [
-      {  id_user: 1,
+      {  idUtilisateur: 1,
          nom: 'nomMoniteur1',
          prenom: 'prenomMoniteur1',
          role: 1},
-      {  id_user: 2,
+      {  idUtilisateur: 2,
                nom: 'nomMoniteur2',
                prenom: 'prenomMoniteur2',
                role: 1},
-      {  id_user: 3,
+      {  idUtilisateur: 3,
                nom: 'nomMoniteur3',
                prenom: 'prenomMoniteur3',
                role: 1}

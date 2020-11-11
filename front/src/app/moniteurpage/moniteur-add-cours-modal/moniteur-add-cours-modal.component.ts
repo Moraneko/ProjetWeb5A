@@ -22,7 +22,7 @@ export class MoniteurAddCoursModalComponent implements OnInit {
         titre : [''],
         horaire : ['', Validators.required],
         horaire_fin : ['', Validators.required],
-        taille_groupe : ['', Validators.required],
+        max_cavalier : ['', Validators.required],
         niveau : ['', Validators.required]
     });
   }
@@ -38,7 +38,7 @@ export class MoniteurAddCoursModalComponent implements OnInit {
       id_cours: -1,
       date_debut: new Date(this.newCours.get('horaire').value),
       date_fin: new Date(this.newCours.get('horaire_fin').value),
-      taille_groupe: this.newCours.get('taille_groupe').value,
+      max_cavalier: this.newCours.get('max_cavalier').value,
       niveau: this.newCours.get('niveau').value,
       recurrent: this.checkedRecurrent,
       moniteur: 1,                                        // Changer l'id du moniteur ici

@@ -53,7 +53,8 @@ import { AdmMoniteurComponent } from './adminpage/adm-moniteur/adm-moniteur.comp
 import { AdmAdminComponent } from './adminpage/adm-admin/adm-admin.component';
 import { NewMoniteurComponent } from './adminpage/adm-moniteur/new-moniteur/new-moniteur.component';
 import { NewAdminComponent } from './adminpage/adm-admin/new-admin/new-admin.component';
-import { AdminChangeInfoUserComponent } from './adminpage/change-info-user/change-info-user.component';
+import { voirInfoUserComponent } from './adminpage/change-info-user/change-info-user.component';
+import { ChangeAdminInfoComponent } from './adminpage/change-admin-info/change-admin-info.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { AdminChangeInfoUserComponent } from './adminpage/change-info-user/chang
     AdmAdminComponent,
     NewMoniteurComponent,
     NewAdminComponent,
-    AdminChangeInfoUserComponent
+    voirInfoUserComponent,
+    ChangeAdminInfoComponent
   ],
   imports: [
     BrowserModule,

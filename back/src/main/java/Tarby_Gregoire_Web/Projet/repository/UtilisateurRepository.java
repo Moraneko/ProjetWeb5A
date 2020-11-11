@@ -15,6 +15,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 	public Utilisateur findUtilisateurByIdUtilisateur(long id_user) ; // /admin/getUserById
 	public Utilisateur findUtilisateurByEmail(String email);
 	public Utilisateur findUtilisateurByTelephone (String Tel);
+	public List<Utilisateur> findUtilisateurByRole(int role);
 
 	@Query("SELECT idUtilisateur from Utilisateur where email= :requestID or telephone= :requestID")
 	Long getIdUtilisateurbyEmailOrTel(@Param("requestID") String request);

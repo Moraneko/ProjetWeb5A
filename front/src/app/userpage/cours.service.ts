@@ -17,20 +17,20 @@ export class CoursService {
   };
 
   private userCours: Cours[] = [
-    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"), date_fin: new Date("November 11, 2020 13:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"), date_fin: new Date("November 11, 2020 13:00:00"), max_cavalier: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
   ];
 
   private allCours: Cours[] = [
-    {id_cours: 1, date_debut: new Date("November 11, 2020 10:00:00"),date_fin: new Date("November 11, 2020 11:00:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 1, titre: ''},
-    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"),date_fin: new Date("November 11, 2020 13:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
-    {id_cours: 3, date_debut: new Date("November 11, 2020 14:00:00"),date_fin: new Date("November 11, 2020 15:00:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 1, titre: ''},
-    {id_cours: 4, date_debut: new Date("November 04, 2020 10:00:00"),date_fin: new Date("November 04, 2020 11:00:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 2, titre: ''},
-    {id_cours: 5, date_debut: new Date("November 04, 2020 12:00:00"),date_fin: new Date("November 04, 2020 13:00:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 2, titre: ''},
-    {id_cours: 6, date_debut: new Date("November 04, 2020 14:00:00"),date_fin: new Date("November 04, 2020 10:00:00"), taille_groupe: 10, niveau: 1 , recurrent: false, moniteur: 2, titre: ''},
-    {id_cours: 7, date_debut: new Date("November 04, 2020 10:00:00"),date_fin: new Date("November 04, 2020 10:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 3, titre: ''},
-    {id_cours: 8, date_debut: new Date("November 23, 2020 12:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), taille_groupe: 10, niveau: 3 , recurrent: false, moniteur: 3, titre: ''},
-    {id_cours: 9, date_debut: new Date("November 23, 2020 14:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), taille_groupe: 10, niveau: 4 , recurrent: false, moniteur: 3, titre: ''},
-    {id_cours: 10, date_debut: new Date("November 23, 2020 16:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), taille_groupe: 10, niveau: 5 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 1, date_debut: new Date("November 11, 2020 10:00:00"),date_fin: new Date("November 11, 2020 11:00:00"), max_cavalier: 10, niveau: 1 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"),date_fin: new Date("November 11, 2020 13:00:00"), max_cavalier: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 3, date_debut: new Date("November 11, 2020 14:00:00"),date_fin: new Date("November 11, 2020 15:00:00"), max_cavalier: 10, niveau: 3 , recurrent: false, moniteur: 1, titre: ''},
+    {id_cours: 4, date_debut: new Date("November 04, 2020 10:00:00"),date_fin: new Date("November 04, 2020 11:00:00"), max_cavalier: 10, niveau: 4 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 5, date_debut: new Date("November 04, 2020 12:00:00"),date_fin: new Date("November 04, 2020 13:00:00"), max_cavalier: 10, niveau: 5 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 6, date_debut: new Date("November 04, 2020 14:00:00"),date_fin: new Date("November 04, 2020 10:00:00"), max_cavalier: 10, niveau: 1 , recurrent: false, moniteur: 2, titre: ''},
+    {id_cours: 7, date_debut: new Date("November 04, 2020 10:00:00"),date_fin: new Date("November 04, 2020 10:00:00"), max_cavalier: 10, niveau: 2 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 8, date_debut: new Date("November 23, 2020 12:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), max_cavalier: 10, niveau: 3 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 9, date_debut: new Date("November 23, 2020 14:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), max_cavalier: 10, niveau: 4 , recurrent: false, moniteur: 3, titre: ''},
+    {id_cours: 10, date_debut: new Date("November 23, 2020 16:00:00"),date_fin: new Date("November 03, 2020 10:00:00"), max_cavalier: 10, niveau: 5 , recurrent: false, moniteur: 3, titre: ''},
   ]
   /*getCoursUser(id_user): Observable<Cours[]>{
     const url = `${this.getCours}/${id_user}`;

@@ -2,6 +2,7 @@ package Tarby_Gregoire_Web.Projet.controller;
 
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -113,10 +114,9 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/getMoniteur")
-	public ResponseEntity<List<Cours>> getCoursMoniteur(@Validated @RequestBody JSONObject body) {  //pb format date
+	public ResponseEntity<List<Cours>> getCoursMoniteur(@Validated @RequestParam int id_moniteur) {  //pb format date
 
-		int id_user= (int) body.getAsNumber("id_moniteur");
-		List<Cours> coursMoniteurBDD = coursRepository.findCoursByIdMoniteur(id_user);
+		List<Cours> coursMoniteurBDD = coursRepository.findCoursByIdMoniteur(id_moniteur);
 
 		return new ResponseEntity<>(coursMoniteurBDD, HttpStatus.OK);
 	}
@@ -135,35 +135,41 @@ public class MainController {
 	}
 
 	@ResponseBody
-	@GetMapping({"/admin/getUserbyId", "/user/getUser","/moniteur/getUser"})
-	public ResponseEntity<Utilisateur> getUserByID(@Validated @RequestBody JSONObject body ){
-		Long id_user = (Long) body.getAsNumber("id_user");
-		Utilisateur utilisateurBDD = utilisateurRepository.findUtilisateurByIdUtilisateur(id_user);
-		return new ResponseEntity<>(utilisateurBDD,HttpStatus.OK);
-
-	}
-
-	@ResponseBody
 	@GetMapping("/admin/getAllUser")
 	public ResponseEntity<List<UtilisateurSimple>> getAllUsersimple (){
-		List<UtilisateurSimple> utilisateurSimpleBDD = utilisateurRepository.findAllUtilisateurSimpleByRole(0);
-		return new ResponseEntity<>(utilisateurSimpleBDD,HttpStatus.OK);
+		List<Utilisateur> utilisateurListBDD = utilisateurRepository.findUtilisateurByRole(0);
+		List<UtilisateurSimple> utilisateurSimpleListBDD = new ArrayList<>();
+		for(Utilisateur utilisateurBDD : utilisateurListBDD ){
+			UtilisateurSimple utilisateurSimpleBDD = new UtilisateurSimple(utilisateurBDD.getId(), utilisateurBDD.getPrenom(), utilisateurBDD.getNom(),utilisateurBDD.getRole());
+			utilisateurSimpleListBDD.add(utilisateurSimpleBDD);
+		}
+		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
+
 
 	@ResponseBody
 	@GetMapping("/admin/getAllMoniteur")
 	public ResponseEntity<List<UtilisateurSimple>> getAllMoniteursimple (){
-		List<UtilisateurSimple> utilisateurSimpleBDD = utilisateurRepository.findAllUtilisateurSimpleByRole(1);
-		return new ResponseEntity<>(utilisateurSimpleBDD,HttpStatus.OK);
+		List<Utilisateur> utilisateurListBDD = utilisateurRepository.findUtilisateurByRole(1);
+		List<UtilisateurSimple> utilisateurSimpleListBDD = new ArrayList<>();
+		for(Utilisateur utilisateurBDD : utilisateurListBDD ){
+			UtilisateurSimple utilisateurSimpleBDD = new UtilisateurSimple(utilisateurBDD.getId(), utilisateurBDD.getPrenom(), utilisateurBDD.getNom(),utilisateurBDD.getRole());
+			utilisateurSimpleListBDD.add(utilisateurSimpleBDD);
+		}
+		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
 
 	@ResponseBody
 	@GetMapping("/admin/getAllAdmin")
 	public ResponseEntity<List<UtilisateurSimple>> getAllAdminsimple (){
-		List<UtilisateurSimple> utilisateurSimpleBDD = utilisateurRepository.findAllUtilisateurSimpleByRole(2);
-		return new ResponseEntity<>(utilisateurSimpleBDD,HttpStatus.OK);
+		List<Utilisateur> utilisateurListBDD = utilisateurRepository.findUtilisateurByRole(2);
+		List<UtilisateurSimple> utilisateurSimpleListBDD = new ArrayList<>();
+		for(Utilisateur utilisateurBDD : utilisateurListBDD ){
+			UtilisateurSimple utilisateurSimpleBDD = new UtilisateurSimple(utilisateurBDD.getId(), utilisateurBDD.getPrenom(), utilisateurBDD.getNom(),utilisateurBDD.getRole());
+			utilisateurSimpleListBDD.add(utilisateurSimpleBDD);
+		}
+		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
-
 	@ResponseBody
 	@PostMapping("/cheval/add")
 	public ResponseEntity<Cheval> newCheval (@Validated @RequestBody Cheval cheval){

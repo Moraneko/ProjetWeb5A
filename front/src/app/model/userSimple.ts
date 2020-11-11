@@ -1,5 +1,5 @@
 export interface UserSimple {
-  id_user: number;
+  idUtilisateur: number;
   nom: string;
   prenom: string;
   role: number;

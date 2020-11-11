@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Cours } from '../model/cours';
@@ -24,25 +24,25 @@ export class MoniteurService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  //Composant de test Temporaires.
+  // Composant de test Temporaires.
   private coursMoniteur: Cours[] = [
-    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"), date_fin: new Date("November 11, 2020 13:00:00"), taille_groupe: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
+    {id_cours: 2, date_debut: new Date('November 11, 2020 12:00:00'), date_fin: new Date('November 11, 2020 13:00:00'), max_cavalier: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: 'Cours test'},
   ];
 
-  private distribution : Combinaison[] = [{
-    id_combi:1,
-    id_cours:2,
-    user: {id_user: 10, nom: 'Jean', prenom: 'Dupont', role: 0},
+  private distribution: Combinaison[] = [{
+    id_combi: 1,
+    id_cours: 2,
+    user: {idUtilisateur: 10, nom: 'Jean', prenom: 'Dupont', role: 0},
     cheval: { id_cheval: 1, nom: 'El Condor Pasa', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
-    },{
-    id_combi:2,
-    id_cours:2,
-    user: {id_user: 11, nom: 'Jean2', prenom: 'Dupont2', role: 0},
+    }, {
+    id_combi: 2,
+    id_cours: 2,
+    user: {idUtilisateur: 11, nom: 'Jean2', prenom: 'Dupont2', role: 0},
     cheval: { id_cheval: -1, nom: '', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
-    },{
-    id_combi:3,
-    id_cours:2,
-    user: {id_user: 12, nom: 'Jean3', prenom: 'Dupont3', role: 0},
+    }, {
+    id_combi: 3,
+    id_cours: 2,
+    user: {idUtilisateur: 12, nom: 'Jean3', prenom: 'Dupont3', role: 0},
     cheval: { id_cheval: -1, nom: '', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
     }];
 
@@ -53,7 +53,7 @@ export class MoniteurService {
 
   }*/
 
-  private userInfo : User = {
+  private userInfo: User = {
     id_user: 10,
     nom: 'Tarby',
     prenom: 'Arnaud',
@@ -62,7 +62,7 @@ export class MoniteurService {
     mdp: 'azerty',
     licence: '',
     role: 1,
-  }
+  };
   getUserById(id_user): Observable<User> {
     return of(this.userInfo);
   }
@@ -72,24 +72,22 @@ export class MoniteurService {
  }
 
 
-  /*
+
   getCoursMoniteur(id_moniteur): Observable<Cours[]>{
       const url = `${this.getCoursUrl}`;
-      return this.http.get<Cours[]>(url, {id_moniteur : id_moniteur}, this.httpOptions).pipe(
-        tap((cours: Cours[]) => console.log(cours ))
-        );
-  */
-  getCoursMoniteur(id_moniteur): Observable<Cours[]> {  // a modifier quand back here
-    return of(this.coursMoniteur);
+      const params = new HttpParams().set('id_moniteur', id_moniteur); // Create new HttpParams
+      return this.http.get<Cours[]>(url, {headers: this.httpOptions.headers, params}).pipe(map(data =>
+        this.coursMoniteur = data));
   }
+  /*
+ getCoursMoniteur(id_moniteur): Observable<Cours[]> {  // a modifier quand back here
+   return of(this.coursMoniteur);
+   }*/
 
 
   createCours(cours: Cours): Observable<Cours> {
-    this.coursMoniteur.push(cours); // A SUPRRIMER ET REMPLACER LA REPONSE POUR AJOUTER EN LOCAL
-    console.log("Liste des cours du moniteur:");
-    console.log(this.coursMoniteur);
     return this.http.post<Cours>(this.addCours, cours, this.httpOptions).pipe(
-      tap((result: Cours) => console.log(result)));
+      tap((result: Cours) => this.coursMoniteur.push(result)));
   }
 
   /*
@@ -110,9 +108,9 @@ export class MoniteurService {
         tap((combi: Combinaison[]) => console.log(combi))
         );
   */
-  attributionCheval(combinaison: Combinaison, cheval: Cheval) : Observable<Combinaison[]>  {
+  attributionCheval(combinaison: Combinaison, cheval: Cheval): Observable<Combinaison[]>  {
     console.log(this.distribution.indexOf(combinaison));
-    var index = this.distribution.indexOf(combinaison);
+    const index = this.distribution.indexOf(combinaison);
     this.distribution[index].cheval = cheval;
     return of(this.distribution);
   }

@@ -10,19 +10,19 @@ public class Cheval {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCheval;
 
-	@Column(name="nom", nullable = false, unique = true)
+	@Column(name="nom", unique = true)
 	private String nom;
 
-	@Column(name="age", nullable = false)
+	@Column(name="age")
 	private int age;
 
-	@Column(name="sexe", nullable = false)
+	@Column(name="sexe")
 	private String sexe;
 
-	@Column(name="taille", nullable = false)
+	@Column(name="taille")
 	private int taille;
 
-	@Column(name="couleur", nullable = false)
+	@Column(name="couleur")
 	private String couleur;
 
 	public Cheval() {

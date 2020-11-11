@@ -8,7 +8,7 @@ import { Cours } from '../../model/cours';
   styleUrls: ['./coursmoniteur.component.css']
 })
 export class CoursmoniteurComponent implements OnInit {
-  displayedColumns: string[] = ['id_cours', 'horaire', 'taille_groupe', 'niveau'];
+  displayedColumns: string[] = ['id_cours', 'horaire', 'max_cavalier', 'niveau'];
   @Input() dataSource: Cours[];
   @ViewChild(MatTable) table: MatTable<Element>;
 

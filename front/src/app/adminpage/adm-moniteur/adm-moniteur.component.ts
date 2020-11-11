@@ -29,9 +29,12 @@ export class AdmMoniteurComponent implements OnInit {
 
   ngOnInit(): void {
       // get de la liste total de moniteurs
-      this.adminService.getAllMoniteur().subscribe(result => {this.listeUser = result});
-      this.dataSource = new MatTableDataSource<UserSimple>(this.listeUser);
-      this.dataSource.filterPredicate = this.customFilterPredicate();
+      this.adminService.getAllMoniteur().subscribe(result => this.initTables(result));
+  }
+  initTables(list: UserSimple[]){
+    this.listeUser = list;
+    this.dataSource = new MatTableDataSource<UserSimple>(this.listeUser);
+    this.dataSource.filterPredicate = this.customFilterPredicate();
   }
 
   ngDoCheck() {
@@ -48,7 +51,7 @@ export class AdmMoniteurComponent implements OnInit {
               var localMatch = false;
               var localMatchResult = [];
               splitedFilter.forEach(function (str) {
-                localMatch = data['id_user'].toString().trim().toLowerCase().indexOf(str.toLowerCase()) !== -1 ||
+                localMatch = data['idUtilisateur'].toString().trim().toLowerCase().indexOf(str.toLowerCase()) !== -1 ||
                       data['nom'].toString().trim().toLowerCase().indexOf(str.toLowerCase()) !== -1 ||
                       data['prenom'].toString().trim().toLowerCase().indexOf(str.toLowerCase()) !== -1 ||
                       data['role'].toString().trim().toLowerCase().indexOf(str.toLowerCase()) !== -1;

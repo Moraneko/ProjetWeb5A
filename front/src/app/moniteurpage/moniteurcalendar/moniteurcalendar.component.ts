@@ -68,8 +68,8 @@ export class MoniteurcalendarComponent implements OnInit {
     }
     var coursToCalendrierEv =
       {
-        start: cours.date_debut,
-        end: cours.date_fin,
+        start: cours.dateDebut,
+        end: cours.dateFin,
         title: titre,
         content: cours,
         color: {
