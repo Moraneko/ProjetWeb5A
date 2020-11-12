@@ -18,6 +18,7 @@ public class UtilisateurSimple {
 		this.nom = nom;
 		this.role = role;
 	}
+  
 	public Long getIdUtilisateur() {
 		return idUtilisateur;
 	}

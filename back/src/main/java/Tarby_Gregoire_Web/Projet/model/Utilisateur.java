@@ -1,10 +1,12 @@
 package Tarby_Gregoire_Web.Projet.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name= "utilisateurs")
-public class Utilisateur {
+public class Utilisateur{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

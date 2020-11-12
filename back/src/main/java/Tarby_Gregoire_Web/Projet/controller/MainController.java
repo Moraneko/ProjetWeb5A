@@ -1,6 +1,9 @@
 package Tarby_Gregoire_Web.Projet.controller;
 
 
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,11 +16,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
-import Tarby_Gregoire_Web.Projet.model.Cheval;
-import Tarby_Gregoire_Web.Projet.model.Cours;
-import Tarby_Gregoire_Web.Projet.model.Utilisateur;
-import Tarby_Gregoire_Web.Projet.model.UtilisateurSimple;
+import Tarby_Gregoire_Web.Projet.model.*;
 import Tarby_Gregoire_Web.Projet.repository.ChevalRepository;
+import Tarby_Gregoire_Web.Projet.repository.CombinaisonRepository;
 import Tarby_Gregoire_Web.Projet.repository.CoursRepository;
 import Tarby_Gregoire_Web.Projet.repository.UtilisateurRepository;
 import net.minidev.json.JSONObject;
@@ -34,6 +35,9 @@ public class MainController {
 	private ChevalRepository chevalRepository;
 	@Autowired
 	private CoursRepository coursRepository;
+
+	@Autowired
+	private CombinaisonRepository combinaisonRepository;
 
 	@ResponseBody
 	@PostMapping("/connectionApi")
@@ -87,9 +91,10 @@ public class MainController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.CONFLICT); //409
 		}
-		utilisateurBDD.getLicence();
+		utilisateurBDD.setLicence(utilisateur.getLicence());
 
-		final Utilisateur updatedUtilisateur = utilisateurRepository.save(utilisateurBDD);
+		utilisateurRepository.save(utilisateurBDD);
+
 		return new ResponseEntity<>(utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateur.getId()), HttpStatus.ACCEPTED);
 
 
@@ -97,25 +102,93 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/getAllCours")
-	public ResponseEntity<List<Cours>> getAllCours() {  //pb format date
+	public ResponseEntity<List<CoursAvecInfoMoniteur>> getAllCours() {  //pb format date
 
 		List<Cours> allCours = coursRepository.findAll();
-		return new ResponseEntity<>(allCours, HttpStatus.OK);
+		List<CoursAvecInfoMoniteur> allCoursInfo= new ArrayList<>();
+		for (Cours cours : allCours){
+			String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
+			String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
+
+			CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(),cours.getDateDebut(),cours.getDateFin(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
+			allCoursInfo.add(coursinfo);
+		}
+		return new ResponseEntity<>(allCoursInfo, HttpStatus.OK);
 	}
 
 
 
-	/*@ResponseBody
+	@ResponseBody
 	@GetMapping("/cours/getUser")
-	public ResponseEntity<List<Cours>> recupCoursUtilisateurs(@Validated @RequestBody JSONObject body){
-		Long id_user= (Long) body.getAsNumber("id_user");
+	public ResponseEntity<List<CoursAvecInfoMoniteur>> recupCoursUtilisateurs(@Validated @RequestParam  int id_user){
+		//Long id_user= (Long) body.getAsNumber("id_user");
+		List<JSONObject> listCoursBDDString = combinaisonRepository.getCoursUserById((long) id_user);
+		List<Cours> listCoursBDD= new ArrayList<>();
+		for(JSONObject coursString : listCoursBDDString){
+			Cours coursBDD =new Cours((DateFormat) coursString.get("date_debut"),(DateFormat) coursString.get("date_fin"),(int) coursString.getAsNumber("max_cavalier"),(int) coursString.getAsNumber("niveau"),coursString.getAsString("titre"),(boolean) coursString.get("recurrent"), coursString.getAsNumber("moniteur").longValue(),(int) coursString.getAsNumber("état"));
+			coursBDD.setId(coursString.getAsNumber("id_cours").longValue());
+			listCoursBDD.add(coursBDD);
+		}
+		List<CoursAvecInfoMoniteur> allCoursInfo= new ArrayList<>();
+		for (Cours cours : listCoursBDD){
+			String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
+			String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
+
+			CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(),cours.getDateDebut(),cours.getDateFin(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
+			allCoursInfo.add(coursinfo);
+		}
+
+		return new ResponseEntity<>(allCoursInfo,HttpStatus.OK);
+
+	}
+
+	@ResponseBody
+	@GetMapping("/cours/addCoursToUser")
+	public ResponseEntity<CoursAvecInfoMoniteur> addCoursToUtilisateurs(@Validated @RequestParam long iduser, @RequestParam long idCours){
+		//Long id_user= (Long) body.getAsNumber("iduser");
+		//Long id_cours= (Long) body.getAsNumber("idCours");
+
+		Combinaison combinaison = new Combinaison(iduser,(long)-1,idCours);
+		combinaisonRepository.save(combinaison);
+		Cours cours =coursRepository.findCoursByIdCours(idCours);
+
+		String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
+		String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
+
+		CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(),cours.getDateDebut(),cours.getDateFin(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
+
+
+		return new ResponseEntity<>(coursinfo,HttpStatus.CREATED);
+
+	}
+
+/*	@ResponseBody
+	@GetMapping("/test")
+	public ResponseEntity<Combinaison> addCoursToUtilisateurstest(){
+		//Long id_user= (Long) body.getAsNumber("iduser");
+		//Long id_cours= (Long) body.getAsNumber("idCours");
+		Cheval chevalRequest = new Cheval();
+		//chevalRequest.setId((long) -1);
+		chevalRepository.save(chevalRequest);
+
+
+		Cours coursRequest = new Cours(null,null,4,2,"aa",false, (long) 3,0);
+
+		coursRepository.save(coursRequest);
+
+		Combinaison combinaison = new Combinaison((long)3,(long)1,coursRepository.findLastIdCours());
+
+		combinaisonRepository.save(combinaison);
+		return new ResponseEntity<>(combinaisonRepository.findCombinaisonByIdCombinaison(1),HttpStatus.CREATED);
 
 	}*/
 
+
 	@ResponseBody
 	@GetMapping("/cours/getMoniteur")
-	public ResponseEntity<List<Cours>> getCoursMoniteur(@Validated @RequestParam int id_moniteur) {  //pb format date
+	public ResponseEntity<List<Cours>> getCoursMoniteur(@Validated @RequestParam long id_moniteur) {  //pb format date
 
+	//int id_user= (int) body.getAsNumber("id_moniteur");
 		List<Cours> coursMoniteurBDD = coursRepository.findCoursByIdMoniteur(id_moniteur);
 
 		return new ResponseEntity<>(coursMoniteurBDD, HttpStatus.OK);
@@ -133,6 +206,16 @@ public class MainController {
 		return new ResponseEntity<>(coursBDD, HttpStatus.CREATED);
 
 	}
+
+	@ResponseBody
+	@GetMapping({"/admin/getUserbyId", "/user/getUser","/moniteur/getUser"})
+	public ResponseEntity<Utilisateur> getUserByID(@Validated @RequestParam long id_user ){
+		//Long id_user = (Long) body.getAsNumber("id_user");
+		Utilisateur utilisateurBDD = utilisateurRepository.findUtilisateurByIdUtilisateur(id_user);
+		return new ResponseEntity<>(utilisateurBDD,HttpStatus.OK);
+
+	}
+
 
 	@ResponseBody
 	@GetMapping("/admin/getAllUser")
@@ -173,7 +256,7 @@ public class MainController {
 	@ResponseBody
 	@PostMapping("/cheval/add")
 	public ResponseEntity<Cheval> newCheval (@Validated @RequestBody Cheval cheval){
-		Cheval chevalRequest = new Cheval(cheval.getNom(),cheval.getAge(),cheval.getSexe(),cheval.getTaille(),cheval.getCouleur());
+		Cheval chevalRequest = new Cheval(cheval.getNom(),cheval.getAge(),cheval.getSexe(),cheval.getTaille(),cheval.getCouleur(), cheval.getRace());
 		chevalRepository.save(chevalRequest);
 
 		Cheval chevalBDD= chevalRepository.findChevalByIdCheval(chevalRepository.findLastIdCheval());

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Cheval {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCheval;
 
 	@Column(name="nom", unique = true)
@@ -25,18 +25,22 @@ public class Cheval {
 	@Column(name="couleur")
 	private String couleur;
 
+	@Column(name="race")
+	private String race;
+
 	public Cheval() {
 
 	}
 	
 
 
-	public Cheval(String nom, int age, String sexe, int taille, String couleur) {
+	public Cheval(String nom, int age, String sexe, int taille, String couleur, String race) {
 		this.nom = nom;
 		this.age = age;
 		this.sexe = sexe;
 		this.taille = taille;
 		this.couleur = couleur;
+		this.race = race;
 	}
 
 
@@ -91,5 +95,13 @@ public class Cheval {
 
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
 	}
 }
