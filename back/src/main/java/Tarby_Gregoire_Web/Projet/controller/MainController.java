@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -228,6 +229,7 @@ public class MainController {
 		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
 
+
 	@ResponseBody
 	@GetMapping("/admin/getAllMoniteur")
 	public ResponseEntity<List<UtilisateurSimple>> getAllMoniteursimple (){
@@ -251,7 +253,6 @@ public class MainController {
 		}
 		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
-
 	@ResponseBody
 	@PostMapping("/cheval/add")
 	public ResponseEntity<Cheval> newCheval (@Validated @RequestBody Cheval cheval){

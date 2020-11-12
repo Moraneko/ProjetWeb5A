@@ -11,7 +11,7 @@ import { BasicCallBackResponse } from '../../../model/basicCallbackReponse';
 export class RecupMdpService {
 
   constructor(private http: HttpClient) { }
-  private recupUrl = '/recupMdp';  // URL to web api
+  private recupUrl = 'http://localhost:8080/recupMdp';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

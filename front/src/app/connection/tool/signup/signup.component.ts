@@ -12,7 +12,10 @@ import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFor
 export class SignupComponent implements OnInit {
 
    email = new FormControl('', [Validators.required, Validators.email]);
+   password = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{4,20}$')]);
    hide = true;
+
+   showErrorEmailExiste = false;
 
     getErrorMessage() {
       if (this.email.hasError('required')) {
@@ -21,6 +24,14 @@ export class SignupComponent implements OnInit {
 
       return this.email.hasError('email') ? 'Adresse invalide' : '';
     }
+
+  getErrorMessagePassword() {
+    if (this.email.hasError('required')) {
+      return 'Le mot de passe doit contenir entre 4 et 20 caractères avec au moins 1 majuscule, 1 minuscule et 1 nombre';
+    }
+
+    return this.email.hasError('email') ? 'Mot de passe invalide' : '';
+  }
 
   inscriptionForm: FormGroup;
   constructor(private _formBuilder: FormBuilder, private signupService : SignupService) { }
@@ -35,7 +46,9 @@ export class SignupComponent implements OnInit {
                                  licence:  this.inscriptionForm.get('licence').value,
                                  role:  0} as User)
          .subscribe(user => {
-           console.log('AJOUT DE USER FAIT DANS LA BDD');
+           this.signupService.getErrorMsg().subscribe(bol => this.showErrorEmailExiste = bol);
+           alert('Votre compte est bien créé');
+           window.location.reload();
          });
 
    }
@@ -43,6 +56,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.signupService.getErrorMsg().subscribe(bol => this.showErrorEmailExiste = bol);
   //Form control !
 
     this.inscriptionForm = this._formBuilder.group({
@@ -51,7 +65,7 @@ export class SignupComponent implements OnInit {
       tel : ['', Validators.required],
       licence : [''],
       emailform : ['', [Validators.required, Validators.email]],
-      mdp : ['', Validators.required]
+      mdp : ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{4,20}$')]]
     });
 
 
