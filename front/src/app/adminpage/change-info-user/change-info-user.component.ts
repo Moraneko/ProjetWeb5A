@@ -14,7 +14,7 @@ export class voirInfoUserComponent implements OnInit {
     this.userId = this.actRoute.snapshot.params.id;
   }
 
-  userInfo : User;
+  userInfo: User = {email: '', id_user: 0, licence: '', mdp: '', role: 0, telephone: '', nom: '', prenom: ''};
   userId: number;
 
 

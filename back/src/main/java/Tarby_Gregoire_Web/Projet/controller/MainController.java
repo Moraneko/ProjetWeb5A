@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,7 @@ import net.minidev.json.JSONObject;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class MainController {
-
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 	@Autowired
@@ -77,26 +79,33 @@ public class MainController {
 	@ResponseBody
 	@PutMapping({"/admin/changeUserInfo","/user/modifUser","/moniteur/modifUser"})
 	public ResponseEntity<Utilisateur> updateUtilisateur(@Validated @RequestBody Utilisateur utilisateur) { //demander à Moran si il renvoie bien tous l'utilisateur
-
+		boolean infoChanged = false;
 		Utilisateur utilisateurBDD = utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateur.getId());
 
 		if (utilisateurRepository.findUtilisateurByEmail(utilisateur.getEmail()) == null || utilisateur.getEmail()==utilisateurBDD.getEmail()) {
+			if( !(utilisateur.getEmail()==utilisateurBDD.getEmail()) ){
+				infoChanged = true;
+			}
 			utilisateurBDD.setEmail(utilisateur.getEmail());
-		} else {
-			return new ResponseEntity<>(HttpStatus.CONFLICT); //409
+		}
+		if (utilisateurRepository.findUtilisateurByTelephone(utilisateur.getTelephone()) == null || utilisateur.getTelephone().equals(utilisateurBDD.getTelephone())) {
+			if( !(utilisateur.getTelephone().equals(utilisateurBDD.getTelephone())) ){
+				infoChanged = true;
+			}
+			utilisateurBDD.setTelephone(utilisateur.getTelephone());
+		}
+		if (!(utilisateur.getLicence().equals(utilisateurBDD.getLicence()))) {
+			utilisateurBDD.setLicence(utilisateur.getLicence());
+			infoChanged = true;
 		}
 
-		if (utilisateurRepository.findUtilisateurByTelephone(utilisateur.getTelephone()) == null || utilisateur.getTelephone()==utilisateurBDD.getTelephone()) {
-			utilisateurBDD.setTelephone(utilisateur.getTelephone());
-		} else {
+		if(!infoChanged){
 			return new ResponseEntity<>(HttpStatus.CONFLICT); //409
 		}
-		utilisateurBDD.setLicence(utilisateur.getLicence());
 
 		utilisateurRepository.save(utilisateurBDD);
 
 		return new ResponseEntity<>(utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateur.getId()), HttpStatus.ACCEPTED);
-
 
 	}
 

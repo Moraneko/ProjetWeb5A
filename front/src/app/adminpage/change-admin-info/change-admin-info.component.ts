@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
-import { FormControl, FormGroup, FormBuilder, Validator, Validators,ReactiveFormsModule } from "@angular/forms";
-import {Router} from "@angular/router"
+import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from '@angular/forms';
+import {Router} from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -12,17 +12,23 @@ import { AdminService } from '../admin.service';
 export class ChangeAdminInfoComponent implements OnInit {
 
   changeInfoUserForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private adminService : AdminService, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private adminService: AdminService, private router: Router) { }
 
-  userInfo : User;
+  userInfo: User = {email: '', id_user: 0, licence: '', mdp: '', role: 0, telephone: '', nom: '', prenom: ''};
 
   ngOnInit(): void {
-    // Get data from service
-    this.adminService.getUserById(10) // changer l'id ICI
-      .subscribe((data: User) => this.userInfo = data);
+    this.changeInfoUserForm = this._formBuilder.group({
+      tel : ['', Validators.required],
+      licence : [''],
+      emailform : ['', [Validators.required, Validators.email]]
+    });
+    this.adminService.getUserById(25) // changer l'id ICI
+      .subscribe((data: User) => this.initForm(data));
 
-
-    //Form control !
+  }
+  initForm(data){
+    this.userInfo = data;
+    // Form control !
 
     this.changeInfoUserForm = this._formBuilder.group({
       nom : [this.userInfo.nom, Validators.required],
@@ -36,14 +42,14 @@ export class ChangeAdminInfoComponent implements OnInit {
 
   onSubmit() {
 
-    this.adminService.changeInfo({ id_user: 10, // changer l'id ICI
-      nom:  this.changeInfoUserForm.get('nom').value,
-      prenom:  this.changeInfoUserForm.get('prenom').value,
+    this.adminService.changeInfo({ id: 25, // changer l'id ICI
+      nom:  '',
+      prenom:  '',
       email:  this.changeInfoUserForm.get('emailform').value,
       telephone:  this.changeInfoUserForm.get('tel').value,
-      mdp:  this.changeInfoUserForm.get('mdp').value,
+      mdp:  '',
       licence:  this.changeInfoUserForm.get('licence').value,
-      role:  1} as User)
+      role:  2})
       .subscribe(user => {
         console.log('MAJ de L\'admin fait dans la BDD');
         this.router.navigate(['/admin']);

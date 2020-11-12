@@ -46,32 +46,17 @@ export class MoniteurService {
     cheval: { id_cheval: -1, nom: '', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
     }];
 
+  private userInfo: User ;
 
-  /*getUserById(id_user): Observable<User>{
-    const url = `${this.getUserUrl}/${id_user}`;
-    return this.http.get<User>(url);
-
-  }*/
-
-  private userInfo: User = {
-    id_user: 10,
-    nom: 'Tarby',
-    prenom: 'Arnaud',
-    email: 'adresse@email.fr',
-    telephone: '0102030405',
-    mdp: 'azerty',
-    licence: '',
-    role: 1,
-  };
   getUserById(id_user): Observable<User> {
-    return of(this.userInfo);
+
+    const params = new HttpParams().set('id_user', id_user); // Create new HttpParams
+    return this.http.get<User>(this.getUserUrl, {headers: this.httpOptions.headers, params}).pipe(map(data => this.userInfo = data));
   }
 
- changeInfo(user: User): Observable<User> {
+ changeInfo(user: any): Observable<User> {
    return this.http.put<User>(this.modifUserUrl, user, this.httpOptions);
  }
-
-
 
   getCoursMoniteur(id_moniteur): Observable<Cours[]>{
       const url = `${this.getCoursUrl}`;
@@ -79,13 +64,8 @@ export class MoniteurService {
       return this.http.get<Cours[]>(url, {headers: this.httpOptions.headers, params}).pipe(map(data =>
         this.coursMoniteur = data));
   }
-  /*
- getCoursMoniteur(id_moniteur): Observable<Cours[]> {  // a modifier quand back here
-   return of(this.coursMoniteur);
-   }*/
 
-
-  createCours(cours: Cours): Observable<Cours> {
+  createCours(cours: any): Observable<Cours> {
     return this.http.post<Cours>(this.addCours, cours, this.httpOptions).pipe(
       tap((result: Cours) => this.coursMoniteur.push(result)));
   }

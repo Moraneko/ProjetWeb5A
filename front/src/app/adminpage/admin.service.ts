@@ -20,7 +20,7 @@ export class AdminService {
   private addNewMoniteurUrl = 'http://localhost:8080/admin/newMoniteur';
   private addNewAdminUrl = 'http://localhost:8080/admin/addAdmin';
   private modifAdminInfoUrl = 'http://localhost:8080/admin/changeUserInfo';
-  private getUserUrl = 'http://localhost:8080/admin/getUserById';
+  private getUserUrl = 'http://localhost:8080/admin/getUserbyId';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -67,8 +67,8 @@ export class AdminService {
     );
   }
 
-  changeInfo(user: User): Observable<User> {
-    return this.http.post<User>(this.modifAdminInfoUrl, user, this.httpOptions);
+  changeInfo(user: any): Observable<User> {
+    return this.http.put<User>(this.modifAdminInfoUrl, user, this.httpOptions);
   }
    getUserById(id_user): Observable<User> {
 
