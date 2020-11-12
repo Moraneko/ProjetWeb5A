@@ -44,6 +44,7 @@ export class MoniteurAddCoursModalComponent implements OnInit {
       recurrent: this.checkedRecurrent,
       idMoniteur: 0,                                        // Changer l'id du moniteur ici
       titre: this.newCours.get('titre').value,
+      etat: 0
       })
     .subscribe(user => {
       console.log('ajout du nouveau cours pour le moniteur');

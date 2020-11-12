@@ -4,6 +4,7 @@ package Tarby_Gregoire_Web.Projet.controller;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import org.slf4j.Logger;
@@ -134,7 +135,7 @@ public class MainController {
 		List<JSONObject> listCoursBDDString = combinaisonRepository.getCoursUserById((long) id_user);
 		List<Cours> listCoursBDD= new ArrayList<>();
 		for(JSONObject coursString : listCoursBDDString){
-			Cours coursBDD =new Cours((DateFormat) coursString.get("date_debut"),(DateFormat) coursString.get("date_fin"),(int) coursString.getAsNumber("max_cavalier"),(int) coursString.getAsNumber("niveau"),coursString.getAsString("titre"),(boolean) coursString.get("recurrent"), coursString.getAsNumber("moniteur").longValue(),(int) coursString.getAsNumber("état"));
+			Cours coursBDD =new Cours((Date) coursString.get("date_debut"),(Date) coursString.get("date_fin"),(int) coursString.getAsNumber("max_cavalier"),(int) coursString.getAsNumber("niveau"),coursString.getAsString("titre"),(boolean) coursString.get("recurrent"), coursString.getAsNumber("moniteur").longValue(),(int) coursString.getAsNumber("état"));
 			coursBDD.setId(coursString.getAsNumber("id_cours").longValue());
 			listCoursBDD.add(coursBDD);
 		}

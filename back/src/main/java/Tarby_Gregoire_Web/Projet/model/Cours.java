@@ -1,9 +1,10 @@
 package Tarby_Gregoire_Web.Projet.model;
 
-import org.springframework.data.jpa.repository.Temporal;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.text.DateFormat;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -17,10 +18,12 @@ public class Cours{
 
 	//@Column(name="date", nullable = false)
 	@Column(name="date_debut")
-	private DateFormat dateDebut;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date dateDebut;
 
 	@Column(name="date_fin")
-	private DateFormat dateFin;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date dateFin;
 
 	@Column(name="max_cavalier", nullable = false)
 	private int maxcavalier;
@@ -44,7 +47,7 @@ public class Cours{
 
 	}
 
-	public Cours(DateFormat dateDebut, DateFormat dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, Long idMoniteur, int etat) {
+	public Cours(Date dateDebut, Date dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, Long idMoniteur, int etat) {
 
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
@@ -66,11 +69,11 @@ public class Cours{
 	}
 
 
-	public DateFormat getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDate(DateFormat dateDebut) {
+	public void setDate(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
@@ -126,11 +129,11 @@ public class Cours{
 		this.etat = etat;
 	}
 
-	public DateFormat getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(DateFormat dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 }
