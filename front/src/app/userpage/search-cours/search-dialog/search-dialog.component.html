@@ -10,7 +10,7 @@
     <mat-form-field appearance="fill" style="padding-left: 2em;">
       <mat-label>Choisir un moniteur</mat-label>
       <mat-select disableOptionCentering [(ngModel)]="selectedMoniteur" (selectionChange)="moniteurSelect()">
-        <mat-option *ngFor="let moniteur of moniteurList" [value]="moniteur.id_user">
+        <mat-option *ngFor="let moniteur of moniteurList" [value]="moniteur.idUtilisateur">
           {{moniteur.nom}} {{moniteur.prenom}}
         </mat-option>
       </mat-select>
@@ -29,14 +29,20 @@
   <div fxLayout="column" fxLayoutAlign="center none"  style="width: 100%">
     <table mat-table  [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
       <!-- id Column -->
-      <ng-container matColumnDef="id_cours">
-        <th mat-header-cell *matHeaderCellDef> Id </th>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button *ngIf="isCoursSelected(element.id_cours) else selectedBtn" mat-raised-button disabled  >Déjà ajouté</button>
+          <button mat-button *ngIf="isCoursSelected(element.idCours) else selectedBtn" mat-raised-button disabled  >Déjà ajouté</button>
           <ng-template #selectedBtn>
-            <button mat-raised-button color="primary" value="{{element.id_cours}}" (click)="selectCours($event)">Ajouter</button>
+            <button mat-raised-button color="primary" value="{{element.idCours}}" (click)="selectCours($event)">Ajouter</button>
           </ng-template>
         </td>
+      </ng-container>
+
+      <!-- titre Column -->
+      <ng-container matColumnDef="titre">
+        <th mat-header-cell *matHeaderCellDef> Titre </th>
+        <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
       </ng-container>
 
       <!-- horaire Column -->
@@ -48,7 +54,7 @@
       <!-- Taille groupe Column -->
       <ng-container matColumnDef="taille_groupe">
         <th mat-header-cell *matHeaderCellDef> Taille du groupe </th>
-        <td mat-cell *matCellDef="let element"> {{element.taille_groupe}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.maxcavalier}} </td>
       </ng-container>
 
       <!-- Niveau Column -->
@@ -66,7 +72,7 @@
       <!-- Moniteur Column -->
       <ng-container matColumnDef="moniteur">
         <th mat-header-cell *matHeaderCellDef> Moniteur </th>
-        <td mat-cell *matCellDef="let element"> {{element.moniteur}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nomMoniteur}} {{element.prenomMoniteur}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

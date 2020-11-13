@@ -18,11 +18,13 @@ export class MoniteurCoursModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<MoniteurCoursModalComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private moniteurService: MoniteurService, private chevalService : ChevalService) { }
 
   ngOnInit(): void {
-  console.log(this.data.cours.content);
     this.moniteurService.getCombinaisonOfCours(this.data.cours.content.id_cours) // changer l'id ICI
         .subscribe((data: Combinaison[]) => this.distributionUserCheval = data);
     this.chevalService.getChevalDispo(this.data.cours.content.id_cours) // changer l'id ICI
-        .subscribe((data: Cheval[]) => this.listChevalDispo = data);
+        .subscribe((data: Cheval[]) => {
+          this.listChevalDispo = data;
+          console.log(this.listChevalDispo);
+        });
     this.chevalService.getAllCheval()
         .subscribe((data: Cheval[]) => this.nombreChevauxTotal = data.length);
   }
