@@ -7,23 +7,26 @@ import javax.persistence.*;
 public class Cheval {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCheval;
 
-	@Column(name="nom", nullable = false, unique = true)
+	@Column(name="nom", unique = true)
 	private String nom;
 
-	@Column(name="age", nullable = false)
+	@Column(name="age")
 	private int age;
 
-	@Column(name="sexe", nullable = false)
+	@Column(name="sexe")
 	private String sexe;
 
-	@Column(name="taille", nullable = false)
+	@Column(name="taille")
 	private int taille;
 
-	@Column(name="couleur", nullable = false)
+	@Column(name="couleur")
 	private String couleur;
+
+	@Column(name="race")
+	private String race;
 
 	public Cheval() {
 
@@ -31,12 +34,13 @@ public class Cheval {
 	
 
 
-	public Cheval(String nom, int age, String sexe, int taille, String couleur) {
+	public Cheval(String nom, int age, String sexe, int taille, String couleur, String race) {
 		this.nom = nom;
 		this.age = age;
 		this.sexe = sexe;
 		this.taille = taille;
 		this.couleur = couleur;
+		this.race = race;
 	}
 
 
@@ -91,5 +95,13 @@ public class Cheval {
 
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
 	}
 }
