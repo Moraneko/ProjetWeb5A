@@ -72,17 +72,32 @@ export class UsercalendarComponent implements OnInit {
     if (cours.titre != ''){
       titre = cours.titre;
     }
-    var coursToCalendrierEv =
-      {
-        start: cours.dateDebut,
-        end: cours.dateFin,
-        title: titre,
-        content: cours,
-        color: {
-                   primary: '#1e90ff',
-                   secondary: '#D1E8FF',
-                 },
-      };
+    let coursToCalendrierEv;
+    if (cours.etat == 0 ){
+      coursToCalendrierEv =
+        {
+          start: cours.dateDebut,
+          end: cours.dateFin,
+          title: titre,
+          content: cours,
+          color: {
+            primary: '#1e90ff',
+            secondary: '#D1E8FF',
+          },
+        };
+    } else {
+      coursToCalendrierEv =
+        {
+          start: cours.dateDebut,
+          end: cours.dateFin,
+          title: titre,
+          content: cours,
+          color: {
+            primary: '#F8580D',
+            secondary: '#F8580D',
+          },
+        };
+    }
     events.push(coursToCalendrierEv);
   }
 

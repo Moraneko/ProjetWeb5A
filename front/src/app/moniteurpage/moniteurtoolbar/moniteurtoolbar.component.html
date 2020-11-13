@@ -1,7 +1,7 @@
 <mat-toolbar>
   <span style="padding-left: 1em;" (click)="acceuil()" style="cursor:pointer;">Equitation - Moniteur</span>
   <span class="spacer"></span>
-  <h1>Moniteur name</h1>
+  <h1>{{this.toolbarName}}</h1>
   <button mat-button [matMenuTriggerFor]="menu" aria-label="Menu">
     <mat-icon>settings</mat-icon> Paramètres
   </button>
@@ -18,7 +18,7 @@
       <mat-icon>add</mat-icon>
       <span>Ajouter des chevaux</span>
     </button>
-    <button mat-menu-item>
+    <button (click)="signOut()" mat-menu-item>
       <mat-icon>arrow_back</mat-icon>
       <span>Déconnection</span>
     </button>

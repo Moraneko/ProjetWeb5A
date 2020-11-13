@@ -14,7 +14,7 @@ import { voirInfoUserComponent } from './adminpage/change-info-user/change-info-
 import {ChangeAdminInfoComponent} from './adminpage/change-admin-info/change-admin-info.component';
 
 
-const routes: Routes = [{ path: '', redirectTo: '/admin', pathMatch: 'full' },
+const routes: Routes = [{ path: '', redirectTo: '/connection', pathMatch: 'full' },
   { path: 'connection', component: ConnectionComponent,
     children: [
       {

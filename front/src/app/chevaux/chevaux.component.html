@@ -1,4 +1,6 @@
-<app-moniteurtoolbar></app-moniteurtoolbar>
+
+<app-moniteurtoolbar *ngIf="!this.isAdmin; else elseBlock"></app-moniteurtoolbar>
+<ng-template #elseBlock><app-admintoolbar></app-admintoolbar></ng-template>
 <body class="mat-app-background">
   <div >
     <div fxLayout="column" style="padding-top: 1em;" fxLayoutAlign="start center">

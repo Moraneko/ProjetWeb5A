@@ -16,6 +16,7 @@ export class ChevauxComponent implements OnInit {
   addCheval: FormGroup;
   chevalInfo: Cheval;
   listeChevaux: Cheval[] = [];
+  isAdmin = false;
   displayedColumns: string[] = ['nom', 'race', 'age', 'couleur', 'sexe', 'taille'];
   dataSource = new MatTableDataSource<Cheval>(this.listeChevaux);
 
@@ -27,6 +28,11 @@ export class ChevauxComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private chevalService : ChevalService, private router: Router) { }
 
   ngOnInit(): void {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let role = userData.details.role;
+    if( role > 1 ){
+      this.isAdmin = true;
+    }
     // get de la liste total de chevaux
     this.chevalService.getAllCheval().subscribe(result => this.initTable(result));
 

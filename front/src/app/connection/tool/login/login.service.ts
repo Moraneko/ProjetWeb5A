@@ -16,24 +16,27 @@ export class LoginService {
   };
 
 
-  logIn(connectionInfo: ConnectionInfo): Observable<User> {
+  logIn(connectionInfo: ConnectionInfo): Observable<any> {
     return this.http.post<User>(this.loginUrl, connectionInfo, this.httpOptions).pipe(
-      tap((connectedUser: User) => console.log(`l'user c'est connecté`)),
+      tap((connectedUser: any) => {
+        this.error404 = false;
+        localStorage.setItem('user', JSON.stringify(connectedUser));
+      }),
       catchError(this.handleError<User>('logIn'))
     );
   }
 
+  error404 = false;
+
   private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
-
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-
-        // TODO: better job of transforming error for user consumption
-        console.log(`${operation} failed: ${error.message}`);
-
+        this.error404 = true;
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };
     }
+
+  getErrorMsg(): Observable<boolean> {
+    return of(this.error404);
+  }
 }

@@ -17,18 +17,19 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 	public Cours findCoursByIdCours(long id_cours);
 
 
-	public List<Cours> findAllByDateDebutBeforeAndAndDateFinAfter(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutBeforeAndDateFinAfter(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutIsBeforeAndDateFinIsAfter(Date dateDebut, Date dateFin);
 
-	public List<Cours> findAllByDateDebutBeforeAndAndDateFinBefore(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutBeforeAndDateFinBetween(Date dateDebut,Date dateDebut2, Date dateFin);
 
-	public List<Cours> findAllByDateDebutAfterAndAndDateFinAfter(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutBetweenAndDateFinAfter(Date dateDebut,Date dateFin2, Date dateFin);
 
-	public List<Cours> findAllByDateDebutAfterAndAndDateFinBefore(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutAfterAndDateFinBefore(Date dateDebut, Date dateFin);
 
 
 	public List<Cours> findCoursByIdMoniteur(long idMoniteur);
 
-	//public Cours findCoursByDateAndAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat);
+	//public Cours findCoursByDateAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat);
 	@Query(value = "SELECT id_cours, date_debut, date_fin, max_cavalier, moniteur, niveau, recurrent, titre, état from Cours  WHERE id_cours=:requestID ", nativeQuery = true)
 	JSONObject getCoursById(@Param("requestID") Long requestID);
 

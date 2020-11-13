@@ -17,12 +17,15 @@ export class ChangeAdminInfoComponent implements OnInit {
   userInfo: User = {email: '', id_user: 0, licence: '', mdp: '', role: 0, telephone: '', nom: '', prenom: ''};
 
   ngOnInit(): void {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
+
     this.changeInfoUserForm = this._formBuilder.group({
       tel : ['', Validators.required],
       licence : [''],
       emailform : ['', [Validators.required, Validators.email]]
     });
-    this.adminService.getUserById(25) // changer l'id ICI
+    this.adminService.getUserById(userID) // changer l'id ICI
       .subscribe((data: User) => this.initForm(data));
 
   }
@@ -41,8 +44,9 @@ export class ChangeAdminInfoComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this.adminService.changeInfo({ id: 25, // changer l'id ICI
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
+    this.adminService.changeInfo({ id: userID, // changer l'id ICI
       nom:  '',
       prenom:  '',
       email:  this.changeInfoUserForm.get('emailform').value,

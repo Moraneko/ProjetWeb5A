@@ -21,11 +21,12 @@
   </div>
 
 </mat-card-content>
-  <div class="center_items"><a routerLink="recuperationMotDePasse"><button>Mot de passe oublié?</button></a>
-  </div>
 <mat-card-actions>
   <div class="center_items">
     <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary" style="width : 60%; height : 4em; ">Connexion</button>
+  </div>
+  <div class="center_items">
+    <mat-error *ngIf="showError">Votre identifiant ou votre mot de passe est incorrect.</mat-error>
   </div>
 </mat-card-actions>
 

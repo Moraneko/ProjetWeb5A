@@ -13,19 +13,23 @@ import {tap} from "rxjs/operators";
 export class MoniteurpageComponent implements OnInit {
 
   dataSource : Cours[] = [];
+
   constructor(private moniteurService : MoniteurService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-
-    this.moniteurService.getCoursMoniteur(39)// changer l'id ICI
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
+    this.moniteurService.getCoursMoniteur(userID)// changer l'id ICI
         .subscribe((data: Cours[]) => this.dataSource = data);
 
   }
 
   openDialog(): void {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
     const dialogRef = this.dialog.open(MoniteurAddCoursModalComponent, {
       width: '100em',
-      data: {id_moniteur: 39} // Changer id moniteur ici
+      data: {id_moniteur: userID} // Changer id moniteur ici
     });
 
     dialogRef.afterClosed().subscribe(result => {

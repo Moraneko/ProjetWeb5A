@@ -4,6 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Cours } from '../model/cours';
 import {UserSimple} from '../model/userSimple';
+import {Cheval} from "../model/cheval";
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class CoursService {
 
   private getAllMoniteurUrl = 'http://localhost:8080/admin/getAllMoniteur';
   private addCoursUrl = 'http://localhost:8080/cours/addCoursToUser';
+  private getChevalByCoursAndUserUrl = 'http://localhost:8080/cours/detailCours';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -78,4 +80,9 @@ export class CoursService {
         };
       }
 
+  getChevalByCours(id_cours: any, userID: any): Observable<any> {
+    const url = `${this.getChevalByCoursAndUserUrl}`;
+    const params = new HttpParams().set('id_cours', id_cours).set('id_user', userID); // Create new HttpParams
+    return this.http.get<any>(url, {headers: this.httpOptions.headers, params});
+  }
 }

@@ -34,10 +34,15 @@ export class MoniteurCoursModalComponent implements OnInit {
   }
 
   chevalForUserSelected(combi, cheval){
-    this.moniteurService.attributionCheval(combi,cheval);
-    var index = this.listChevalDispo.indexOf(cheval);
-    this.listChevalDispo.splice(index,1);
+    console.log(cheval);
+    this.moniteurService.attributionCheval(combi,cheval).subscribe((data: Combinaison[]) => this.distributionUserCheval = data);
 
   }
 
+  annulerCours() {
+    const id = this.data.cours.content.id_cours;
+    this.moniteurService.annuleCours(id)
+      .subscribe(data => this.moniteurService.getCoursMoniteur(id).subscribe());
+    this.dialogRef.close();
+  }
 }

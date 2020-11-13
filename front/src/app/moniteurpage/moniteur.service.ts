@@ -20,6 +20,7 @@ export class MoniteurService {
   private attrCheval = 'http://localhost:8080/cheval/attr';
   private getUserUrl = 'http://localhost:8080/moniteur/getUser';
   private modifUserUrl = 'http://localhost:8080/moniteur/modifUser';
+  private cancelUrl = 'http://localhost:8080/cours/annule';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -70,13 +71,25 @@ export class MoniteurService {
       map(data => this.distribution = data));
   }
 
-  attributionCheval(combinaison: Combinaison, cheval: Cheval): Observable<Combinaison[]>  {
+  attributionCheval(combinaison: Combinaison, cheval: any): Observable<Combinaison[]>  {
 
     const url = `${this.attrCheval}`;
     return this.http.post<any>(url, {id_cours: combinaison.id_cours,
                                                       combi: combinaison.id_combi,
-                                                      cheval: cheval.id_cheval}, this.httpOptions).pipe(
+                                                      cheval: cheval.id}, this.httpOptions).pipe(
       map(data => this.distribution = data));
   }
 
+  annuleCours(id_cours: any) {
+    const url = `${this.cancelUrl}`;
+    const params = new HttpParams().set('id_cours', id_cours); // Create new HttpParams
+    return this.http.get<any>(url, {headers: this.httpOptions.headers, params}).pipe(
+      tap(data => {
+        this.coursMoniteur.splice(this.coursMoniteur.findIndex( x => x.id_cours === data.id), 1);
+        data.dateDebut = new Date (Date.parse(data.dateDebut) + 60 * 60 * 1000);
+        data.dateFin = new Date (Date.parse(data.dateFin) + 60 * 60 * 1000);
+        this.coursMoniteur.push(data);
+        console.log(this.coursMoniteur);
+      }));
+  }
 }

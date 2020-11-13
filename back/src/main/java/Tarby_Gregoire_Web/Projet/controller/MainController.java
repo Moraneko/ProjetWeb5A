@@ -23,7 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
+import Tarby_Gregoire_Web.Projet.SampleAuthenticationManager;
 import Tarby_Gregoire_Web.Projet.model.*;
 import Tarby_Gregoire_Web.Projet.repository.ChevalRepository;
 import Tarby_Gregoire_Web.Projet.repository.CombinaisonRepository;
@@ -34,7 +34,8 @@ import net.minidev.json.JSONObject;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class MainController {
-
+	@Autowired
+	private static AuthenticationManager am = new SampleAuthenticationManager();
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 	@Autowired
@@ -77,7 +78,7 @@ public class MainController {
 		} else {
 			//System.out.println("token");
 			token = new UsernamePasswordAuthenticationToken(identifiant, mdpBDD);
-		//	System.out.println(token);
+			//	System.out.println(token);
 			Authentication result = this.am.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(result);
 			Utilisateur utilisateur = utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateurRepository.getIdUtilisateurbyEmailOrTel(identifiant));
@@ -165,26 +166,30 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/getUser")
-	public ResponseEntity<List<CoursAvecInfoMoniteur>> recupCoursUtilisateurs(@Validated @RequestParam  int id_user){
-
-		List<Cours> listCoursBDD= new ArrayList<>();
+	public ResponseEntity<List<CoursAvecInfoMoniteur>> recupCoursUtilisateurs(@Validated @RequestParam  int id_user) throws ParseException {
+		//Long id_user= (Long) body.getAsNumber("id_user");
 		List<JSONObject> listCoursBDDString = combinaisonRepository.getCoursUserById((long) id_user);
+		List<Cours> listCoursBDD= new ArrayList<>();
+
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		Date dateparse=format.parse(format.format(date));
+
 
 		for(JSONObject coursString : listCoursBDDString){
-
 			Cours coursBDD =new Cours((Date) coursString.get("date_debut"),(Date) coursString.get("date_fin"), coursString.getAsNumber("max_cavalier").intValue(), coursString.getAsNumber("niveau").intValue(),coursString.getAsString("titre"),(boolean) coursString.get("recurrent"), coursString.getAsNumber("moniteur").longValue(), coursString.getAsNumber("état").intValue());
-
 			coursBDD.setId(coursString.getAsNumber("id_cours").longValue());
 			listCoursBDD.add(coursBDD);
 		}
 
 		List<CoursAvecInfoMoniteur> allCoursInfo= new ArrayList<>();
 		for (Cours cours : listCoursBDD){
-			String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
-			String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
+			if(combinaisonRepository.findCombinaisonByIdCours(cours.getId()).size()<cours.getMax_cavalier() && cours.getDateDebut().after(dateparse)){
+				String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
+				String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
 
-			CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(), cours.getIdMoniteur(), cours.getDateDebut().toString(),cours.getDateFin().toString(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
-			allCoursInfo.add(coursinfo);
+				CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(), cours.getIdMoniteur(), cours.getDateDebut().toString(),cours.getDateFin().toString(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
+				allCoursInfo.add(coursinfo);}
 		}
 
 		return new ResponseEntity<>(allCoursInfo,HttpStatus.OK);
@@ -237,29 +242,33 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/getMoniteur")
-	public ResponseEntity<List<JSONObject>> getCoursMoniteur(@Validated @RequestParam long id_moniteur) {  //pb format date
+	public ResponseEntity<List<JSONObject>> getCoursMoniteur(@Validated @RequestParam long id_moniteur) throws ParseException {
 
-	//int id_user= (int) body.getAsNumber("id_moniteur");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		Date dateparse=format.parse(format.format(date));
 		List<Cours> coursMoniteurBDD = coursRepository.findCoursByIdMoniteur(id_moniteur);
 		List<JSONObject> coursMoniteurBDDJSON = new ArrayList<>();
-		for (Cours coursBDD : coursMoniteurBDD){
+		for (Cours coursBDD : coursMoniteurBDD) {
+			if (combinaisonRepository.findCombinaisonByIdCours(coursBDD.getId()).size() < coursBDD.getMax_cavalier() && coursBDD.getDateDebut().after(dateparse)) {
 
-			JSONObject objetRetour = new JSONObject();
-			objetRetour.put("id_cours",coursBDD.getId());
-			objetRetour.put("max_cavalier",coursBDD.getMax_cavalier());
-			objetRetour.put("niveau",coursBDD.getNiveau());
-			objetRetour.put("etat",coursBDD.getEtat());
-			objetRetour.put("dateDebut",coursBDD.getDateDebut());
-			objetRetour.put("dateFin",coursBDD.getDateFin());
-			objetRetour.put("idMoniteur",coursBDD.getIdMoniteur());
-			objetRetour.put("recurrent",coursBDD.getRecurrent());
-			objetRetour.put("titre",coursBDD.getTitre());
-			objetRetour.put("id_cours",coursBDD.getId());
-			coursMoniteurBDDJSON.add(objetRetour);
+				JSONObject objetRetour = new JSONObject();
+				objetRetour.put("id_cours", coursBDD.getId());
+				objetRetour.put("max_cavalier", coursBDD.getMax_cavalier());
+				objetRetour.put("niveau", coursBDD.getNiveau());
+				objetRetour.put("etat", coursBDD.getEtat());
+				objetRetour.put("dateDebut", coursBDD.getDateDebut());
+				objetRetour.put("dateFin", coursBDD.getDateFin());
+				objetRetour.put("idMoniteur", coursBDD.getIdMoniteur());
+				objetRetour.put("recurrent", coursBDD.getRecurrent());
+				objetRetour.put("titre", coursBDD.getTitre());
+				coursMoniteurBDDJSON.add(objetRetour);
+			}
 		}
 
 		return new ResponseEntity<>(coursMoniteurBDDJSON, HttpStatus.OK);
 	}
+
 
 
 	@ResponseBody
@@ -297,6 +306,7 @@ public class MainController {
 		objetRetour.put("titre",coursBDD.getTitre());
 		objetRetour.put("nomMoniteur",nomMoniteur);
 		objetRetour.put("prenomMoniteur",prenomMoniteur);
+		objetRetour.put("id_cours",coursBDD.getId());
 
 
 
@@ -315,7 +325,7 @@ public class MainController {
 		Cours coursRequest = new Cours(dateDebut,dateDebut,5,6,"test",false,(long)8,0);
 		coursRepository.save(coursRequest);
 
-		//Cours coursBDD= coursRepository.findCoursByDateAndAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(cours.getDate(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),cours.getIdMoniteur(),cours.getEtat());
+		//Cours coursBDD= coursRepository.findCoursByDateAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(cours.getDate(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),cours.getIdMoniteur(),cours.getEtat());
 		//Cours coursBDD = coursRepository.findCoursByIdCours(coursRepository.findLastIdCours());
 
 		//System.out.println(coursRepository.getCoursById((long) 5).get("date_debut"));
@@ -422,29 +432,43 @@ public class MainController {
 
 	@ResponseBody
 	@PostMapping("/cheval/attr")
-	public ResponseEntity<List<Combinaison>> attCheval (@Validated @RequestBody JSONObject body){
+	public ResponseEntity<List<JSONObject>> attCheval (@Validated @RequestBody JSONObject body){
 		Long id_cours = body.getAsNumber("id_cours").longValue();
 		Long id_combi = body.getAsNumber("combi").longValue();
 		Long id_cheval = body.getAsNumber("cheval").longValue();
 
-		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCombinaison(id_combi);
-		combinaisonBDD.setIdCheval(id_cheval);
-		combinaisonRepository.save(combinaisonBDD);
+		Combinaison combinaisonBDDAppel =combinaisonRepository.findCombinaisonByIdCombinaison(id_combi);
+		combinaisonBDDAppel.setIdCheval(id_cheval);
+		combinaisonRepository.save(combinaisonBDDAppel);
 
 		List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
-		return new ResponseEntity<>(combinaisonListBDD, HttpStatus.CREATED);
+
+
+		List<JSONObject> retourCombinaison = new ArrayList<>();
+		for(Combinaison combinaisonBDD : combinaisonListBDD){
+
+			JSONObject objetRetour = new JSONObject();
+			Cheval chevalBDD = chevalRepository.findChevalByIdCheval(combinaisonBDD.getIdCheval());
+			Utilisateur utilisateurBDD=utilisateurRepository.findUtilisateurByIdUtilisateur(combinaisonBDD.getIdUtilisateur());
+			UtilisateurSimple utilisateurSimpleBDD = new UtilisateurSimple(utilisateurBDD.getId(), utilisateurBDD.getPrenom(), utilisateurBDD.getNom(),utilisateurBDD.getRole());
+
+			objetRetour.put("cheval",chevalBDD);
+			objetRetour.put("utilisateur",utilisateurSimpleBDD);
+			objetRetour.put("id_combi",combinaisonBDD.getId());
+			objetRetour.put("id_cours",combinaisonBDD.getIdCours());
+
+			retourCombinaison.add(objetRetour);
+		}
+		return new ResponseEntity<>(retourCombinaison, HttpStatus.CREATED);
 
 	}
-
 	@ResponseBody
 	@GetMapping("/cours/detailCours")
 	public ResponseEntity<Cheval> chevalAssocié (@Validated @RequestParam long id_user, @RequestParam long id_cours	){
 
 		Cheval chevalBDD = new Cheval();
 
-
-
-		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCoursAndAndIdUtilisateur(id_cours,id_user);
+		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCoursAndIdUtilisateur(id_cours,id_user);
 		if(combinaisonBDD.getIdCheval()==-1){
 			chevalBDD.setNom(null);
 		}
@@ -457,6 +481,17 @@ public class MainController {
 	}
 
 	@ResponseBody
+	@GetMapping("/cours/annule")
+	public ResponseEntity<Cours> annuleCours(@Validated @RequestParam long id_cours){
+		Cours coursBDD=coursRepository.findCoursByIdCours(id_cours);
+		coursBDD.setEtat(1);
+		coursRepository.save(coursBDD);
+
+		Cours coursBDDAnnule=coursRepository.findCoursByIdCours(id_cours);
+		return new ResponseEntity<>(coursBDDAnnule,HttpStatus.OK);
+	}
+
+	@ResponseBody
 	@GetMapping("/cheval/dispo")
 	public ResponseEntity<List<Cheval>> dispoCheval(@Validated @RequestParam long id_cours ){
 			Cours coursBDD = coursRepository.findCoursByIdCours(id_cours);
@@ -464,10 +499,10 @@ public class MainController {
 			Date dateDebut = coursBDD.getDateDebut();
 			Date dateFin = coursBDD.getDateFin();
 
-			List<Cours> coursBeforeAfter = coursRepository.findAllByDateDebutBeforeAndAndDateFinAfter(dateDebut,dateFin);
-			List<Cours> coursBeforeBefore =coursRepository.findAllByDateDebutBeforeAndAndDateFinBefore(dateDebut,dateFin);
-			List<Cours> coursAfterAfter =coursRepository.findAllByDateDebutAfterAndAndDateFinAfter(dateDebut,dateFin);
-			List<Cours> coursAfterBefore =coursRepository.findAllByDateDebutAfterAndAndDateFinBefore(dateDebut,dateFin);
+			List<Cours> coursBeforeAfter = coursRepository.findAllByDateDebutBeforeAndDateFinAfter(dateDebut,dateFin);
+			List<Cours> coursBeforeBefore =coursRepository.findAllByDateDebutBeforeAndDateFinBetween(dateDebut,dateDebut,dateFin);
+			List<Cours> coursAfterAfter =coursRepository.findAllByDateDebutBetweenAndDateFinAfter(dateDebut,dateFin,dateFin);
+			List<Cours> coursAfterBefore =coursRepository.findAllByDateDebutAfterAndDateFinBefore(dateDebut,dateFin);
 
 			List<Cours> allCoursConflit= new ArrayList<>();
 
@@ -491,8 +526,11 @@ public class MainController {
 				for (List<Combinaison> i : allCombinaisonConflit){
 					for (Combinaison j : i){
 						if (cheval.getId()==j.getIdCheval()){
-							compt++;
 
+							compt++;
+							if (coursRepository.findCoursByIdCours(j.getIdCours()).getEtat()==1){
+								compt--;
+							}
 						}
 					}
 				}
@@ -506,8 +544,5 @@ public class MainController {
 
 
 	}
-
-
-
 
 }
