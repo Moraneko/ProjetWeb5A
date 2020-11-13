@@ -23,7 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
+import Tarby_Gregoire_Web.Projet.SampleAuthenticationManager;
 import Tarby_Gregoire_Web.Projet.model.*;
 import Tarby_Gregoire_Web.Projet.repository.ChevalRepository;
 import Tarby_Gregoire_Web.Projet.repository.CombinaisonRepository;
@@ -34,7 +34,8 @@ import net.minidev.json.JSONObject;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class MainController {
-
+	@Autowired
+	private static AuthenticationManager am = new SampleAuthenticationManager();
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 	@Autowired
@@ -297,6 +298,7 @@ public class MainController {
 		objetRetour.put("titre",coursBDD.getTitre());
 		objetRetour.put("nomMoniteur",nomMoniteur);
 		objetRetour.put("prenomMoniteur",prenomMoniteur);
+		objetRetour.put("id_cours",coursBDD.getId());
 
 
 
@@ -315,7 +317,7 @@ public class MainController {
 		Cours coursRequest = new Cours(dateDebut,dateDebut,5,6,"test",false,(long)8,0);
 		coursRepository.save(coursRequest);
 
-		//Cours coursBDD= coursRepository.findCoursByDateAndAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(cours.getDate(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),cours.getIdMoniteur(),cours.getEtat());
+		//Cours coursBDD= coursRepository.findCoursByDateAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(cours.getDate(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),cours.getIdMoniteur(),cours.getEtat());
 		//Cours coursBDD = coursRepository.findCoursByIdCours(coursRepository.findLastIdCours());
 
 		//System.out.println(coursRepository.getCoursById((long) 5).get("date_debut"));
@@ -422,20 +424,36 @@ public class MainController {
 
 	@ResponseBody
 	@PostMapping("/cheval/attr")
-	public ResponseEntity<List<Combinaison>> attCheval (@Validated @RequestBody JSONObject body){
+	public ResponseEntity<List<JSONObject>> attCheval (@Validated @RequestBody JSONObject body){
 		Long id_cours = body.getAsNumber("id_cours").longValue();
 		Long id_combi = body.getAsNumber("combi").longValue();
 		Long id_cheval = body.getAsNumber("cheval").longValue();
 
-		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCombinaison(id_combi);
-		combinaisonBDD.setIdCheval(id_cheval);
-		combinaisonRepository.save(combinaisonBDD);
+		Combinaison combinaisonBDDAppel =combinaisonRepository.findCombinaisonByIdCombinaison(id_combi);
+		combinaisonBDDAppel.setIdCheval(id_cheval);
+		combinaisonRepository.save(combinaisonBDDAppel);
 
 		List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
-		return new ResponseEntity<>(combinaisonListBDD, HttpStatus.CREATED);
+
+
+		List<JSONObject> retourCombinaison = new ArrayList<>();
+		for(Combinaison combinaisonBDD : combinaisonListBDD){
+
+			JSONObject objetRetour = new JSONObject();
+			Cheval chevalBDD = chevalRepository.findChevalByIdCheval(combinaisonBDD.getIdCheval());
+			Utilisateur utilisateurBDD=utilisateurRepository.findUtilisateurByIdUtilisateur(combinaisonBDD.getIdUtilisateur());
+			UtilisateurSimple utilisateurSimpleBDD = new UtilisateurSimple(utilisateurBDD.getId(), utilisateurBDD.getPrenom(), utilisateurBDD.getNom(),utilisateurBDD.getRole());
+
+			objetRetour.put("cheval",chevalBDD);
+			objetRetour.put("utilisateur",utilisateurSimpleBDD);
+			objetRetour.put("id_combi",combinaisonBDD.getId());
+			objetRetour.put("id_cours",combinaisonBDD.getIdCours());
+
+			retourCombinaison.add(objetRetour);
+		}
+		return new ResponseEntity<>(retourCombinaison, HttpStatus.CREATED);
 
 	}
-
 	@ResponseBody
 	@GetMapping("/cours/detailCours")
 	public ResponseEntity<Cheval> chevalAssocié (@Validated @RequestParam long id_user, @RequestParam long id_cours	){
@@ -444,7 +462,7 @@ public class MainController {
 
 
 
-		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCoursAndAndIdUtilisateur(id_cours,id_user);
+		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCoursAndIdUtilisateur(id_cours,id_user);
 		if(combinaisonBDD.getIdCheval()==-1){
 			chevalBDD.setNom(null);
 		}
@@ -464,10 +482,10 @@ public class MainController {
 			Date dateDebut = coursBDD.getDateDebut();
 			Date dateFin = coursBDD.getDateFin();
 
-			List<Cours> coursBeforeAfter = coursRepository.findAllByDateDebutBeforeAndAndDateFinAfter(dateDebut,dateFin);
-			List<Cours> coursBeforeBefore =coursRepository.findAllByDateDebutBeforeAndAndDateFinBefore(dateDebut,dateFin);
-			List<Cours> coursAfterAfter =coursRepository.findAllByDateDebutAfterAndAndDateFinAfter(dateDebut,dateFin);
-			List<Cours> coursAfterBefore =coursRepository.findAllByDateDebutAfterAndAndDateFinBefore(dateDebut,dateFin);
+			List<Cours> coursBeforeAfter = coursRepository.findAllByDateDebutBeforeAndDateFinAfter(dateDebut,dateFin);
+			List<Cours> coursBeforeBefore =coursRepository.findAllByDateDebutBeforeAndDateFinBefore(dateDebut,dateFin);
+			List<Cours> coursAfterAfter =coursRepository.findAllByDateDebutAfterAndDateFinAfter(dateDebut,dateFin);
+			List<Cours> coursAfterBefore =coursRepository.findAllByDateDebutAfterAndDateFinBefore(dateDebut,dateFin);
 
 			List<Cours> allCoursConflit= new ArrayList<>();
 

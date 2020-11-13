@@ -34,9 +34,8 @@ export class MoniteurCoursModalComponent implements OnInit {
   }
 
   chevalForUserSelected(combi, cheval){
-    this.moniteurService.attributionCheval(combi,cheval);
-    var index = this.listChevalDispo.indexOf(cheval);
-    this.listChevalDispo.splice(index,1);
+    console.log(cheval);
+    this.moniteurService.attributionCheval(combi,cheval).subscribe((data: Combinaison[]) => this.distributionUserCheval = data);
 
   }
 

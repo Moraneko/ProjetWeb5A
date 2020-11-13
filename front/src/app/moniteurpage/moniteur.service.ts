@@ -70,12 +70,12 @@ export class MoniteurService {
       map(data => this.distribution = data));
   }
 
-  attributionCheval(combinaison: Combinaison, cheval: Cheval): Observable<Combinaison[]>  {
+  attributionCheval(combinaison: Combinaison, cheval: any): Observable<Combinaison[]>  {
 
     const url = `${this.attrCheval}`;
     return this.http.post<any>(url, {id_cours: combinaison.id_cours,
                                                       combi: combinaison.id_combi,
-                                                      cheval: cheval.id_cheval}, this.httpOptions).pipe(
+                                                      cheval: cheval.id}, this.httpOptions).pipe(
       map(data => this.distribution = data));
   }
 
