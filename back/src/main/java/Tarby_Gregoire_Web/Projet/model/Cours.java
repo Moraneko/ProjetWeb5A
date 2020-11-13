@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Cours{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCours;
 
 	//@Column(name="date", nullable = false)
@@ -39,7 +39,7 @@ public class Cours{
 	private Long idMoniteur;
 
 	@Column (name = "état", nullable = false)
-	private int etat;  // 0: cours, 1: fini, 2: annulé
+	private int etat;  // 0: cours, 1: annulé
 
 	public Cours() {
 

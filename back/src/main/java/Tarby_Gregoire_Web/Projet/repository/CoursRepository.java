@@ -16,7 +16,15 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 
 	public Cours findCoursByIdCours(long id_cours);
 
-	public List<Cours> findAllByDateDebutAfter(Date date);
+
+	public List<Cours> findAllByDateDebutBeforeAndAndDateFinAfter(Date dateDebut, Date dateFin);
+
+	public List<Cours> findAllByDateDebutBeforeAndAndDateFinBefore(Date dateDebut, Date dateFin);
+
+	public List<Cours> findAllByDateDebutAfterAndAndDateFinAfter(Date dateDebut, Date dateFin);
+
+	public List<Cours> findAllByDateDebutAfterAndAndDateFinBefore(Date dateDebut, Date dateFin);
+
 
 	public List<Cours> findCoursByIdMoniteur(long idMoniteur);
 
