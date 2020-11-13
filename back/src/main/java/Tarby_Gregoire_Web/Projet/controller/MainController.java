@@ -78,7 +78,7 @@ public class MainController {
 		} else {
 			//System.out.println("token");
 			token = new UsernamePasswordAuthenticationToken(identifiant, mdpBDD);
-		//	System.out.println(token);
+			//	System.out.println(token);
 			Authentication result = this.am.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(result);
 			Utilisateur utilisateur = utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateurRepository.getIdUtilisateurbyEmailOrTel(identifiant));

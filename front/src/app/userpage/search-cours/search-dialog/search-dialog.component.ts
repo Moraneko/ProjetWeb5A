@@ -99,8 +99,9 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
       }
       // Event lors de la selection d'un nouveau cours
       public selectCours(event: any) {
-        console.log('ICI');
-        this.coursService.addCours(40, event.currentTarget.value).subscribe(data => { // changer id ICI
+        let userData = JSON.parse(localStorage.getItem('user'));
+        let userID = userData.details.id;
+        this.coursService.addCours(userID, event.currentTarget.value).subscribe(data => { // changer id ICI
           this.majCoursSelected();
         });
       }

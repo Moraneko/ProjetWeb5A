@@ -20,11 +20,13 @@ export class UserpageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.coursService.getCoursUser(40) // changer l'id ICI
-          .subscribe((data: Cours[]) => {
-            this.dataSource = data;
-            console.log(data);
-          });
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
+    this.coursService.getCoursUser(userID) // changer l'id ICI
+            .subscribe((data: Cours[]) => {
+              this.dataSource = data;
+              console.log(data);
+            });
 
   }
 

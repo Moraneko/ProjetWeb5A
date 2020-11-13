@@ -33,6 +33,8 @@ export class MoniteurAddCoursModalComponent implements OnInit {
   }
 
   onSubmit() {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let userID = userData.details.id;
     let debut = new Date(this.newCours.get('horaire').value);
     let fin = new Date(this.newCours.get('horaire_fin').value);
     this.moniteurService.createCours({
@@ -42,7 +44,7 @@ export class MoniteurAddCoursModalComponent implements OnInit {
       max_cavalier: this.newCours.get('max_cavalier').value,
       niveau: this.newCours.get('niveau').value,
       recurrent: this.checkedRecurrent,
-      idMoniteur: 39,                                        // Changer l'id du moniteur ici
+      idMoniteur: userID,                                        // Changer l'id du moniteur ici
       titre: this.newCours.get('titre').value,
       etat: 0
       })
