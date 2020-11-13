@@ -1,16 +1,20 @@
 package Tarby_Gregoire_Web.Projet.model;
 
+
 import java.io.Serializable;
+
 
 import javax.persistence.*;
 
 @Entity
 @Table(name= "utilisateurs")
+
 public class Utilisateur{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUtilisateur;
+
 
 	@Column(name="prenom", nullable = false)
 	private String prenom;
@@ -21,8 +25,10 @@ public class Utilisateur{
 	@Column(name="email", nullable = false)
 	private String email;
 
+
 	@Column(name="telephone", nullable = false)
 	private String telephone;
+
 
 	@Column(name="licence")
 	private String licence;
@@ -31,16 +37,20 @@ public class Utilisateur{
 	private String mdp;
 
 	@Column(name="role", nullable = false)
+
 	private int role;  //0: user 1: moniteur, 2:admin
+
 
 	public Utilisateur() {
 
 	}
+
 	public Utilisateur(String prenom, String nom, String email, String telephone, String licence, String mdp, int role) {
 		this.prenom = prenom;
 		this.nom = nom;
 		this.email = email;
 		this.telephone = telephone;
+
 		this.licence = licence;
 		this.mdp = mdp;
 		this.role = role;
@@ -48,11 +58,13 @@ public class Utilisateur{
 
 
 	public Long getId() {
+
 		return idUtilisateur;
 	}
 
 	public void setId(Long id) {
 		this.idUtilisateur = id;
+
 	}
 
 
@@ -83,12 +95,14 @@ public class Utilisateur{
 	}
 
 
+
 	public String getTelephone() {
 		return telephone;
 	}
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+
 	}
 
 

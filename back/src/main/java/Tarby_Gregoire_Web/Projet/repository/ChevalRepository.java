@@ -14,4 +14,5 @@ public interface ChevalRepository extends JpaRepository<Cheval, Long> {
 
 	@Query("SELECT max(idCheval) FROM Cheval ")
 	Long findLastIdCheval();
+
 }

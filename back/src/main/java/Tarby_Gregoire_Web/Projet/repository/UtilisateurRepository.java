@@ -1,6 +1,7 @@
 package Tarby_Gregoire_Web.Projet.repository;
 
 
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +30,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
 	@Query("SELECT nom from Utilisateur where idUtilisateur=:requestID")
 	String getNomById(@Param("requestID") Long requestID);
+
 
 }

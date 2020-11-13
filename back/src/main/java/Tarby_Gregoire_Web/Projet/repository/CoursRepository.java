@@ -1,6 +1,7 @@
 package Tarby_Gregoire_Web.Projet.repository;
 
 import java.text.DateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 
 	@Query("SELECT max(idCours) FROM Cours ")
 	Long findLastIdCours();
+
 
 
 }

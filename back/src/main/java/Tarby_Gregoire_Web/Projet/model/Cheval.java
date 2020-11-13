@@ -8,6 +8,7 @@ public class Cheval {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private Long idCheval;
 
 	@Column(name="nom", unique = true)
@@ -35,6 +36,7 @@ public class Cheval {
 
 
 	public Cheval(String nom, int age, String sexe, int taille, String couleur, String race) {
+
 		this.nom = nom;
 		this.age = age;
 		this.sexe = sexe;
@@ -50,6 +52,7 @@ public class Cheval {
 
 	public void setId(Long id) {
 		this.idCheval = id;
+
 	}
 
 
@@ -97,6 +100,7 @@ public class Cheval {
 		this.couleur = couleur;
 	}
 
+
 	public String getRace() {
 		return race;
 	}
@@ -104,4 +108,5 @@ public class Cheval {
 	public void setRace(String race) {
 		this.race = race;
 	}
+
 }

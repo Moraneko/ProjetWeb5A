@@ -3,10 +3,12 @@ package Tarby_Gregoire_Web.Projet.model;
 import java.text.DateFormat;
 import java.util.Date;
 
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cours")
+
 public class Cours{
 
 	@Id
@@ -26,6 +28,7 @@ public class Cours{
 	@Column(name="max_cavalier", nullable = false)
 	private int maxcavalier;
 
+
 	@Column(name="niveau", nullable = false)
 	private int niveau;
 
@@ -35,15 +38,18 @@ public class Cours{
 	@Column(name="recurrent", nullable = false)
 	private Boolean recurrent;
 
+
 	@Column (name="moniteur",nullable = false)
 	private Long idMoniteur;
 
 	@Column (name = "état", nullable = false)
 	private int etat;  // 0: cours, 1: annulé
 
+
 	public Cours() {
 
 	}
+
 
 	public Cours(Date dateDebut, Date dateFin, int max_cavalier, int niveau, String titre, Boolean recurrent, Long idMoniteur, int etat) {
 
@@ -59,6 +65,7 @@ public class Cours{
 
 
 	public Long getId() {
+
 		return idCours;
 	}
 
@@ -73,15 +80,18 @@ public class Cours{
 
 	public void setDate(Date dateDebut) {
 		this.dateDebut = dateDebut;
+
 	}
 
 
 	public int getMax_cavalier() {
+
 		return maxcavalier;
 	}
 
 	public void setMax_cavalier(int max_cavalier) {
 		this.maxcavalier = max_cavalier;
+
 	}
 
 
@@ -111,6 +121,7 @@ public class Cours{
 		this.recurrent = recurrent;
 	}
 
+
 	public Long getIdMoniteur() {
 		return idMoniteur;
 	}
@@ -134,4 +145,5 @@ public class Cours{
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
+
 }
