@@ -19,6 +19,7 @@ export class ChevalService {
   constructor(private http: HttpClient) { }
 
   private listChevalDispo: Cheval[] = [];
+  private listChevalTot: Cheval[] = [];
 
   /*
   getChevalDispo(id_cours): Observable<Cheval[]>{
@@ -34,7 +35,7 @@ export class ChevalService {
   getAllCheval(): Observable<Cheval[]> {
     const url = `${this.getAllChevalUrl}`;
     return this.http.get<Cheval[]>(url).pipe(
-     map(data => this.listChevalDispo = data)
+     map(data => this.listChevalTot = data)
     );
   }
 

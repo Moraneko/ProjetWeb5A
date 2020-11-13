@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Cours } from '../model/cours';
-import {UserSimple} from "../model/userSimple";
+import {UserSimple} from '../model/userSimple';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,26 +15,30 @@ export class CoursService {
   private getAllCoursStr =  'http://localhost:8080/cours/getAllCours';
 
   private getAllMoniteurUrl = 'http://localhost:8080/admin/getAllMoniteur';
+  private addCoursUrl = 'http://localhost:8080/cours/addCoursToUser';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private userCours: Cours[] = [
-    {id_cours: 2, date_debut: new Date("November 11, 2020 12:00:00"), date_fin: new Date("November 11, 2020 13:00:00"), max_cavalier: 10, niveau: 2 , recurrent: false, moniteur: 1, titre: ''},
-  ];
+  private userCours: Cours[] = [];
 
   private moniteurList: UserSimple[] = [];
 
+
   private allCours: Cours[] = [];
-  /*getCoursUser(id_user): Observable<Cours[]>{
-    const url = `${this.getCours}/${id_user}`;
-    return this.http.get<Cours[]>(url, {id_user : id_user}, this.httpOptions).pipe(
-      tap((cours: Cours[]) => console.log(cours )),
-      catchError(this.handleError<Cours[]>('getCours'))
-      );
+  getCoursUser(id_user): Observable<Cours[]>{
+
+    const url = `${this.getCours}`;
+    const params = new HttpParams().set('id_user', id_user); // Create new HttpParams
+    return this.http.get<any[]>(url, {headers: this.httpOptions.headers, params}).pipe(map(data =>
+      this.userCours = data.map(val => {
+        const temp = Object.assign({}, val);
+        temp.dateDebut = new Date (Date.parse(val.dateDebut) + 60 * 60 * 1000);
+        temp.dateFin = new Date (Date.parse(val.dateFin) + 60 * 60 * 1000);
+        return temp;
+      } )));
 
   }
-  */
   getAllCours(): Observable<Cours[]>{
     const url = `${this.getAllCoursStr}`;
     return this.http.get<Cours[]>(url).pipe(
@@ -48,16 +52,16 @@ export class CoursService {
     );
   }
 
-// FNC TEMPORAIRE
-    getCoursUser(id_user): Observable<Cours[]> {
-      return of(this.userCours);
-    }
+    addCours(id_user, id_cours){
+      // tslint:disable-next-line:max-line-length
+      const params = new HttpParams().set('idCours', id_cours).set('iduser', id_user); // Create new HttpParams
+      return this.http.get<Cours>(this.addCoursUrl,  {headers: this.httpOptions.headers, params}).pipe(tap((data: any) => {
+         data.dateDebut = new Date (Date.parse(data.dateDebut) + 60 * 60 * 1000);
+         data.dateFin = new Date (Date.parse(data.dateFin) + 60 * 60 * 1000);
+         this.userCours.push(data);
+     }
+        ));
 
-    addCours(id_user,id_cours){
-      this.userCours.push(this.allCours[id_cours-1]);
-      console.log("Liste des cours de l'user:");
-      console.log(this.userCours);
-        this.http.post("http://localhost:8080/cours/addCoursToUser", {idCours: id_cours, iduser: id_user} ,this.httpOptions).subscribe();
     }
 
    private handleError<T>(operation = 'operation', result?: T) {

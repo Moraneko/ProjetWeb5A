@@ -42,7 +42,7 @@ export class MoniteurAddCoursModalComponent implements OnInit {
       max_cavalier: this.newCours.get('max_cavalier').value,
       niveau: this.newCours.get('niveau').value,
       recurrent: this.checkedRecurrent,
-      idMoniteur: 0,                                        // Changer l'id du moniteur ici
+      idMoniteur: 39,                                        // Changer l'id du moniteur ici
       titre: this.newCours.get('titre').value,
       etat: 0
       })

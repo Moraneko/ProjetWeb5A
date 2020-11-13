@@ -24,7 +24,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
-import Tarby_Gregoire_Web.Projet.SampleAuthenticationManager;
 import Tarby_Gregoire_Web.Projet.model.*;
 import Tarby_Gregoire_Web.Projet.repository.ChevalRepository;
 import Tarby_Gregoire_Web.Projet.repository.CombinaisonRepository;
@@ -35,8 +34,6 @@ import net.minidev.json.JSONObject;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class MainController {
-	@Autowired
-	private static AuthenticationManager am = new SampleAuthenticationManager();
 
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
@@ -160,9 +157,9 @@ public class MainController {
 	@ResponseBody
 	@GetMapping("/cours/getUser")
 	public ResponseEntity<List<CoursAvecInfoMoniteur>> recupCoursUtilisateurs(@Validated @RequestParam  int id_user){
-		//Long id_user= (Long) body.getAsNumber("id_user");
-		List<JSONObject> listCoursBDDString = combinaisonRepository.getCoursUserById((long) id_user);
+
 		List<Cours> listCoursBDD= new ArrayList<>();
+		List<JSONObject> listCoursBDDString = combinaisonRepository.getCoursUserById((long) id_user);
 
 		for(JSONObject coursString : listCoursBDDString){
 
@@ -187,13 +184,13 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/addCoursToUser")
-	public ResponseEntity<CoursAvecInfoMoniteur> addCoursToUtilisateurs(//@Validated @RequestParam long iduser, @RequestParam long idCours
+	public ResponseEntity<CoursAvecInfoMoniteur> addCoursToUtilisateurs(@Validated @RequestParam long iduser, @RequestParam long idCours
 	){
 
 
-		Combinaison combinaison = new Combinaison((long)2,(long)-1,(long)4);
+		Combinaison combinaison = new Combinaison((long)iduser,(long)-1,(long)idCours);
 		combinaisonRepository.save(combinaison);
-		Cours cours =coursRepository.findCoursByIdCours(4);
+		Cours cours =coursRepository.findCoursByIdCours(idCours);
 
 		String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
 		String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
@@ -240,11 +237,12 @@ public class MainController {
 			objetRetour.put("max_cavalier",coursBDD.getMax_cavalier());
 			objetRetour.put("niveau",coursBDD.getNiveau());
 			objetRetour.put("etat",coursBDD.getEtat());
-			objetRetour.put("date_debut",coursBDD.getDateDebut());
-			objetRetour.put("date_fin",coursBDD.getDateFin());
+			objetRetour.put("dateDebut",coursBDD.getDateDebut());
+			objetRetour.put("dateFin",coursBDD.getDateFin());
 			objetRetour.put("idMoniteur",coursBDD.getIdMoniteur());
 			objetRetour.put("recurrent",coursBDD.getRecurrent());
 			objetRetour.put("titre",coursBDD.getTitre());
+			objetRetour.put("id_cours",coursBDD.getId());
 			coursMoniteurBDDJSON.add(objetRetour);
 		}
 
@@ -280,8 +278,8 @@ public class MainController {
 		objetRetour.put("max_cavalier",coursBDD.getMax_cavalier());
 		objetRetour.put("niveau",coursBDD.getNiveau());
 		objetRetour.put("etat",coursBDD.getEtat());
-		objetRetour.put("date_debut",coursBDD.getDateDebut());
-		objetRetour.put("date_fin",coursBDD.getDateFin());
+		objetRetour.put("dateDebut",coursBDD.getDateDebut());
+		objetRetour.put("dateFin",coursBDD.getDateFin());
 		objetRetour.put("idMoniteur",coursBDD.getIdMoniteur());
 		objetRetour.put("recurrent",coursBDD.getRecurrent());
 		objetRetour.put("titre",coursBDD.getTitre());
@@ -329,10 +327,9 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/combiOfCours")
-	public ResponseEntity<List<JSONObject>> combiOfCours (//@Validated @RequestParam int id_cours
+	public ResponseEntity<List<JSONObject>> combiOfCours (@Validated @RequestParam int id_cours
 	){
-			//List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
-		List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(1);
+			List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
 
 		List<JSONObject> retourCombinaison = new ArrayList<>();
 			for(Combinaison combinaisonBDD : combinaisonListBDD){

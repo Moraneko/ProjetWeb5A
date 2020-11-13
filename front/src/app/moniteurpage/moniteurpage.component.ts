@@ -17,7 +17,7 @@ export class MoniteurpageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.moniteurService.getCoursMoniteur(0)// changer l'id ICI
+    this.moniteurService.getCoursMoniteur(39)// changer l'id ICI
         .subscribe((data: Cours[]) => this.dataSource = data);
 
   }
@@ -25,7 +25,7 @@ export class MoniteurpageComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(MoniteurAddCoursModalComponent, {
       width: '100em',
-      data: {id_moniteur: 0} // Changer id moniteur ici
+      data: {id_moniteur: 39} // Changer id moniteur ici
     });
 
     dialogRef.afterClosed().subscribe(result => {
