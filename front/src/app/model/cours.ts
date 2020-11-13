@@ -7,5 +7,5 @@ export interface Cours {
   recurrent: boolean;
   moniteur: number;
   titre: String;
-
+  etat: Number;
 }

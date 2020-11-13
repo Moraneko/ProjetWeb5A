@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start center" >
-  <h1>{{this.data.cours.content.titre}} </h1>
-  <h2>le {{this.data.cours.content.dateDebut | date:'d/MM/yy h:mm'}} de {{this.data.cours.content.dateDebut | date:'h:mm'}} à {{this.data.cours.content.dateFin | date:'h:mm'}}</h2>
+    <h1>{{this.data.cours.content.titre}} </h1>
+  <h2>le {{this.data.cours.content.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{this.data.cours.content.dateFin | date:'à HH:mm)'}}</h2>
 </div>
 
 <h1>Liste des participants :</h1>
@@ -32,3 +32,6 @@
   <h2 style="color: red;">Il n'y a pas de chevaux enregistrés, voici un lien pour accéder à la page de <a style="color: red;" routerLink="/gestionChevaux" (click)="onNoClick()">Gestion des chevaux</a>.</h2>
 </div>
 
+<div fxLayout="row" fxLayoutAlign="end center" >
+  <button type="button" mat-raised-button color="warn" (click)="annulerCours()" style="width : 20%; height : 4em; ">Annuler le Cours</button>
+</div>

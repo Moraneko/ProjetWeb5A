@@ -14,6 +14,7 @@ export class CoursComponent implements OnInit {
   @Input() dataSource: Cours[];
   @ViewChild(MatTable) table: MatTable<Element>;
 
+  public dataSourceFiltred : Cours[];
   private iterableDiffer; // creation de la variable iterableDiffer pour check la modification de la datasource des cours
   private viewFinishedInit = false;
 
@@ -22,6 +23,7 @@ export class CoursComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit() {
@@ -31,7 +33,9 @@ export class CoursComponent implements OnInit {
   ngDoCheck() {
     let changes = this.iterableDiffer.diff(this.dataSource);
     if (changes && this.viewFinishedInit) {
-       this.table.renderRows();
+      this.dataSourceFiltred = this.dataSource.filter(x => x.etat ===0);
+
+      this.table.renderRows();
     }
   }
 

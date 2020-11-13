@@ -39,4 +39,10 @@ export class MoniteurCoursModalComponent implements OnInit {
 
   }
 
+  annulerCours() {
+    const id = this.data.cours.content.id_cours;
+    this.moniteurService.annuleCours(id)
+      .subscribe(data => this.moniteurService.getCoursMoniteur(id).subscribe());
+    this.dialogRef.close();
+  }
 }

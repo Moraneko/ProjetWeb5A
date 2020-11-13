@@ -10,7 +10,7 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { addDays, addHours, startOfDay } from 'date-fns';
 import { Cours } from '../../model/cours';
 import {MatDialog} from '@angular/material/dialog';
-import {MoniteurCoursModalComponent} from './../moniteur-cours-modal/moniteur-cours-modal.component'
+import {MoniteurCoursModalComponent} from './../moniteur-cours-modal/moniteur-cours-modal.component';
 
 @Component({
   selector: 'app-moniteurcalendar',
@@ -54,39 +54,57 @@ export class MoniteurcalendarComponent implements OnInit {
   }
 
   ngDoCheck() {
-    let changes = this.iterableDiffer.diff(this.dataSource);
+    const changes = this.iterableDiffer.diff(this.dataSource);
     if (changes && this.viewFinishedInit) {
        this.events = [];
        this.dataSource.forEach(value => this.updateCalendrierList(value, this.events));
     }
   }
 
-  private updateCalendrierList (cours, events){
-    var titre = 'Cours';
+  private updateCalendrierList(cours, events){
+    let titre = 'Cours';
     if (cours.titre != ''){
       titre = cours.titre;
     }
-    var coursToCalendrierEv =
-      {
-        start: cours.dateDebut,
-        end: cours.dateFin,
-        title: titre,
-        content: cours,
-        color: {
-                   primary: '#1e90ff',
-                   secondary: '#D1E8FF',
-                 },
-      };
+    let coursToCalendrierEv;
+    if (cours.etat == 0 ){
+       coursToCalendrierEv =
+        {
+          start: cours.dateDebut,
+          end: cours.dateFin,
+          title: titre,
+          content: cours,
+          color: {
+            primary: '#1e90ff',
+            secondary: '#D1E8FF',
+          },
+        };
+    } else {
+      coursToCalendrierEv =
+        {
+          start: cours.dateDebut,
+          end: cours.dateFin,
+          title: titre,
+          content: cours,
+          color: {
+            primary: '#F8580D',
+            secondary: '#F8580D',
+          },
+        };
+    }
+
     events.push(coursToCalendrierEv);
   }
   eventClicked(event): void {
-    const dialogRef = this.dialog.open(MoniteurCoursModalComponent, {
-      width: '100em',
-      data: {cours: event.event}
-    });
+    if(event.event.content.etat === 0){
+      const dialogRef = this.dialog.open(MoniteurCoursModalComponent, {
+        width: '100em',
+        data: {cours: event.event}
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    }
   }
 }

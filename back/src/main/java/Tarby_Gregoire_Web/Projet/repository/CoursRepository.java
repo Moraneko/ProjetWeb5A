@@ -18,10 +18,11 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 
 
 	public List<Cours> findAllByDateDebutBeforeAndDateFinAfter(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutIsBeforeAndDateFinIsAfter(Date dateDebut, Date dateFin);
 
-	public List<Cours> findAllByDateDebutBeforeAndDateFinBefore(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutBeforeAndDateFinBetween(Date dateDebut,Date dateDebut2, Date dateFin);
 
-	public List<Cours> findAllByDateDebutAfterAndDateFinAfter(Date dateDebut, Date dateFin);
+	public List<Cours> findAllByDateDebutBetweenAndDateFinAfter(Date dateDebut,Date dateFin2, Date dateFin);
 
 	public List<Cours> findAllByDateDebutAfterAndDateFinBefore(Date dateDebut, Date dateFin);
 
