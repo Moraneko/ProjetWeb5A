@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Cheval {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCheval;
 
 	@Column(name="nom", unique = true)

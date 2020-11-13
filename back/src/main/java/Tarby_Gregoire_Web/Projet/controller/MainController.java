@@ -80,13 +80,13 @@ public class MainController {
 		if (passwordEncoder.matches(mdp, mdpBDD) == false) {
 			System.out.println("pas de correspondance");
 		} else {
-			System.out.println("token");
-		/*	token = new UsernamePasswordAuthenticationToken(mdp, mdpBDD);
+			//System.out.println("token");
+			token = new UsernamePasswordAuthenticationToken(identifiant, mdpBDD);
 		//	System.out.println(token);
-			Authentication result = am.authenticate(token);
+			Authentication result = this.am.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(result);
 			Utilisateur utilisateur = utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateurRepository.getIdUtilisateurbyEmailOrTel(identifiant));
-			token.setDetails(utilisateur);*/
+			token.setDetails(utilisateur);
 		}
 
 		return new ResponseEntity<>(token, HttpStatus.OK); //200
@@ -108,7 +108,7 @@ public class MainController {
 
 	@ResponseBody
 	@PutMapping({"/admin/changeUserInfo","/user/modifUser","/moniteur/modifUser"})
-	public ResponseEntity<Utilisateur> updateUtilisateur(@Validated @RequestBody Utilisateur utilisateur) { //demander à Moran si il renvoie bien tous l'utilisateur
+	public ResponseEntity<Utilisateur> updateUtilisateur(@Validated @RequestBody Utilisateur utilisateur) {
 		boolean infoChanged = false;
 		Utilisateur utilisateurBDD = utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateur.getId());
 
@@ -143,16 +143,25 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/getAllCours")
-	public ResponseEntity<List<CoursAvecInfoMoniteur>> getAllCours() {  //pb format date
+	public ResponseEntity<List<CoursAvecInfoMoniteur>> getAllCours() throws ParseException {
+
+
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		Date dateparse=format.parse(format.format(date));
+
+
 
 		List<Cours> allCours = coursRepository.findAll();
 		List<CoursAvecInfoMoniteur> allCoursInfo= new ArrayList<>();
 		for (Cours cours : allCours){
-			String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
-			String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
+			if(combinaisonRepository.findCombinaisonByIdCours(cours.getId()).size()<cours.getMax_cavalier() && cours.getEtat()!=1 && cours.getDateDebut().after(dateparse)){
+				String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
+				String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
 
-			CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(),cours.getIdMoniteur(), cours.getDateDebut().toString(),cours.getDateFin().toString(),cours.getMax_cavalier(),cours.getNiveau(),cours.getTitre(),cours.getRecurrent(),prenomMoniteur,nomMoniteur,cours.getEtat());
-			allCoursInfo.add(coursinfo);
+				CoursAvecInfoMoniteur coursinfo = new CoursAvecInfoMoniteur(cours.getId(), cours.getIdMoniteur(), cours.getDateDebut().toString(), cours.getDateFin().toString(), cours.getMax_cavalier(), cours.getNiveau(), cours.getTitre(), cours.getRecurrent(), prenomMoniteur, nomMoniteur, cours.getEtat());
+				allCoursInfo.add(coursinfo);
+			}
 		}
 		return new ResponseEntity<>(allCoursInfo, HttpStatus.OK);
 	}
@@ -188,13 +197,13 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/addCoursToUser")
-	public ResponseEntity<CoursAvecInfoMoniteur> addCoursToUtilisateurs(//@Validated @RequestParam long iduser, @RequestParam long idCours
+	public ResponseEntity<CoursAvecInfoMoniteur> addCoursToUtilisateurs(@Validated @RequestParam long iduser, @RequestParam long idCours
 	){
 
 
-		Combinaison combinaison = new Combinaison((long)2,(long)-1,(long)4);
+		Combinaison combinaison = new Combinaison(iduser,(long)-1,idCours);
 		combinaisonRepository.save(combinaison);
-		Cours cours =coursRepository.findCoursByIdCours(4);
+		Cours cours =coursRepository.findCoursByIdCours(idCours);
 
 		String nomMoniteur = utilisateurRepository.getNomById(cours.getIdMoniteur());
 		String prenomMoniteur = utilisateurRepository.getPrenomById(cours.getIdMoniteur());
@@ -238,11 +247,12 @@ public class MainController {
 		for (Cours coursBDD : coursMoniteurBDD){
 
 			JSONObject objetRetour = new JSONObject();
+			objetRetour.put("id_cours",coursBDD.getId());
 			objetRetour.put("max_cavalier",coursBDD.getMax_cavalier());
 			objetRetour.put("niveau",coursBDD.getNiveau());
 			objetRetour.put("etat",coursBDD.getEtat());
-			objetRetour.put("date_debut",coursBDD.getDateDebut());
-			objetRetour.put("date_fin",coursBDD.getDateFin());
+			objetRetour.put("dateDebut",coursBDD.getDateDebut());
+			objetRetour.put("dateFin",coursBDD.getDateFin());
 			objetRetour.put("idMoniteur",coursBDD.getIdMoniteur());
 			objetRetour.put("recurrent",coursBDD.getRecurrent());
 			objetRetour.put("titre",coursBDD.getTitre());
@@ -281,8 +291,8 @@ public class MainController {
 		objetRetour.put("max_cavalier",coursBDD.getMax_cavalier());
 		objetRetour.put("niveau",coursBDD.getNiveau());
 		objetRetour.put("etat",coursBDD.getEtat());
-		objetRetour.put("date_debut",coursBDD.getDateDebut());
-		objetRetour.put("date_fin",coursBDD.getDateFin());
+		objetRetour.put("dateDebut",coursBDD.getDateDebut());
+		objetRetour.put("dateFin",coursBDD.getDateFin());
 		objetRetour.put("idMoniteur",coursBDD.getIdMoniteur());
 		objetRetour.put("recurrent",coursBDD.getRecurrent());
 		objetRetour.put("titre",coursBDD.getTitre());
@@ -330,10 +340,9 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping("/cours/combiOfCours")
-	public ResponseEntity<List<JSONObject>> combiOfCours (//@Validated @RequestParam int id_cours
+	public ResponseEntity<List<JSONObject>> combiOfCours (@Validated @RequestParam int id_cours
 	){
-			//List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
-		List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(1);
+		List<Combinaison> combinaisonListBDD = combinaisonRepository.findCombinaisonByIdCours(id_cours);
 
 		List<JSONObject> retourCombinaison = new ArrayList<>();
 			for(Combinaison combinaisonBDD : combinaisonListBDD){
@@ -425,6 +434,79 @@ public class MainController {
 		return new ResponseEntity<>(combinaisonListBDD, HttpStatus.CREATED);
 
 	}
+
+	@ResponseBody
+	@GetMapping("/cours/detailCours")
+	public ResponseEntity<Cheval> chevalAssocié (@Validated @RequestParam long id_user, @RequestParam long id_cours	){
+
+		Cheval chevalBDD = new Cheval();
+
+
+
+		Combinaison combinaisonBDD =combinaisonRepository.findCombinaisonByIdCoursAndAndIdUtilisateur(id_cours,id_user);
+		if(combinaisonBDD.getIdCheval()==-1){
+			chevalBDD.setNom(null);
+		}
+		else{
+			 chevalBDD = chevalRepository.findChevalByIdCheval(combinaisonBDD.getIdCheval());
+		}
+
+		return new ResponseEntity<>(chevalBDD, HttpStatus.CREATED);
+
+	}
+
+	@ResponseBody
+	@GetMapping("/cheval/dispo")
+	public ResponseEntity<List<Cheval>> dispoCheval(@Validated @RequestParam long id_cours ){
+			Cours coursBDD = coursRepository.findCoursByIdCours(id_cours);
+
+			Date dateDebut = coursBDD.getDateDebut();
+			Date dateFin = coursBDD.getDateFin();
+
+			List<Cours> coursBeforeAfter = coursRepository.findAllByDateDebutBeforeAndAndDateFinAfter(dateDebut,dateFin);
+			List<Cours> coursBeforeBefore =coursRepository.findAllByDateDebutBeforeAndAndDateFinBefore(dateDebut,dateFin);
+			List<Cours> coursAfterAfter =coursRepository.findAllByDateDebutAfterAndAndDateFinAfter(dateDebut,dateFin);
+			List<Cours> coursAfterBefore =coursRepository.findAllByDateDebutAfterAndAndDateFinBefore(dateDebut,dateFin);
+
+			List<Cours> allCoursConflit= new ArrayList<>();
+
+			allCoursConflit.addAll(coursAfterAfter);
+			allCoursConflit.addAll(coursAfterBefore);
+			allCoursConflit.addAll(coursBeforeAfter);
+			allCoursConflit.addAll(coursBeforeBefore);
+
+			List<List<Combinaison>> allCombinaisonConflit =new ArrayList<>();
+
+			for(Cours coursConflit : allCoursConflit){
+				List<Combinaison> combinaison= combinaisonRepository.findCombinaisonByIdCours(coursConflit.getId());
+				allCombinaisonConflit.add(combinaison);
+			}
+
+			List<Cheval> chevalListBDD=chevalRepository.findAll();
+			List<Cheval> chevalListRetour= new ArrayList<>();
+
+			for (Cheval cheval : chevalListBDD){
+				int compt=0;
+				for (List<Combinaison> i : allCombinaisonConflit){
+					for (Combinaison j : i){
+						if (cheval.getId()==j.getIdCheval()){
+							compt++;
+
+						}
+					}
+				}
+				if(compt==0) {
+					chevalListRetour.add(cheval);
+				}
+
+			}
+
+			return new ResponseEntity<>(chevalListRetour,HttpStatus.OK);
+
+
+	}
+
+
 
 
 }
