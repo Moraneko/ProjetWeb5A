@@ -28,8 +28,7 @@ export class ChevauxComponent implements OnInit {
 
   ngOnInit(): void {
     // get de la liste total de chevaux
-    this.chevalService.getAllCheval().subscribe(result => {this.listeChevaux = result});
-    this.dataSource = new MatTableDataSource<Cheval>(this.listeChevaux);
+    this.chevalService.getAllCheval().subscribe(result => this.initTable(result));
 
     //Form control !
 
@@ -41,6 +40,11 @@ export class ChevauxComponent implements OnInit {
         age : ['', Validators.required],
         taille : ['', Validators.required]
       });
+  }
+  initTable(list){
+    this.listeChevaux = list;
+    this.dataSource = new MatTableDataSource<Cheval>(this.listeChevaux);
+    this.dataSource.paginator = this.paginator;
   }
   onSubmit() {
 
@@ -55,6 +59,20 @@ export class ChevauxComponent implements OnInit {
       console.log('Ajout du cheval dans la BDD');
        this.dataSource.paginator = this.paginator;
      });
+    this.addCheval.reset();
+    this.addCheval.get('nom').clearValidators();
+    this.addCheval.get('nom').updateValueAndValidity();
+    this.addCheval.get('couleur').clearValidators();
+    this.addCheval.get('couleur').updateValueAndValidity();
+    this.addCheval.get('race').clearValidators();
+    this.addCheval.get('race').updateValueAndValidity();
+    this.addCheval.get('sexe').clearValidators();
+    this.addCheval.get('sexe').updateValueAndValidity();
+    this.addCheval.get('age').clearValidators();
+    this.addCheval.get('age').updateValueAndValidity();
+    this.addCheval.get('taille').clearValidators();
+    this.addCheval.get('taille').updateValueAndValidity();
+
   }
 
   retourPageUser() {

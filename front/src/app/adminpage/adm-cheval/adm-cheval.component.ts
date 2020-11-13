@@ -24,8 +24,11 @@ export class AdmChevalComponent implements OnInit {
 
   ngOnInit(): void {
       // get de la liste total de chevaux
-      this.chevalService.getAllCheval().subscribe(result => {this.listeChevaux = result});
-      this.dataSource = new MatTableDataSource<Cheval>(this.listeChevaux);
+      this.chevalService.getAllCheval().subscribe(result => this.initTable(result));
+  }
+  initTable(list){
+    this.listeChevaux = list;
+    this.dataSource = new MatTableDataSource<Cheval>(this.listeChevaux);
   }
 
 }

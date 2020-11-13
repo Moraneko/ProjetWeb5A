@@ -9,18 +9,16 @@ import { Observable, of } from 'rxjs';
 })
 export class ChevalService {
   private getChevalDispoUrl = 'http://localhost:8080/cheval/dispo';
-  private addChevalUrl = 'http:/localhost:8080/cheval/add';
-  private getAllChevalUrl = 'http:/localhost:8080/cheval/all';
+  private addChevalUrl = 'http://localhost:8080/cheval/add';
+  private getAllChevalUrl = 'http://localhost:8080/cheval/all';
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient) { }
 
-  private listChevalDispo: Cheval[]= [
-    { id_cheval: 2, nom: 'Special Week', age: -1, sexe: '', couleur: '', taille: -1, race: ''},
-    { id_cheval: 3, nom: 'Golden Boat', age: -1, sexe: '', couleur: '', taille: -1, race: ''}
-    ];
+  private listChevalDispo: Cheval[] = [];
 
   /*
   getChevalDispo(id_cours): Observable<Cheval[]>{
@@ -33,23 +31,16 @@ export class ChevalService {
     return of(this.listChevalDispo);
   }
 
-  /*
-  getAllCheval(): Observable<Cheval[]>{
-      const url = `${this.getAllChevalUrl}`;
-      return this.http.get<Cheval[]>(url).pipe(
-        tap((liste: Cheval[]) => console.log(liste))
-        );
-  */
-  getAllCheval(): Observable<Cheval[]> { // a modifier quand back here
-    return of(this.listChevalDispo);
+  getAllCheval(): Observable<Cheval[]> {
+    const url = `${this.getAllChevalUrl}`;
+    return this.http.get<Cheval[]>(url).pipe(
+     map(data => this.listChevalDispo = data)
+    );
   }
 
   addCheval(cheval: Cheval): Observable<Cheval> {
-    this.listChevalDispo.push(cheval); // A SUPRRIMER ET REMPLACER LA REPONSE POUR AJOUTER EN LOCAL
-    console.log("Liste des chevaux :");
-    console.log(this.listChevalDispo);
     return this.http.post<Cheval>(this.addChevalUrl, cheval, this.httpOptions).pipe(
-      tap((result: Cheval) => console.log(result)));
+      tap((result: Cheval) => this.listChevalDispo.push(result)));
   }
 
 }

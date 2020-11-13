@@ -1,6 +1,7 @@
 package Tarby_Gregoire_Web.Projet.model;
 
 import java.text.DateFormat;
+import java.util.Date;
 
 
 public class CoursAvecInfoMoniteur {
@@ -8,11 +9,13 @@ public class CoursAvecInfoMoniteur {
 
 	private Long idCours;
 
+
 	private Long idMoniteur;
 
 	private String dateDebut;
 
 	private String dateFin;
+
 
 	private int maxcavalier;
 
@@ -29,6 +32,7 @@ public class CoursAvecInfoMoniteur {
 	private int etat;  // 0: cours, 1: fini, 2: annulé
 
 	public CoursAvecInfoMoniteur(Long idCours, Long idMoniteur, String dateDebut, String dateFin, int maxcavalier, int niveau, String titre, Boolean recurrent, String prenomMoniteur, String nomMoniteur, int etat) {
+
 		this.idCours = idCours;
 		this.idMoniteur = idMoniteur;
 		this.dateDebut = dateDebut;
@@ -50,6 +54,7 @@ public class CoursAvecInfoMoniteur {
 		this.idCours = idCours;
 	}
 
+
 	public String getDateDebut() {
 		return dateDebut;
 	}
@@ -63,6 +68,7 @@ public class CoursAvecInfoMoniteur {
 	}
 
 	public void setDateFin(String dateFin) {
+
 		this.dateFin = dateFin;
 	}
 

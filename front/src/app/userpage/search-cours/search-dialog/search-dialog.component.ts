@@ -19,15 +19,15 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
   ELEMENT_DATA: Cours[] = [];
   searchDialogForm: FormGroup;
     moniteurList: UserSimple[] = [
-      {  id_user: 1,
+      {  idUtilisateur: 1,
          nom: 'nomMoniteur1',
          prenom: 'prenomMoniteur1',
          role: 1},
-      {  id_user: 2,
+      {  idUtilisateur: 2,
                nom: 'nomMoniteur2',
                prenom: 'prenomMoniteur2',
                role: 1},
-      {  id_user: 3,
+      {  idUtilisateur: 3,
                nom: 'nomMoniteur3',
                prenom: 'prenomMoniteur3',
                role: 1}
@@ -57,11 +57,9 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
 
          }
       public moniteurSelect() {
-        console.log(this.selectedMoniteur);
         this.getFilteredResult();
       }
       public niveauSelect() {
-        console.log(this.selectedNiveau);
         this.getFilteredResult();
       }
 
@@ -71,11 +69,11 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
             if(this.selectedNiveau > 0 && !(this.selectedNiveau == undefined) ){
 
               this.coursService.getAllCours() // changer l'id ICI
-                  .subscribe((data: Cours[]) => this.ELEMENT_DATA = data.filter(item => item.niveau === this.selectedNiveau && item.moniteur === this.selectedMoniteur ));
+                  .subscribe((data: any[]) => this.ELEMENT_DATA = data.filter(item => item.niveau === this.selectedNiveau && item.moniteur === this.selectedMoniteur ));
             }
             else {
               this.coursService.getAllCours() // changer l'id ICI
-                  .subscribe((data: Cours[]) => this.ELEMENT_DATA = data.filter(item => item.moniteur === this.selectedMoniteur ));
+                  .subscribe((data: any[]) => this.ELEMENT_DATA = data.filter(item => item.moniteur === this.selectedMoniteur ));
 
             }
 
@@ -84,11 +82,11 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
           if (this.selectedNiveau > 0 && !(this.selectedNiveau == undefined)){
 
               this.coursService.getAllCours() // changer l'id ICI
-                  .subscribe((data: Cours[]) => this.ELEMENT_DATA = data.filter(item => item.niveau === this.selectedNiveau));
+                  .subscribe((data: any[]) => this.ELEMENT_DATA = data.filter(item => item.niveau === this.selectedNiveau));
             }
             else {
               this.coursService.getAllCours() // changer l'id ICI
-                  .subscribe((data: Cours[]) => this.ELEMENT_DATA = data);
+                  .subscribe((data: any[]) => this.ELEMENT_DATA = data);
             }
         }
         this.dataSource = new MatTableDataSource<Cours>(this.ELEMENT_DATA);
@@ -124,8 +122,7 @@ export class SearchDialogComponent implements OnInit, AfterViewInit {
       });
 
       // initialisation des listes
-
-
+      this.coursService.getAllMoniteur().subscribe(result => this.moniteurList = result);
       this.current_cours = this.data.cours; // Récupération des cours courant de l'user depuis l'injection de userpage > searchCours > searchCoursDialog
       this.majCoursSelected();
 

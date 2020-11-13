@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from '../../model/user';
@@ -15,27 +15,15 @@ export class ChangeUserService {
   };
   private getUserUrl = 'http://localhost:8080/user/getUser';
   private modifUserUrl = 'http://localhost:8080/user/modifUser';
-  private userInfo : User = {
-    id_user: 10,
-    nom: 'Tarby',
-    prenom: 'Arnaud',
-    email: 'adresse@email.fr',
-    telephone: '0102030405',
-    mdp: 'azerty',
-    licence: '',
-    role: 1,
-  }
-    /*getUserById(id_user): Observable<User>{
-      const url = `${this.getUserUrl}`;
-      return this.http.get<User>(url, {id_user : id_user}, this.httpOtions);
-
-    }*/
+  private userInfo : User ;
 
   getUserById(id_user): Observable<User> {
-    return of(this.userInfo);
+
+    const params = new HttpParams().set('id_user', id_user); // Create new HttpParams
+    return this.http.get<User>(this.getUserUrl, {headers: this.httpOptions.headers, params}).pipe(map(data => this.userInfo = data));
   }
 
- changeInfo(user: User): Observable<User> {
+ changeInfo(user: any): Observable<User> {
    return this.http.put<User>(this.modifUserUrl, user, this.httpOptions);
  }
 }

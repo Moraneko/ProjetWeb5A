@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start center" >
   <h1>{{this.data.cours.content.titre}} </h1>
-  <h2>du {{this.data.cours.content.horaire | date:'d/MM/yy à h:mm'}}</h2>
+  <h2>le {{this.data.cours.content.dateDebut | date:'d/MM/yy h:mm'}} de {{this.data.cours.content.dateDebut | date:'h:mm'}} à {{this.data.cours.content.dateFin | date:'h:mm'}}</h2>
 </div>
 
 <h1>Liste des participants :</h1>

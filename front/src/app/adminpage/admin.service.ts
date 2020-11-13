@@ -1,113 +1,78 @@
 import { Injectable } from '@angular/core';
-import { UserSimple } from '../model/usersimple';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserSimple } from '../model/UserSimple';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from './../model/user';
+
+import {Cours} from "../model/cours";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private getAllUserUrl = 'http:/localhost:8080/admin/getAllUser';
-  private getAllMoniteurUrl = 'http:/localhost:8080/admin/getAllMoniteur';
-  private getAllAdminUrl = 'http:/localhost:8080/admin/getAllAdmin';
-  private addNewMoniteurUrl = 'http:/localhost:8080/admin/newMoniteur';
-  private addNewAdminUrl = 'http:/localhost:8080/admin/addAdmin';
-  private modifUserUrl = 'http:/localhost:8080/admin/changeUserInfo';
-  private getUserUrl = 'http:/localhost:8080/admin/getUserById';
+
+  constructor(private http: HttpClient) { }
+
+  private getAllUserUrl = 'http://localhost:8080/admin/getAllUser';
+  private getAllMoniteurUrl = 'http://localhost:8080/admin/getAllMoniteur';
+  private getAllAdminUrl = 'http://localhost:8080/admin/getAllAdmin';
+  private addNewMoniteurUrl = 'http://localhost:8080/admin/newMoniteur';
+  private addNewAdminUrl = 'http://localhost:8080/admin/addAdmin';
+  private modifAdminInfoUrl = 'http://localhost:8080/admin/changeUserInfo';
+  private getUserUrl = 'http://localhost:8080/admin/getUserbyId';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  private userList : UserSimple[] = [{id_user: 10, nom: 'Jean', prenom: 'Dupont', role: 0},
-      {id_user: 10, nom: 'Jean2', prenom: 'Dupont2', role: 0},
-      {id_user: 10, nom: 'Jean3', prenom: 'Dupont3', role: 0}];
+  private userList: UserSimple[] = [];
 
-  private moniteurList : UserSimple[] = [{id_user: 10, nom: 'Moniteur Jean', prenom: 'Dupont', role: 1},
-      {id_user: 10, nom: 'Moniteur Jean2', prenom: 'Dupont2', role: 1},
-      {id_user: 10, nom: 'Moniteur Jean3', prenom: 'Dupont3', role: 1}];
+  private moniteurList: UserSimple[] = [];
 
-  private adminList : UserSimple[] = [{id_user: 10, nom: 'Admin Jean', prenom: 'Dupont', role: 2},
-      {id_user: 10, nom: 'Admin Jean2', prenom: 'Dupont2', role: 2},
-      {id_user: 10, nom: 'Admin Jean3', prenom: 'Dupont3', role: 2}];
+  private adminList: UserSimple[] = [];
 
+   private userInfo: User ;
 
-  constructor(private http: HttpClient) { }
-
-    /*
-    getAllUser(): Observable<UserSimple[]>{
-        const url = `${this.getAllUserUrl}`;
-        return this.http.get<UserSimple[]>(url).pipe(
-          tap((liste: UserSimple[]) => console.log(liste))
-          );
-    */
-    getAllUser(): Observable<UserSimple[]> { // a modifier quand back here
-      return of(this.userList);
+    getAllUser(): Observable<UserSimple[]> {
+      const url = `${this.getAllUserUrl}`;
+      return this.http.get<UserSimple[]>(url).pipe(
+        map(data => this.userList = data));
     }
 
 
-    /*
     getAllMoniteur(): Observable<UserSimple[]>{
         const url = `${this.getAllMoniteurUrl}`;
         return this.http.get<UserSimple[]>(url).pipe(
-          tap((liste: UserSimple[]) => console.log(liste))
+          map(data => this.moniteurList = data)
           );
-    */
-    getAllMoniteur() : Observable<UserSimple[]> {
-      return of(this.moniteurList);
     }
 
-    /*
     getAllAdmin(): Observable<UserSimple[]>{
         const url = `${this.getAllAdminUrl}`;
         return this.http.get<UserSimple[]>(url).pipe(
-          tap((liste: UserSimple[]) => console.log(liste))
+          map(data => this.adminList = data)
           );
-    */
-    getAllAdmin() : Observable<UserSimple[]> {
-      return of(this.adminList);
-    }
+     }
 
   newMoniteur(user: User): Observable<User> {
-      this.moniteurList.push({id_user: user.id_user, nom: user.nom, prenom: user.prenom, role: user.role}); // A SUPRRIMER ET REMPLACER LA REPONSE POUR AJOUTER EN LOCAL
-      console.log("Liste des moniteur:");
-      console.log(this.moniteurList);
-    return this.http.post<User>(this.addNewMoniteurUrl, user, this.httpOptions).pipe(
-      tap((newUser: User) => console.log(newUser))
+
+      return this.http.post<any>(this.addNewMoniteurUrl, user, this.httpOptions).pipe(
+      tap((newUser) => this.moniteurList.push({idUtilisateur : newUser.id, nom : newUser.nom, prenom: newUser.prenom, role: newUser.role}))
     );
   }
 
   newAdmin(user: User): Observable<User> {
-      this.adminList.push({id_user: user.id_user, nom: user.nom, prenom: user.prenom, role: user.role}); // A SUPRRIMER ET REMPLACER LA REPONSE POUR AJOUTER EN LOCAL
-      console.log("Liste des moniteur:");
-      console.log(this.adminList);
-    return this.http.post<User>(this.addNewAdminUrl, user, this.httpOptions).pipe(
-      tap((newUser: User) => console.log(newUser))
+      return this.http.post<any>(this.addNewAdminUrl, user, this.httpOptions).pipe(
+      tap((newUser) => this.adminList.push({idUtilisateur : newUser.id, nom : newUser.nom, prenom: newUser.prenom, role: newUser.role}))
     );
   }
 
-  changeUserInfo(user: User): Observable<User> {
-    return this.http.post<User>(this.modifUserUrl, user, this.httpOptions);
+  changeInfo(user: any): Observable<User> {
+    return this.http.put<User>(this.modifAdminInfoUrl, user, this.httpOptions);
   }
-   /*getUserById(id_user): Observable<User>{
-     const url = `${this.getUserUrl}`;
-     return this.http.get<User>(url, {id_user : id_user}, this.httpOptions);
-
-   }*/
-
-   private userInfo : User = {
-     id_user: 10,
-     nom: 'Tarby',
-     prenom: 'Arnaud',
-     email: 'adresse@email.fr',
-     telephone: '0102030405',
-     mdp: 'azerty',
-     licence: '',
-     role: 1,
-   }
    getUserById(id_user): Observable<User> {
-     return of(this.userInfo);
+     const params = new HttpParams().set('id_user', id_user); // Create new HttpParams
+     return this.http.get<User>(this.getUserUrl, {headers: this.httpOptions.headers, params}).pipe(map(data => this.userInfo = data));
    }
 }

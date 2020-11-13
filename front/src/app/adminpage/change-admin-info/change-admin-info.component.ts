@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ChangeUserService } from './change-user.service';
 import { User } from '../../model/user';
 import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from '@angular/forms';
 import {Router} from '@angular/router';
+import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-change-info-user',
-  templateUrl: './change-info-user.component.html',
-  styleUrls: ['./change-info-user.component.css']
+  selector: 'app-change-admin-info',
+  templateUrl: './change-admin-info.component.html',
+  styleUrls: ['./change-admin-info.component.css']
 })
-export class ChangeInfoUserComponent implements OnInit {
+export class ChangeAdminInfoComponent implements OnInit {
 
   changeInfoUserForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private changeUserService: ChangeUserService, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private adminService: AdminService, private router: Router) { }
 
   userInfo: User = {email: '', id_user: 0, licence: '', mdp: '', role: 0, telephone: '', nom: '', prenom: ''};
 
@@ -22,8 +22,9 @@ export class ChangeInfoUserComponent implements OnInit {
       licence : [''],
       emailform : ['', [Validators.required, Validators.email]]
     });
-    this.changeUserService.getUserById(25) // changer l'id ICI
-              .subscribe((data: User) => this.initForm(data));
+    this.adminService.getUserById(25) // changer l'id ICI
+      .subscribe((data: User) => this.initForm(data));
+
   }
   initForm(data){
     this.userInfo = data;
@@ -38,31 +39,29 @@ export class ChangeInfoUserComponent implements OnInit {
       mdp : [this.userInfo.mdp, Validators.required]
     });
   }
+
   onSubmit() {
 
-     this.changeUserService.changeInfo({ id: 25, // changer l'id ICI
-       nom:  '',
-       prenom:  '',
-       email:  this.changeInfoUserForm.get('emailform').value,
-       telephone:  this.changeInfoUserForm.get('tel').value,
-       mdp:  '',
-       licence:  this.changeInfoUserForm.get('licence').value,
-       role:  2})
-       .subscribe(user => {
-         console.log('MAJ de L\'admin fait dans la BDD');
-         this.router.navigate(['/user']);
-       });
-
+    this.adminService.changeInfo({ id: 25, // changer l'id ICI
+      nom:  '',
+      prenom:  '',
+      email:  this.changeInfoUserForm.get('emailform').value,
+      telephone:  this.changeInfoUserForm.get('tel').value,
+      mdp:  '',
+      licence:  this.changeInfoUserForm.get('licence').value,
+      role:  2})
+      .subscribe(user => {
+        console.log('MAJ de L\'admin fait dans la BDD');
+        this.router.navigate(['/admin']);
+      });
 
 
   }
 
-   retourPageUser() {
+  retourPageUser() {
 
-    this.router.navigate(['/user']);
+    this.router.navigate(['/admin']);
 
-   }
-
-
+  }
 
 }

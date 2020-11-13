@@ -21,8 +21,9 @@ export class MoniteurAddCoursModalComponent implements OnInit {
       this.newCours = this._formBuilder.group({
         titre : [''],
         horaire : ['', Validators.required],
-        taille_groupe : ['', Validators.required],
-        niveau : ['',Validators.required]
+        horaire_fin : ['', Validators.required],
+        max_cavalier : ['', Validators.required],
+        niveau : ['', Validators.required]
     });
   }
 
@@ -32,16 +33,19 @@ export class MoniteurAddCoursModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+    let debut = new Date(this.newCours.get('horaire').value);
+    let fin = new Date(this.newCours.get('horaire_fin').value);
     this.moniteurService.createCours({
-      id_cours: -1,
-      horaire: new Date(this.newCours.get('horaire').value),
-      taille_groupe: this.newCours.get('taille_groupe').value,
+      id_cours: 0,
+      date_debut: debut.toISOString().slice(0, 19).replace('T', ' '),
+      date_fin: fin.toISOString().slice(0, 19).replace('T', ' '),
+      max_cavalier: this.newCours.get('max_cavalier').value,
       niveau: this.newCours.get('niveau').value,
       recurrent: this.checkedRecurrent,
-      moniteur: 1,                                        // Changer l'id du moniteur ici
+      idMoniteur: 0,                                        // Changer l'id du moniteur ici
       titre: this.newCours.get('titre').value,
-      } as Cours)
+      etat: 0
+      })
     .subscribe(user => {
       console.log('ajout du nouveau cours pour le moniteur');
     });

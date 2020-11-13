@@ -35,8 +35,6 @@ import net.minidev.json.JSONObject;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class MainController {
-
-
 	@Autowired
 	private static AuthenticationManager am = new SampleAuthenticationManager();
 
@@ -137,7 +135,6 @@ public class MainController {
 
 		return new ResponseEntity<>(utilisateurRepository.findUtilisateurByIdUtilisateur(utilisateur.getId()), HttpStatus.ACCEPTED);
 
-
 	}
 
 
@@ -168,7 +165,9 @@ public class MainController {
 		List<Cours> listCoursBDD= new ArrayList<>();
 
 		for(JSONObject coursString : listCoursBDDString){
+
 			Cours coursBDD =new Cours((Date) coursString.get("date_debut"),(Date) coursString.get("date_fin"), coursString.getAsNumber("max_cavalier").intValue(), coursString.getAsNumber("niveau").intValue(),coursString.getAsString("titre"),(boolean) coursString.get("recurrent"), coursString.getAsNumber("moniteur").longValue(), coursString.getAsNumber("état").intValue());
+
 			coursBDD.setId(coursString.getAsNumber("id_cours").longValue());
 			listCoursBDD.add(coursBDD);
 		}
@@ -373,6 +372,7 @@ public class MainController {
 		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
 
+
 	@ResponseBody
 	@GetMapping("/admin/getAllMoniteur")
 	public ResponseEntity<List<UtilisateurSimple>> getAllMoniteursimple (){
@@ -390,7 +390,6 @@ public class MainController {
 
 		return new ResponseEntity<>(utilisateurSimpleListBDD,HttpStatus.OK);
 	}
-
 	@ResponseBody
 	@PostMapping("/cheval/add")
 	public ResponseEntity<Cheval> newCheval (@Validated @RequestBody Cheval cheval){

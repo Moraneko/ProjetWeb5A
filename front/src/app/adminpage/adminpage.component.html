@@ -2,11 +2,12 @@
 
 <body class="mat-app-background" style="padding-top:0.5em;">
 
-  <div fxLayout="row" fxLayoutAlign="space-around center" >
-    <div fxLayout="column" fxLayoutAlign="none center">
+
+  <div fxLayout="row" fxLayoutAlign="space-around start" >
+    <div fxLayout="column" fxLayoutAlign="start start" style="margin-top:2.5em;">
       <app-adm-user></app-adm-user>
     </div>
-    <div fxLayout="column" fxLayoutAlign="start none">
+    <div fxLayout="column" fxLayoutAlign="start none" >
       <button mat-raised-button (click)="openDialogAddMoniteur()">Ajouter</button>
       <app-adm-moniteur></app-adm-moniteur>
     </div>
