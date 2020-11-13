@@ -1,5 +1,8 @@
 package Tarby_Gregoire_Web.Projet.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UtilisateurSimple {
 
 
@@ -50,4 +53,6 @@ public class UtilisateurSimple {
 	public void setRole(int role) {
 		this.role = role;
 	}
+
+
 }
