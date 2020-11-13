@@ -30,7 +30,7 @@
       <div class="center_items inscription">
         <mat-form-field class="mail" color="accent" appearance="fill" style="width=100%" >
           <mat-label>Adresse Mail</mat-label>
-          <input matInput placeholder="adresse@example.com" formControlName="emailform" required>
+          <input matInput placeholder="adresse@example.com" formControlName="emailform" pattern="(^(?!.*__.*)[a-z0-9]{4,253}(_?)[a-z0-9]+(?:\.[a-z0-9!#$%&*+\/=?^`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9]*[a-z0-9])?\.)+[a-z]{2,3}$)" required>
           <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -39,6 +39,7 @@
         <mat-form-field class="mdp" color="accent" appearance="fill">
           <mat-label>Mot de passe</mat-label>
           <input matInput formControlName="mdp" [type]="hide ? 'password' : 'text'" required>
+          <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
         </mat-form-field>
       </div>
 
@@ -46,6 +47,9 @@
   <mat-card-actions>
     <div class="center_items">
       <button type="submit" [disabled]="!inscriptionForm.valid" mat-raised-button color="accent" style="width : 60%; height : 4em; ">S'inscrire</button>
+    </div>
+    <div class="center_items">
+      <mat-error *ngIf="showErrorEmailExiste">Séléctionnez une autre adresse email et/ou numéro de téléphone.</mat-error>
     </div>
   </mat-card-actions>
 

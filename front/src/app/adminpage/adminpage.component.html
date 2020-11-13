@@ -1,11 +1,23 @@
 <app-admintoolbar></app-admintoolbar>
 
-<body class="mat-app-background">
+<body class="mat-app-background" style="padding-top:0.5em;">
 
-  <div fxLayout="row"fxLayoutAlign="space-around center" >
-    <app-adm-cheval></app-adm-cheval>
-    <app-adm-user></app-adm-user>
-    <app-adm-moniteur></app-adm-moniteur>
-    <app-adm-admin></app-adm-admin>
+
+  <div fxLayout="row" fxLayoutAlign="space-around start" >
+    <div fxLayout="column" fxLayoutAlign="start start" style="margin-top:2.5em;">
+      <app-adm-user></app-adm-user>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start none" >
+      <button mat-raised-button (click)="openDialogAddMoniteur()">Ajouter</button>
+      <app-adm-moniteur></app-adm-moniteur>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start none">
+      <button mat-raised-button (click)="openDialogAddAdmin()">Ajouter</button>
+      <app-adm-admin></app-adm-admin>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start none">
+      <button mat-raised-button (click)="addCheval()">Ajouter</button>
+      <app-adm-cheval></app-adm-cheval>
+    </div>
   </div>
 </body>

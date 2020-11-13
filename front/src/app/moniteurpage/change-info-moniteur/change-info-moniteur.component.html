@@ -1,21 +1,18 @@
 <app-moniteurtoolbar></app-moniteurtoolbar>
 <div class="moniteur-background" style="height:100%">
-  <div fxLayout="column" fxLayoutAlign="space-around stretch" class="cardPadding" >
+  <div fxLayout="column" fxLayoutAlign="start stretch" class="cardPadding" >
     <mat-card >
       <mat-card-header fxLayout="column" fxLayoutAlign="start center" >
-        <mat-card-title><h1 class="mat-display-1">Modification de la fiche personnelle</h1></mat-card-title>
+        <mat-card-title><h1 class="mat-display-1">Modification des données de contact</h1></mat-card-title>
       </mat-card-header>
 
       <form [formGroup]="changeInfoUserForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
-          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+          <div fxLayout="row" fxLayoutAlign="space-evenly start">
 
             <div fxLayout="column" fxLayoutAlign="center start" >
               <div fxLayout="row" fxLayoutAlign="start center" >
-                <h2>Nom : </h2>
-                <mat-form-field class="info" color="accent" appearance="outline">
-                  <input matInput required formControlName="nom">
-                </mat-form-field>
+                <h2>Nom : {{userInfo.nom}} </h2>
               </div>
 
 
@@ -39,23 +36,13 @@
             <div fxLayout="column" fxLayoutAlign="center start" >
 
               <div fxLayout="row" fxLayoutAlign="start center" >
-                <h2>Prénom : </h2>
-                <mat-form-field class="info" color="accent" appearance="outline">
-                  <input matInput required formControlName="prenom">
-                </mat-form-field>
+                <h2>Prénom : {{userInfo.prenom}}</h2>
               </div>
 
               <div fxLayout="row" fxLayoutAlign="start center" >
                 <h2>Téléphone : </h2>
                 <mat-form-field class="info" color="accent" appearance="outline">
                   <input matInput required formControlName="tel">
-                </mat-form-field>
-              </div>
-
-              <div fxLayout="row" fxLayoutAlign="start center" >
-                <h2>Mot de passe : </h2>
-                <mat-form-field class="info" color="accent" appearance="outline">
-                  <input matInput required formControlName="mdp" type="password">
                 </mat-form-field>
               </div>
 

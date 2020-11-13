@@ -10,7 +10,7 @@ import { MatTable } from '@angular/material/table';
   styleUrls: ['./cours.component.css']
 })
 export class CoursComponent implements OnInit {
-  displayedColumns: string[] = ['id_cours', 'horaire', 'taille_groupe', 'niveau', 'recurrent', 'moniteur'];
+  displayedColumns: string[] = ['id_cours', 'horaire', 'max_cavalier', 'niveau', 'moniteur'];
   @Input() dataSource: Cours[];
   @ViewChild(MatTable) table: MatTable<Element>;
 

@@ -5,20 +5,20 @@
 
   <!-- id Column -->
   <ng-container matColumnDef="id_cours">
-    <th mat-header-cell *matHeaderCellDef> Id </th>
-    <td mat-cell *matCellDef="let element"> {{element.id_cours}} </td>
+    <th mat-header-cell *matHeaderCellDef> Titre </th>
+    <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
   </ng-container>
 
   <!-- horaire Column -->
   <ng-container matColumnDef="horaire">
     <th mat-header-cell *matHeaderCellDef> Horaire </th>
-    <td mat-cell *matCellDef="let element"> {{element.horaire | date:'d/MM/yy à h:mm'}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{element.dateFin | date:'à HH:mm)'}}</td>
   </ng-container>
 
   <!-- Taille groupe Column -->
-  <ng-container matColumnDef="taille_groupe">
+  <ng-container matColumnDef="max_cavalier">
     <th mat-header-cell *matHeaderCellDef> Taille du groupe </th>
-    <td mat-cell *matCellDef="let element"> {{element.taille_groupe}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.maxcavalier}} </td>
   </ng-container>
 
   <!-- Niveau Column -->
@@ -27,16 +27,11 @@
     <td mat-cell *matCellDef="let element"> {{element.niveau}} </td>
   </ng-container>
 
-  <!-- Recurrent Column -->
-  <ng-container matColumnDef="recurrent">
-    <th mat-header-cell *matHeaderCellDef> Récurrent </th>
-    <td mat-cell *matCellDef="let element"> {{element.recurrent}} </td>
-  </ng-container>
 
   <!-- Moniteur Column -->
   <ng-container matColumnDef="moniteur">
     <th mat-header-cell *matHeaderCellDef> Moniteur </th>
-    <td mat-cell *matCellDef="let element"> {{element.moniteur}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.nomMoniteur}} {{element.prenomMoniteur}}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

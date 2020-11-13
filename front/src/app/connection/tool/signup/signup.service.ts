@@ -8,6 +8,8 @@ import { User } from '../../../model/user';
 })
 export class SignupService {
 
+  error409 = false;
+
   constructor(private http: HttpClient) { }
   private signupUrl = 'http://localhost:8080/formulaire';  // URL to web api
   httpOptions = {
@@ -17,22 +19,25 @@ export class SignupService {
 
   signUp(user: User): Observable<User> {
     return this.http.post<User>(this.signupUrl, user, this.httpOptions).pipe(
-      tap((newUser: User) => console.log(`added new user`)),
+      tap((newUser: User) => this.error409 = false),
       catchError(this.handleError<User>('signUp'))
     );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
-
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-
-        // TODO: better job of transforming error for user consumption
+        console.error(error.status); // log to console instead
+        if(error.status === 409) {
+          this.error409 = true;
+        }
         console.log(`${operation} failed: ${error.message}`);
 
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };
     }
+
+  getErrorMsg(): Observable<boolean> {
+    return of(this.error409);
+  }
 }

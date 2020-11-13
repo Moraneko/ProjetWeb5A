@@ -10,10 +10,10 @@
 
     <div fxLayout="row" fxLayoutAlign="space-around center">
       <div fxLayout="row" >
-        <h2>Moniteur : </h2> <h2> {{this.data.cours.content.moniteur}}</h2>
+        <h2>Moniteur : </h2> <h2> {{this.data.cours.content.nomMoniteur}} {{this.data.cours.content.prenomMoniteur}}</h2>
       </div>
       <div fxLayout="row">
-        <h2>Date : </h2> <h2> {{this.data.cours.content.horaire | date:'dd-MM-yyy à HH:mm'}}</h2>
+        <h2>Date : </h2> <h2> {{this.data.cours.content.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{this.data.cours.content.dateFin | date:'à HH:mm)'}}</h2>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
         <h2>Niveau : </h2> <h2> {{this.data.cours.content.niveau}}</h2>
       </div>
       <div fxLayout="row">
-        <h2>Taille du groupe : </h2> <h2> {{this.data.cours.content.taille_groupe}}</h2>
+        <h2>Taille du groupe : </h2> <h2> {{this.data.cours.content.maxcavalier}}</h2>
       </div>
     </div>
 

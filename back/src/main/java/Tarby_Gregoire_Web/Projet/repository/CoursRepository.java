@@ -16,6 +16,7 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 
 	public Cours findCoursByIdCours(long id_cours);
 
+
 	public List<Cours> findAllByDateDebutBeforeAndAndDateFinAfter(Date dateDebut, Date dateFin);
 
 	public List<Cours> findAllByDateDebutBeforeAndAndDateFinBefore(Date dateDebut, Date dateFin);
@@ -30,6 +31,7 @@ public interface CoursRepository extends JpaRepository<Cours, Long> {
 	//public Cours findCoursByDateAndAndMaxcavalierAndNiveauAndTitreAndRecurrentAndIdMoniteurAndEtat(DateFormat date, int max_cavalier, int niveau, String titre, Boolean recurrent, int idMoniteur, int etat);
 	@Query(value = "SELECT id_cours, date_debut, date_fin, max_cavalier, moniteur, niveau, recurrent, titre, état from Cours  WHERE id_cours=:requestID ", nativeQuery = true)
 	JSONObject getCoursById(@Param("requestID") Long requestID);
+
 
 	@Query("SELECT max(idCours) FROM Cours ")
 	Long findLastIdCours();
