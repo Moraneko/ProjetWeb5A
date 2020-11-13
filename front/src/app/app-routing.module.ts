@@ -13,6 +13,7 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
 import { voirInfoUserComponent } from './adminpage/change-info-user/change-info-user.component';
 import {ChangeAdminInfoComponent} from './adminpage/change-admin-info/change-admin-info.component';
 
+
 const routes: Routes = [{ path: '', redirectTo: '/admin', pathMatch: 'full' },
   { path: 'connection', component: ConnectionComponent,
     children: [

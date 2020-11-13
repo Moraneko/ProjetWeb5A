@@ -11,6 +11,7 @@ export class ChevalService {
   private getChevalDispoUrl = 'http://localhost:8080/cheval/dispo';
   private addChevalUrl = 'http://localhost:8080/cheval/add';
   private getAllChevalUrl = 'http://localhost:8080/cheval/all';
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

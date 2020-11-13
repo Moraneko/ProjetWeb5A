@@ -56,6 +56,7 @@ import { NewAdminComponent } from './adminpage/adm-admin/new-admin/new-admin.com
 import { voirInfoUserComponent } from './adminpage/change-info-user/change-info-user.component';
 import { ChangeAdminInfoComponent } from './adminpage/change-admin-info/change-admin-info.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -8,6 +8,7 @@ import { AdminService } from '../admin.service';
   templateUrl: './change-info-user.component.html',
   styleUrls: ['./change-info-user.component.css']
 })
+
 export class voirInfoUserComponent implements OnInit {
 
   constructor( private adminService : AdminService, private router: Router, private actRoute: ActivatedRoute) {
@@ -15,6 +16,7 @@ export class voirInfoUserComponent implements OnInit {
   }
 
   userInfo: User = {email: '', id_user: 0, licence: '', mdp: '', role: 0, telephone: '', nom: '', prenom: ''};
+
   userId: number;
 
 
@@ -26,7 +28,6 @@ export class voirInfoUserComponent implements OnInit {
 
 
   }
-
 
    retourPageUser() {
 

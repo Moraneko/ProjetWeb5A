@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from './../model/user';
+
 import {Cours} from "../model/cours";
 
 @Injectable({
@@ -71,7 +72,6 @@ export class AdminService {
     return this.http.put<User>(this.modifAdminInfoUrl, user, this.httpOptions);
   }
    getUserById(id_user): Observable<User> {
-
      const params = new HttpParams().set('id_user', id_user); // Create new HttpParams
      return this.http.get<User>(this.getUserUrl, {headers: this.httpOptions.headers, params}).pipe(map(data => this.userInfo = data));
    }

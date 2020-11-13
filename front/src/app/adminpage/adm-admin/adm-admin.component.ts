@@ -29,6 +29,7 @@ export class AdmAdminComponent implements OnInit {
 
   ngOnInit(): void {
       // get de la liste total de admins
+
       this.adminService.getAllAdmin().subscribe(result => this.initTables(result));
   }
 

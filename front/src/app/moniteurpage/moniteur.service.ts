@@ -54,6 +54,7 @@ export class MoniteurService {
     return this.http.get<User>(this.getUserUrl, {headers: this.httpOptions.headers, params}).pipe(map(data => this.userInfo = data));
   }
 
+
  changeInfo(user: any): Observable<User> {
    return this.http.put<User>(this.modifUserUrl, user, this.httpOptions);
  }

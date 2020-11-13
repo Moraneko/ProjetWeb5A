@@ -25,7 +25,9 @@ export class AdmUserComponent implements OnInit {
 
   ngOnInit(): void {
       // get de la liste total de users
+
       this.adminService.getAllUser().subscribe(result =>this.initTables(result));
+
   }
   initTables(list: UserSimple[]){
     this.listeUser = list;

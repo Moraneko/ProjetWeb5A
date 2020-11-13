@@ -1,9 +1,6 @@
 package Tarby_Gregoire_Web.Projet.model;
 
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -17,12 +14,13 @@ public class Cours{
 	private Long idCours;
 
 	//@Column(name="date", nullable = false)
+
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_debut")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dateDebut;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_fin")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date dateFin;
 
 	@Column(name="max_cavalier", nullable = false)

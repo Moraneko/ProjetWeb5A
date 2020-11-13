@@ -13,6 +13,7 @@ export class CoursService {
 
   private getCours = 'http://localhost:8080/cours/getUser';
   private getAllCoursStr =  'http://localhost:8080/cours/getAllCours';
+
   private getAllMoniteurUrl = 'http://localhost:8080/admin/getAllMoniteur';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

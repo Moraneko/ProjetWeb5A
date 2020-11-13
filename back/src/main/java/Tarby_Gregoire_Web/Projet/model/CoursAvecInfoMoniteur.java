@@ -9,9 +9,13 @@ public class CoursAvecInfoMoniteur {
 
 	private Long idCours;
 
-	private Date dateDebut;
 
-	private Date dateFin;
+	private Long idMoniteur;
+
+	private String dateDebut;
+
+	private String dateFin;
+
 
 	private int maxcavalier;
 
@@ -27,8 +31,10 @@ public class CoursAvecInfoMoniteur {
 
 	private int etat;  // 0: cours, 1: fini, 2: annulé
 
-	public CoursAvecInfoMoniteur(Long idCours, Date dateDebut, Date dateFin, int maxcavalier, int niveau, String titre, Boolean recurrent, String prenomMoniteur, String nomMoniteur, int etat) {
+	public CoursAvecInfoMoniteur(Long idCours, Long idMoniteur, String dateDebut, String dateFin, int maxcavalier, int niveau, String titre, Boolean recurrent, String prenomMoniteur, String nomMoniteur, int etat) {
+
 		this.idCours = idCours;
+		this.idMoniteur = idMoniteur;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.maxcavalier = maxcavalier;
@@ -48,19 +54,21 @@ public class CoursAvecInfoMoniteur {
 		this.idCours = idCours;
 	}
 
-	public Date getDateDebut() {
+
+	public String getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(Date dateDebut) {
+	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public Date getDateFin() {
+	public String getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(Date dateFin) {
+	public void setDateFin(String dateFin) {
+
 		this.dateFin = dateFin;
 	}
 
@@ -118,5 +126,13 @@ public class CoursAvecInfoMoniteur {
 
 	public void setEtat(int etat) {
 		this.etat = etat;
+	}
+
+	public Long getIdMoniteur() {
+		return idMoniteur;
+	}
+
+	public void setIdMoniteur(Long idMoniteur) {
+		this.idMoniteur = idMoniteur;
 	}
 }
