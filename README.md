@@ -12,8 +12,8 @@ Ce projet a été effectué avec les technologies suivante :
   
   Afin de faire fonctionner le projet il faut avoir un Schema nommé "equitation" (vide pour le premier lancement de l'application) sur la base de donnée Mysql.
   Vous pouvez vous connecter au compte Super admin afin de créer de nouveau admin via les informations suivantes : 
-                    - Aadresse mail : "superadmin@root.com"
-                    - Mot de passe : "root"
+                     Adresse mail : "superadmin@root.com"
+                     Mot de passe : "root"
 
   
 
