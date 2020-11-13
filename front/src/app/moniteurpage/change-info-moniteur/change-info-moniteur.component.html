@@ -1,0 +1,62 @@
+<app-moniteurtoolbar></app-moniteurtoolbar>
+<div class="moniteur-background" style="height:100%">
+  <div fxLayout="column" fxLayoutAlign="start stretch" class="cardPadding" >
+    <mat-card >
+      <mat-card-header fxLayout="column" fxLayoutAlign="start center" >
+        <mat-card-title><h1 class="mat-display-1">Modification des données de contact</h1></mat-card-title>
+      </mat-card-header>
+
+      <form [formGroup]="changeInfoUserForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutAlign="space-evenly start">
+
+            <div fxLayout="column" fxLayoutAlign="center start" >
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Nom : {{userInfo.nom}} </h2>
+              </div>
+
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Adresse Email : </h2>
+                <mat-form-field class="info" color="accent" appearance="outline">
+                  <input matInput required formControlName="emailform">
+                </mat-form-field>
+              </div>
+
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Licence : </h2>
+                <mat-form-field class="info" color="accent" appearance="outline">
+                  <input matInput formControlName="licence">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="center start" >
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Prénom : {{userInfo.prenom}}</h2>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Téléphone : </h2>
+                <mat-form-field class="info" color="accent" appearance="outline">
+                  <input matInput required formControlName="tel">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end" style="padding-right: 2em; ">
+          <button type="button"  mat-raised-button style="width : 20%; height : 4em; margin-right: 1em;" color="warn" (click)="retourPageUser()">Annuler</button>
+          <button type="submit" [disabled]="!changeInfoUserForm.valid" mat-raised-button color="primary" style="width : 20%; height : 4em; ">Valider</button>
+        </mat-card-actions>
+      </form>
+
+    </mat-card>
+  </div>
+</div>

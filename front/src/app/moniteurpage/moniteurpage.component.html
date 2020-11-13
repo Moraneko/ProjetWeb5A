@@ -1,0 +1,23 @@
+<app-moniteurtoolbar></app-moniteurtoolbar>
+<div class="moniteur-background" style="height:100%">
+  <div fxLayout="row" style="padding-top: 1em;">
+    <div fxLayout="column" fxLayoutAlign="start center" style="width: 50%;" >
+      <div fxLayout="row" fxLayoutAlign="center">
+        <h1 class="mat-display-3"  style="padding-right: 0.5em;">Planning des reprises </h1>
+        <button mat-fab color="accent" (click)="openDialog()"><mat-icon>add</mat-icon></button>
+      </div>
+
+      <app-coursmoniteur style="width: 100%; padding-left:20em;" [dataSource]="dataSource"></app-coursmoniteur>
+    </div>
+    <div fxLayout="column" style="width: 50%;">
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <h1 class="mat-display-3">Calendrier</h1>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <app-moniteurcalendar style="width: 80%;" [dataSource]="dataSource" ></app-moniteurcalendar>
+      </div>
+
+    </div>
+  </div>
+</div>

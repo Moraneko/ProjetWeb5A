@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutAlign="start center" >
+    <h1>{{this.data.cours.content.titre}} </h1>
+  <h2>le {{this.data.cours.content.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{this.data.cours.content.dateFin | date:'à HH:mm)'}}</h2>
+</div>
+
+<h1>Liste des participants :</h1>
+
+<div *ngFor="let combi of this.distributionUserCheval">
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <h2>{{combi.utilisateur.nom}} {{combi.utilisateur.prenom}}</h2>
+    <mat-icon style="padding-bottom: 16px;">arrow_right_alt</mat-icon>
+
+    <div *ngIf="combi.cheval == null  ;  else infoCheval">
+      <div class="formulaire" fxLayout="row" fxLayoutAlign="start center">
+        <h2>Choisir un cheval: </h2>
+        <mat-form-field appearance="fill" style="padding-left: 2em;">
+          <mat-select disableOptionCentering (selectionChange)="chevalForUserSelected(combi, $event.value)" >
+            <mat-option *ngFor="let cheval of listChevalDispo" [value]="cheval">
+              {{cheval.nom}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ng-template #infoCheval><h2>{{combi.cheval.nom}}</h2></ng-template>
+  </div>
+
+
+</div>
+<div *ngIf="nombreChevauxTotal == 0">
+  <h2 style="color: red;">Il n'y a pas de chevaux enregistrés, voici un lien pour accéder à la page de <a style="color: red;" routerLink="/gestionChevaux" (click)="onNoClick()">Gestion des chevaux</a>.</h2>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="end center" >
+  <button type="button" mat-raised-button color="warn" (click)="annulerCours()" style="width : 20%; height : 4em; ">Annuler le Cours</button>
+</div>

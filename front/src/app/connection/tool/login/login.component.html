@@ -1,0 +1,34 @@
+<div class="center_items">
+  <h1 style="padding-top: 1em;">Connectez vous à notre site</h1>
+</div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<mat-card-content>
+  <div class="center_items connection">
+    <mat-form-field appearance="fill" style="width=100%" >
+      <mat-label>Adresse Mail, numéro de téléphone</mat-label>
+      <input matInput formControlName="identifiantLogin" required>
+    </mat-form-field>
+  </div>
+
+  <div class="center_items connection">
+    <mat-form-field appearance="fill">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="mdp" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+</mat-card-content>
+<mat-card-actions>
+  <div class="center_items">
+    <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary" style="width : 60%; height : 4em; ">Connexion</button>
+  </div>
+  <div class="center_items">
+    <mat-error *ngIf="showError">Votre identifiant ou votre mot de passe est incorrect.</mat-error>
+  </div>
+</mat-card-actions>
+
+
+</form>

@@ -1,0 +1,15 @@
+
+
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+
+.center_items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+
+.connection .mat-form-field {
+  width: 60%;
+}

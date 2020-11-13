@@ -1,0 +1,53 @@
+<app-admintoolbar></app-admintoolbar>
+<div class="mat-app-background" style="height:100%">
+  <div fxLayout="column" fxLayoutAlign="space-around stretch" class="cardPadding" >
+    <mat-card >
+      <mat-card-header fxLayout="column" fxLayoutAlign="start center" >
+        <mat-card-title><h1 class="mat-display-1">Modification de la fiche personnelle</h1></mat-card-title>
+      </mat-card-header>
+
+
+      <div>
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+            <div fxLayout="column" fxLayoutAlign="center start" >
+              <div fxLayout="row" fxLayoutAlign="start center" >
+
+                <h2>Nom : {{userInfo.nom}}</h2>
+              </div>
+
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Adresse Email : {{userInfo.email}}</h2>
+              </div>
+
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Licence : {{userInfo.licence}} </h2>
+              </div>
+
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="center start" >
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Prénom : {{userInfo.prenom}}</h2>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                <h2>Téléphone : {{userInfo.telephone}}</h2>
+              </div>
+
+            </div>
+
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end" style="padding-right: 2em; ">
+          <button type="button"  mat-raised-button style="width : 20%; height : 4em; margin-right: 1em;" color="warn" (click)="retourPageUser()">Retour</button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" >
+  <div></div>
+  <h1 mat-dialog-title >Détail de : {{this.data.cours.title}}</h1>
+  <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon></button>
+</div>
+<div mat-dialog-content>
+
+
+  <div fxLayout="column" >
+
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="row" >
+        <h2>Moniteur : </h2> <h2> {{this.data.cours.content.nomMoniteur}} {{this.data.cours.content.prenomMoniteur}}</h2>
+      </div>
+      <div fxLayout="row">
+        <h2>Date : </h2> <h2> {{this.data.cours.content.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{this.data.cours.content.dateFin | date:'à HH:mm)'}}</h2>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="row" >
+        <h2>Niveau : </h2> <h2> {{this.data.cours.content.niveau}}</h2>
+      </div>
+      <div fxLayout="row">
+        <h2>Taille du groupe : </h2> <h2> {{this.data.cours.content.maxcavalier}}</h2>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="row" >
+        <h2>Etat du cours : </h2> <h2>  {{this.etat}}</h2>
+      </div>
+      <div fxLayout="row">
+        <h2>Cheval attribué: </h2> <h2> {{this.chevalCours}}</h2>
+      </div>
+    </div>
+
+  </div>
+
+</div>

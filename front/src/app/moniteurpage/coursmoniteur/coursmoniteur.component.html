@@ -1,0 +1,29 @@
+<table mat-table [dataSource]="dataSourceFiltred" class="mat-elevation-z8">
+
+  <!-- id Column -->
+  <ng-container matColumnDef="id_cours">
+    <th mat-header-cell *matHeaderCellDef> Titre </th>
+    <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
+  </ng-container>
+
+  <!-- horaire Column -->
+  <ng-container matColumnDef="horaire">
+    <th mat-header-cell *matHeaderCellDef> Horaire </th>
+    <td mat-cell *matCellDef="let element"> {{element.dateDebut | date:'dd-MM-yyy  (HH:mm'}} {{element.dateFin | date:'à HH:mm)'}} </td>
+  </ng-container>
+
+  <!-- Taille groupe Column -->
+  <ng-container matColumnDef="max_cavalier">
+    <th mat-header-cell *matHeaderCellDef> Taille du groupe </th>
+    <td mat-cell *matCellDef="let element"> {{element.max_cavalier}} </td>
+  </ng-container>
+
+  <!-- Niveau Column -->
+  <ng-container matColumnDef="niveau">
+    <th mat-header-cell *matHeaderCellDef> Niveau </th>
+    <td mat-cell *matCellDef="let element"> {{element.niveau}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
